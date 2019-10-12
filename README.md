@@ -1,2 +1,2 @@
 # lifechurcharchive
-Archive website for Lifechurch
+Website for old Lifechurch MP3 sermons
