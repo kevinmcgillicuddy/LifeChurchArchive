@@ -15,31 +15,18 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 mp3Ref.listAll().then((response) => {
-  // console.log(response)
-  response.items.forEach(itemRef => {
-    console.log(itemRef.name)
-    setupList(itemRef)
-  });
-}).catch(error => console.log(error));
-
-
-
-
-
-
-
-const setupList = (data) => {
   let html = ''
-  const li =
-    `<li>
-    <div class="collapsible-header grey lighten-4">${data.name}</div>
-        </li>`
+    response.items.forEach(itemRef => {
+      const li =
+        `<li>
+      <div class="collapsible-header grey lighten-4">${itemRef.name}</div>
+      <div class="collapsible-body white">test</div>
+      </li>`
 
-  html += li
-
-  list.innerHTML = html;
-}
-
+      html += li
+      list.innerHTML = html;
+    });
+}).catch(error => console.log(error));
 
 
 //setup nav links based on user log in / log out
