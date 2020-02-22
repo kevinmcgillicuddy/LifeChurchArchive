@@ -1,8 +1,7 @@
 //listen for uath state changes
 auth.onAuthStateChanged(user => {
     if (user) {
-        console.log(user)
-        setupUI(user)
+         setupUI(user)
     }
     else {
         setupGuides([])

@@ -2,6 +2,9 @@ const loggedOutLinks = document.querySelectorAll('.logged-out')
 const loggedInLinks = document.querySelectorAll('.logged-in')
 const accountDetails = document.querySelector('.account-details')
 const adminItems = document.querySelectorAll('.admin')
+const list = document.querySelector('.list')
+var storageRef = storage.ref();
+var mp3Ref = storageRef.child('mp3');
 
 // setup materialize components
 document.addEventListener('DOMContentLoaded', function () {
@@ -11,32 +14,38 @@ document.addEventListener('DOMContentLoaded', function () {
   M.Collapsible.init(items);
 });
 
-const guidesList = document.querySelector('.guides')
+mp3Ref.listAll().then((response) => {
+  // console.log(response)
+  response.items.forEach(itemRef => {
+    console.log(itemRef.name)
+    setupList(itemRef)
+  });
+}).catch(error => console.log(error));
 
-//setup guides and display the,m
-const setupGuides = (data) => {
-  if (data.length) {
-    let html = ''
-    data.forEach(element => {
-      const guide = element.data();
-      const li =
-        `<li>
-    <div class="collapsible-header grey lighten-4">${guide.title}</div>
-    <div class="collapsible-body white">${guide.content}</div>
+
+
+
+
+
+
+const setupList = (data) => {
+  let html = ''
+  const li =
+    `<li>
+    <div class="collapsible-header grey lighten-4">${data.name}</div>
         </li>`
-      html += li
-    });
-    guidesList.innerHTML = html;
-  }
-  else {
-    guidesList.innerHTML = '<h5 class="center-align">Login to view old messages</h5>'
-  }
+
+  html += li
+
+  list.innerHTML = html;
 }
+
+
 
 //setup nav links based on user log in / log out
 const setupUI = (user) => {
   if (user) {
-    const html = `<div><img src="https://lh3.googleusercontent.com/a-/AAuE7mC7ndJVEMKK_TCmMrMIkqYPXxgwwFNiXQ3tX2kajA" style="border-radius:50%; height:100px" />
+    const html = `<div><img src="${user.photoURL}" style="border-radius:50%; height:100px" />
     <p><div>Logged in as: <b>${user.email}</b></div>`
     accountDetails.innerHTML = html
     //toggle UI elements
