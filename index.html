@@ -30,9 +30,9 @@
       <li class="logged-out login-button">
         <a href="#" class="grey-text" >Login</a>
       </li>
-      <!-- <li class="logged-out">
-        <a href="#" class="grey-text modal-trigger" data-target="modal-signup">Sign up</a>
-      </li> -->
+      <li class="logged-out">
+              <a href="#" class="grey-text modal-trigger" data-target="modal-signup">Sign up</a>
+            </li>
       </span>
     </ul>
   </div>
@@ -67,6 +67,29 @@
     <div class="modal-content center-align">
       <h4>Account details</h4><br />
       <div class="account-details"></div>
+    </div>
+  </div>
+
+  <!-- SIGN UP MODAL -->
+  <div id="modal-signup" class="modal">
+    <div class="modal-content">
+      <h4>Sign up with Email</h4><br />
+      <form id="signup-form">
+        <div class="input-field">
+          <input type="email" id="signup-email" required />
+          <label for="signup-email">Email address</label>
+        </div>
+        <div class="input-field">
+          <input type="password" id="signup-password" required />
+          <label for="signup-password">Choose password</label>
+        </div>
+      <button class="btn yellow darken-2 z-depth-0">Sign up</button>
+      </form>
+      <hr />
+      <h4>Sign in with Google</h4>
+      <div class="sign-form-google">
+      <img src="http://icon-library.com/images/sign-in-with-google-icon/sign-in-with-google-icon-19.jpg" width="250" height="65" />
+    </div>
     </div>
   </div>
 
