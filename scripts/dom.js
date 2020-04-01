@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+
+
 listRef.listAll()
   .then((response) => {
     //console.log(response)
@@ -25,21 +27,21 @@ listRef.listAll()
       dlRef.getDownloadURL()
         .then(function (url) {
           const li =
-          `<li>
+            `<li>
               <div class="collapsible-header grey lighten-4">${itemRef.name}</div>
-              <div class="collapsible-body white"><img src="image/dl.jpg" href=${url} width="25" height="25"/></div>
+              <div class="collapsible-body white"><a href=${url} download><img src="image/download-button.png" width="25" height="25"/></a>
+              <a href=${url}><img src="image/play-arrow.png" width="25" height="25" style="margin-left: 5em;"/></a>
+              <img src="image/menu-button.png" width="25" height="25" style="margin-left: 5em;"/>
+              </div>
+           
             </li>`
-  
-        html += li
-        list.innerHTML = html;
+
+          html += li
+          list.innerHTML = html;
 
 
         })
         .catch(function (error) { console.log(error) })
-
-
-
-     
     });
   }).catch(error => console.log(error));
 
@@ -53,8 +55,6 @@ const setupUI = (user) => {
     //toggle UI elements
     loggedInLinks.forEach(item => item.style.display = "block")
     loggedOutLinks.forEach(item => item.style.display = "none")
-
-
   }
   else {
     adminItems.forEach(item => item.style.display = 'none')
@@ -65,3 +65,5 @@ const setupUI = (user) => {
     loggedOutLinks.forEach(item => item.style.display = "block")
   }
 }
+
+
