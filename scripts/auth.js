@@ -9,9 +9,8 @@ auth.onAuthStateChanged(user => {
 })
 
 
-const logoutButton = document.querySelector('#logout')
-const loginForm = document.querySelector('#login-form')
 
+const loginForm = document.querySelector('#login-form')
 loginForm.addEventListener('submit', (e) => {
     const email = signupForm['login-email'].value;
     const password = signupForm['login-password'].value;
@@ -22,6 +21,7 @@ loginForm.addEventListener('submit', (e) => {
 
     })
 })
+const logoutButton = document.querySelector('#logout')
 //logout users
 logoutButton.addEventListener('click', (e) => {
     e.preventDefault();

@@ -1,12 +1,3 @@
-const loggedOutLinks = document.querySelectorAll('.logged-out')
-const loggedInLinks = document.querySelectorAll('.logged-in')
-const accountDetails = document.querySelector('.account-details')
-const adminItems = document.querySelectorAll('.admin')
-const list = document.querySelector('.list')
-var storageRef = storage.ref();
-var listRef = storageRef.child('mp3/2020');
-
-
 // setup materialize components
 document.addEventListener('DOMContentLoaded', function () {
   var modals = document.querySelectorAll('.modal');
@@ -17,7 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
+var listRef = storageRef.child('mp3/2020');
+const list = document.querySelector('.list')
+var storageRef = storage.ref();
 listRef.listAll()
   .then((response) => {
     //console.log(response)
@@ -33,18 +26,16 @@ listRef.listAll()
               <a href=${url}><img src="image/play-arrow.png" width="25" height="25" style="margin-left: 5em;"/></a>
               <img src="image/menu-button.png" width="25" height="25" style="margin-left: 5em;"/>
               </div>
-           
-            </li>`
-
+             </li>`
           html += li
-          list.innerHTML = html;
-
-
-        })
+          list.innerHTML = html;       })
         .catch(function (error) { console.log(error) })
     });
   }).catch(error => console.log(error));
 
+const accountDetails = document.querySelector('.account-details')
+const loggedOutLinks = document.querySelectorAll('.logged-out')
+const loggedInLinks = document.querySelectorAll('.logged-in')
 
 //setup nav links based on user log in / log out
 const setupUI = (user) => {
@@ -57,7 +48,6 @@ const setupUI = (user) => {
     loggedOutLinks.forEach(item => item.style.display = "none")
   }
   else {
-    adminItems.forEach(item => item.style.display = 'none')
     //hide account info
     accountDetails.innerHTML = ''
     //toggle UI elements
