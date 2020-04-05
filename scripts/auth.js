@@ -1,44 +1,45 @@
+const loginForm = document.querySelector('#login-form')
+const logoutButton = document.querySelector('#logout')
+const GoogleloginButton = document.querySelector('#login-form-google')
+const signupForm = document.querySelector('#signup-form')
 //listen for uath state changes
 auth.onAuthStateChanged(user => {
     if (user) {
         setupUI(user)
+        console.log('state')
     }
     else {
         setupUI(user)
+        console.log('state failed')
     }
 })
 
-
-
-const loginForm = document.querySelector('#login-form')
 loginForm.addEventListener('submit', (e) => {
-    const email = signupForm['login-email'].value;
-    const password = signupForm['login-password'].value;
+    const email = loginForm['login-email'].value;
+    const password = loginForm['login-password'].value;
     auth.signInWithEmailAndPassword(email, password).then((response) => {
+        //console.log('response', response)
         const modal = document.querySelector('#modal-login');
         M.Modal.getInstance(modal).close();
-        signupForm.reset();
-
+        loginForm.reset();
     })
+    .catch(err => console.log(err))
 })
-const logoutButton = document.querySelector('#logout')
+
 //logout users
 logoutButton.addEventListener('click', (e) => {
     e.preventDefault();
     auth.signOut()
 })
 
-const GoogleloginButton = document.querySelector('#login-form-google')
 //login user
 GoogleloginButton.addEventListener('click', () => {
     auth.signInWithRedirect(provider)
         .catch(function (error) {
             console.log(error)
         });
-
 })
 
-const signupForm = document.querySelector('#signup-form')
 //signup user
 signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
