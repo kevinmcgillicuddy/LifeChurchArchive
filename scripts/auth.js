@@ -6,24 +6,25 @@ const signupForm = document.querySelector('#signup-form')
 auth.onAuthStateChanged(user => {
     if (user) {
         setupUI(user)
-        console.log('state')
     }
     else {
         setupUI(user)
-        console.log('state failed')
     }
 })
 
 loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
     const email = loginForm['login-email'].value;
     const password = loginForm['login-password'].value;
-    auth.signInWithEmailAndPassword(email, password).then((response) => {
-        //console.log('response', response)
-        const modal = document.querySelector('#modal-login');
-        M.Modal.getInstance(modal).close();
-        loginForm.reset();
-    })
-    .catch(err => console.log(err))
+        auth.signInWithEmailAndPassword(email, password).then((response) => {
+            const modal = document.querySelector('#modal-login');
+            M.Modal.getInstance(modal).close();
+            loginForm.reset();
+        })
+        .catch((error)=>{
+            alert(errorMessage)
+            console.error(error)
+        })
 })
 
 //logout users
@@ -32,7 +33,7 @@ logoutButton.addEventListener('click', (e) => {
     auth.signOut()
 })
 
-//login user
+//login user google
 GoogleloginButton.addEventListener('click', () => {
     auth.signInWithRedirect(provider)
         .catch(function (error) {
