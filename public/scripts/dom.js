@@ -5,6 +5,20 @@ const accountDetails = document.querySelector('.account-details')
 const loggedOutLinks = document.querySelectorAll('.logged-out')
 const loggedInLinks = document.querySelectorAll('.logged-in')
 
+
+
+
+   const button = document.querySelector('.play')
+              button.addEventListener('click', () => {
+                //get function reference
+                const transcribe = firebase.functions().httpsCallable('transcribe')
+                transcribe({ file: 'gs://lifechurcharchive-176dd.appspot.com/mp3/2020/3_8_2020.mp3.m4a' }).then((res) => {
+                  console.log(res.data)
+                })
+              })
+              
+            
+
 // setup materialize components
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -14,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
   M.Collapsible.init(items);
 });
 
+//gs://lifechurcharchive-176dd.appspot.com/mp3/2020/3_8_2020.mp3.m4a
 
 //setup nav links based on user log in / log out
 const setupUI = (user) => {
@@ -35,12 +50,10 @@ const setupUI = (user) => {
           var dlRef = storageRef.child(itemRef.fullPath)
           dlRef.getDownloadURL()
             .then(function (url) {
-              console.log(url)
               const li =
                 `<li>
               <div class="collapsible-header grey lighten-4">${itemRef.name}</div>
               <div class="collapsible-body white"><img src="image/download-button.png" width="25" height="25" download="${url}"/>
-              </div>
              </li>`
               html += li
               list.innerHTML = html;
