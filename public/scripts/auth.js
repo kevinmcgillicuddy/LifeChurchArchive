@@ -1,6 +1,6 @@
 const loginForm = document.querySelector('#login-form')
 const logoutButton = document.querySelector('#logout')
-const GoogleloginButton = document.querySelector('#login-form-google')
+const GoogleloginButton = document.querySelector('.login-form-google')
 const signupForm = document.querySelector('#signup-form')
 //listen for uath state changes
 auth.onAuthStateChanged(user => {
@@ -22,7 +22,7 @@ loginForm.addEventListener('submit', (e) => {
             loginForm.reset();
         })
         .catch((error)=>{
-            alert(errorMessage)
+            alert(error)
             console.error(error)
         })
 })

@@ -7,7 +7,7 @@ exports.transcribe = functions.https.onCall((data,context)=>{
 
     const client = new speech.SpeechClient();
     const gcsUri = data.file;
-    const encoding = 'm4a';
+   const encoding = 'mp3';
     const sampleRateHertz = 16000;
     const languageCode = 'en-US';
 
@@ -39,7 +39,7 @@ exports.transcribe = functions.https.onCall((data,context)=>{
             console.log(transcription)
             return `${transcription}`
         })
-        .catch(console.log(err))
+        .catch(console.log("some error"))
   
 })
     
