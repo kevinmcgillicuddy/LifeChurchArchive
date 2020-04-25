@@ -12,7 +12,7 @@ const loggedInLinks = document.querySelectorAll('.logged-in')
               button.addEventListener('click', () => {
                 //get function reference
                 const transcribe = firebase.functions().httpsCallable('transcribe')
-                transcribe({ file: 'gs://lifechurcharchive-176dd.appspot.com/mp3/2020/3_8_2020.mp3.m4a' }).then((res) => {
+                transcribe({ file: 'gs://lifechurcharchive-176dd.appspot.com/mp3/2020/btdaily_4_20.mp3' }).then((res) => {
                   console.log(res.data)
                 })
               })

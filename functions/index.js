@@ -4,12 +4,11 @@ const speech = require('@google-cloud/speech');
 
 exports.transcribe = functions.https.onCall((data,context)=>{
     
-
-    const client = new speech.SpeechClient();
-    const gcsUri = data.file;
+   const client = new speech.SpeechClient();
+   const gcsUri = data.file;
    const encoding = 'mp3';
-    const sampleRateHertz = 16000;
-    const languageCode = 'en-US';
+   const sampleRateHertz = 16000;
+   const languageCode = 'en-US';
 
     const config = {
         encoding: encoding,
@@ -27,12 +26,19 @@ exports.transcribe = functions.https.onCall((data,context)=>{
     };
 
     async function time() {
-        const [operation] = await client.longRunningRecognize(request);
-        const [response] = await operation.promise();
-        const transcription = response.results
-            .map(result => result.alternatives[0].transcript)
-            .join('\n');
-        return transcription;
+
+        try{
+            const [operation] = await client.longRunningRecognize(request);
+            const [response] = await operation.promise();
+            const transcription = response.results
+                .map(result => result.alternatives[0].transcript)
+                .join('\n');
+            return transcription;
+        }
+        catch (e) {
+            return e;
+        }
+      
     }
 
     time().then((transcription) => {
