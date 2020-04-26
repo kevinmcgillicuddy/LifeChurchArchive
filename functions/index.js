@@ -2,7 +2,7 @@ const functions = require('firebase-functions');
 const speech = require('@google-cloud/speech');
 
 
-exports.transcribe = functions.https.onCall((data,context)=>{
+ exports.transcribe = functions.https.onCall((data,context)=>{
     
    const client = new speech.SpeechClient();
    const gcsUri = data.file;
@@ -33,21 +33,22 @@ exports.transcribe = functions.https.onCall((data,context)=>{
             const transcription = response.results
                 .map(result => result.alternatives[0].transcript)
                 .join('\n');
+                console.log(transcription)
             return transcription;
         }
         catch (e) {
             return e;
         }
-      
     }
 
-    time().then((transcription) => {
-            console.log(transcription)
-            return `${transcription}`
-        })
-        .catch(console.log("some error"))
+
+    time().then((transcription)=>{
+        return { text: transcription }
+    })
+    .catch(()=>{
+        return { text: "error" }
+    })
+   
   
-})
+ })
     
-
-

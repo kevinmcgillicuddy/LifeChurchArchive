@@ -5,20 +5,15 @@ const accountDetails = document.querySelector('.account-details')
 const loggedOutLinks = document.querySelectorAll('.logged-out')
 const loggedInLinks = document.querySelectorAll('.logged-in')
 
-
-
-
-   const button = document.querySelector('.play')
-              button.addEventListener('click', () => {
-                //get function reference
-                const transcribe = firebase.functions().httpsCallable('transcribe')
-                transcribe({ file: 'gs://lifechurcharchive-176dd.appspot.com/mp3/2020/btdaily_4_20.mp3' }).then((res) => {
-                  console.log(res.data)
-                })
-              })
+const button = document.querySelector('.play')
+    button.addEventListener('click', () => {
+//get function reference
+    const transcribe = firebase.functions().httpsCallable('transcribe')
+    transcribe({ file: 'gs://lifechurcharchive-176dd.appspot.com/mp3/2020/btdaily_4_20.mp3' }).then((res)=>{
+      console.log(res)
+    })
+    })
               
-            
-
 // setup materialize components
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -27,8 +22,6 @@ document.addEventListener('DOMContentLoaded', function () {
   var items = document.querySelectorAll('.collapsible');
   M.Collapsible.init(items);
 });
-
-//gs://lifechurcharchive-176dd.appspot.com/mp3/2020/3_8_2020.mp3.m4a
 
 //setup nav links based on user log in / log out
 const setupUI = (user) => {
