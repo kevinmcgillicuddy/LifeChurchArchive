@@ -101,38 +101,15 @@
     </div>
 
   <div> <button class="play logged-in">Upload</button></div>
-
-
-
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-functions.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-storage.js"></script>
-
-  <script>
-    // Your web app's Firebase configuration
-    var firebaseConfig = {
-      apiKey: "AIzaSyD60huKb-Lm448VhBwPpbt0AhdGCHtNkjg",
-      authDomain: "auth.lifechurchlancaster.org",
-      databaseURL: "https://lifechurcharchive-176dd.firebaseio.com",
-      projectId: "lifechurcharchive-176dd",
-      storageBucket: "lifechurcharchive-176dd.appspot.com",
-      messagingSenderId: "733641725019",
-      appId: "1:733641725019:web:ef51bacabe16116da39b7e",
-      measurementId: "G-T0VNC6M308",
-      storageBucket: "gs://lifechurcharchive-176dd.appspot.com"
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    var storage = firebase.storage();
-    const db = firebase.firestore();
-    //const functions = firebase.functions();
-    var provider = new firebase.auth.GoogleAuthProvider();
-
-  </script>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="/__/firebase/7.14.2/firebase-app.js"></script>
+<script src="/__/firebase/7.14.2/firebase-auth.js"></script>
+<script src="/__/firebase/7.14.2/firebase-firestore.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="/__/firebase/7.14.2/firebase-analytics.js"></script>
+<!-- Initialize Firebase -->
+<script src="/__/firebase/init.js"></script>
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="scripts/auth.js"></script>
