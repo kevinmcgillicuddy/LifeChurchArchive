@@ -3,7 +3,7 @@ const logoutButton = document.querySelector('#logout')
 const GoogleloginButton = document.querySelector('.login-form-google')
 const signupForm = document.querySelector('#signup-form')
 //listen for uath state changes
-auth.onAuthStateChanged(user => {
+firebase.auth().onAuthStateChanged(user => {
     if (user) {
         setupUI(user)
     }
@@ -16,7 +16,7 @@ loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = loginForm['login-email'].value;
     const password = loginForm['login-password'].value;
-        auth.signInWithEmailAndPassword(email, password).then((response) => {
+    firebase.auth().signInWithEmailAndPassword(email, password).then((response) => {
             const modal = document.querySelector('#modal-login');
             M.Modal.getInstance(modal).close();
             loginForm.reset();
@@ -30,12 +30,12 @@ loginForm.addEventListener('submit', (e) => {
 //logout users
 logoutButton.addEventListener('click', (e) => {
     e.preventDefault();
-    auth.signOut()
+    firebase.auth().signOut()
 })
 
 //login user google
 GoogleloginButton.addEventListener('click', () => {
-    auth.signInWithRedirect(provider)
+    firebase.auth().signInWithRedirect(provider)
         .catch(function (error) {
             console.log(error)
         });
@@ -47,8 +47,8 @@ signupForm.addEventListener('submit', (e) => {
     //get user info
     const email = signupForm['signup-email'].value;
     const password = signupForm['signup-password'].value;
-    auth.createUserWithEmailAndPassword(email, password).then((response) => {
-        return db.collection('users').doc(response.user.uid)
+    firebase.auth().createUserWithEmailAndPassword(email, password).then((response) => {
+        return firebase.db.collection('users').doc(response.user.uid)
     }).then(() => {
         const modal = document.querySelector('#modal-signup');
         M.Modal.getInstance(modal).close();

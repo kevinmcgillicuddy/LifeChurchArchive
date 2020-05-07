@@ -1,4 +1,4 @@
-var storageRef = storage.ref()
+var storageRef = firebase.storage().ref()
 var listRef = storageRef.child('mp3/2020')
 const list = document.querySelector('.list')
 const accountDetails = document.querySelector('.account-details')
@@ -9,7 +9,7 @@ const button = document.querySelector('.play')
     button.addEventListener('click', () => {
 //get function reference
     const transcribe = firebase.functions().httpsCallable('transcribe')
-    transcribe({ file: 'gs://lifechurcharchive-176dd.appspot.com/mp3/2020/btdaily_4_20.mp3' }).then((res)=>{
+    transcribe({ file: 'gs://lcarchivewebsite.appspot.com/5_6.mp3' }).then((res)=>{
       console.log(res)
     })
     })

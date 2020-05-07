@@ -1,8 +1,9 @@
 const functions = require('firebase-functions');
 const speech = require('@google-cloud/speech');
+const admin = require('firebase-admin');
+admin.initializeApp();
 
-
- exports.transcribe = functions.https.onCall((data,context)=>{
+ exports.transcribe = functions.runWith({timeoutSeconds: 360}).https.onCall((data,context)=>{
     
    const client = new speech.SpeechClient();
    const gcsUri = data.file;
@@ -43,7 +44,7 @@ const speech = require('@google-cloud/speech');
 
 
     time().then((transcription)=>{
-        return { text: transcription }
+        return admin.firestore().collection('sermons').doc('1').set({text: transcription})
     })
     .catch(()=>{
         return { text: "error" }
