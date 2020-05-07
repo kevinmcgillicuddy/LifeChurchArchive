@@ -35,6 +35,7 @@ admin.initializeApp();
                 .map(result => result.alternatives[0].transcript)
                 .join('\n');
                 console.log(transcription)
+                console.log('inside try')
             return transcription;
         }
         catch (e) {
