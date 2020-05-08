@@ -1,18 +1,18 @@
 var storageRef = firebase.storage().ref()
-var listRef = storageRef.child('mp3/2020')
+var listRef = storageRef.child('2020')
 const list = document.querySelector('.list')
 const accountDetails = document.querySelector('.account-details')
 const loggedOutLinks = document.querySelectorAll('.logged-out')
 const loggedInLinks = document.querySelectorAll('.logged-in')
 
-const button = document.querySelector('.play')
-    button.addEventListener('click', () => {
-//get function reference
-    const transcribe = firebase.functions().httpsCallable('transcribe')
-    transcribe({ file: 'gs://lcarchivewebsite.appspot.com/5_6.mp3' }).then((res)=>{
-      console.log(res)
-    })
-    })
+// const button = document.querySelector('.play')
+//     button.addEventListener('click', () => {
+// //get function reference
+//     const transcribe = firebase.functions().httpsCallable('transcribe')
+//     transcribe({ file: 'gs://lcarchivewebsite.appspot.com/5_6.mp3' }).then((res)=>{
+//       console.log(res)
+//     })
+//     })
               
 // setup materialize components
 
