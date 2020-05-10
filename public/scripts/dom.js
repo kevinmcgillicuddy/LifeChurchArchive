@@ -4,11 +4,8 @@ const list = document.querySelector('.list')
 const accountDetails = document.querySelector('.account-details')
 const loggedOutLinks = document.querySelectorAll('.logged-out')
 const loggedInLinks = document.querySelectorAll('.logged-in')
-
-
-              
+           
 // setup materialize components
-
 document.addEventListener('DOMContentLoaded', function () {
   var modals = document.querySelectorAll('.modal');
   M.Modal.init(modals);

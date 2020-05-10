@@ -20,12 +20,10 @@ admin.initializeApp();
     const audio = {
         uri: gcsUri,
     };
-
     const request = {
         config: config,
         audio: audio,
     };
-
     async function time() {
 
         try{
@@ -41,8 +39,6 @@ admin.initializeApp();
             return e;
         }
     }
-
-
     time().then((transcription)=>{
         return admin.firestore().collection('sermons').doc(data.file).set({text: transcription})
     })
