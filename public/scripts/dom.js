@@ -5,14 +5,7 @@ const accountDetails = document.querySelector('.account-details')
 const loggedOutLinks = document.querySelectorAll('.logged-out')
 const loggedInLinks = document.querySelectorAll('.logged-in')
 
-// const button = document.querySelector('.play')
-//     button.addEventListener('click', () => {
-// //get function reference
-//     const transcribe = firebase.functions().httpsCallable('transcribe')
-//     transcribe({ file: 'gs://lcarchivewebsite.appspot.com/5_6.mp3' }).then((res)=>{
-//       console.log(res)
-//     })
-//     })
+
               
 // setup materialize components
 
@@ -42,16 +35,17 @@ const setupUI = (user) => {
         response.items.forEach(itemRef => {
           var dlRef = storageRef.child(itemRef.fullPath)
           dlRef.getDownloadURL()
-            .then(function (url) {
-              const li =
+              .then(function (url) {
+                const li =
                 `<li>
-              <div class="collapsible-header grey lighten-4">${itemRef.name}</div>
-              <div class="collapsible-body white"><img src="image/download-button.png" width="25" height="25" download="${url}"/>
-             </li>`
-              html += li
-              list.innerHTML = html;
-            })
-            .catch(function (error) { console.log(error) })
+                <div class="collapsible-header grey lighten-4">${itemRef.name}</div>
+                <div class="collapsible-body white"><img src="image/download-button.png" width="25" height="25" download="${url}" />
+                <button class="play logged-in">Transcribe</button> </div>
+                </li>`
+                html += li
+                list.innerHTML = html;
+              })
+              .catch(function (error) { console.log(error) })
         });
       }).catch(error => console.log(error));
   }
@@ -65,3 +59,9 @@ const setupUI = (user) => {
 }
 
 
+
+const button = document.querySelector('.play')
+button.addEventListener('click', () => {
+const transcribe = firebase.functions().httpsCallable('transcribe')
+transcribe({ file: 'gs://lcarchivewebsite.appspot.com/5_6.mp3' }).then(()=>{alert("File submitted") })
+})

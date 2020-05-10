@@ -35,7 +35,6 @@ admin.initializeApp();
                 .map(result => result.alternatives[0].transcript)
                 .join('\n');
                 console.log(transcription)
-                console.log('inside try')
             return transcription;
         }
         catch (e) {
@@ -45,7 +44,7 @@ admin.initializeApp();
 
 
     time().then((transcription)=>{
-        return admin.firestore().collection('sermons').doc('1').set({text: transcription})
+        return admin.firestore().collection('sermons').doc(data.file).set({text: transcription})
     })
     .catch(()=>{
         return { text: "error" }
