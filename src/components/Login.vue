@@ -15,6 +15,10 @@
                 <button class="btn blue darken-3">Login</button>
             </div>
         </form>
+    <!-- <div clas="divider"></div>
+    
+        <a class="waves-effect waves-light btn" @click="gLogin"><i class="material-icons left">account_circle</i>Sign in with Google</a> -->
+        
     </div>
 </template>
 <script>
@@ -38,7 +42,17 @@ export default {
             }).catch(err=> {this.feedback =  err.message})
           }
           else{this.feedback = "You must enter a email and password"}
-      }
+      },
+    //  gLogin(){
+    //      var provider = new firebaseApp.auth.GoogleAuthProvider();
+    //      firebaseApp.auth().signInWithPopup(provider).then((result) => {
+    //           var token = result.credential.accessToken;
+    //           var user = result.user;
+    //         }).catch(err=> {
+    //             var errorCode = error.code;
+    //             var errorMessage = error.message;
+    //             var email = error.email;
+    //             var credential = error.credential;}); }
   }
   }
 </script>
