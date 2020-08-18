@@ -45,6 +45,9 @@ export default {
             .then(response => {
                 let files = []  
                 response.items.forEach(item => {
+
+                    console.log(getText('5_6.mp3'))
+                    //const text = await getText(item.name)
                     const id = {uid: guid()}
                     const url = item.getDownloadURL().then(url => {return url} )
                     const gsurl = `gs://lcarchivewebsite.appspot.com/${folder}/${item.name}`
@@ -54,15 +57,15 @@ export default {
                   })
             .catch(error => console.log(error));
   
+  //create async function that 
+  async function getText(docID) {
+    db.db.collection('sermons').doc(docID).onSnapshot(doc=>{
+       const res = doc
+     })
+    return res
+// this will return a promise
+}
   
-  db.collection('sermons').get()
-  .then(snapshot => {
-    snapshot.forEach(book => {
-      let b = book.data()
-      b.id = book.id
-      books.push(b)
-    });
-  })  
 
   
   },
