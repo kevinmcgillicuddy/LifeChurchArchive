@@ -7,7 +7,8 @@
           <div class="collapsible-header"><a :href="file.url.i"><i class="material-icons">filter_drama</i></a>{{ file.name }}
           <p>{{ file.path }}</p>
           <button v-on:click="send(file.gsurl,file.name,$event)">Transcribe</button></div>
-          <div class="collapsible-body"><span>{{ file.name }}</span></div>
+          <div class="collapsible-body"><span>The text is here:
+            {{ file.text }}</span></div>
         </li>
       </ul>
     </div> 
@@ -16,7 +17,7 @@
 <script>
 import { storage } from '@/firebase/init.js'
 import { functions } from '@/firebase/init.js'
-import { db } from '@/firebase/init.js'
+import { firestore } from '@/firebase/init.js'
 import M from 'materialize-css'
 export default {
   name: 'HelloWorld',
@@ -45,29 +46,30 @@ export default {
             .then(response => {
                 let files = []  
                 response.items.forEach(item => {
-
-                    console.log(getText('5_6.mp3'))
-                    //const text = await getText(item.name)
+                    
+                    const text = getText(item.name).then(text=>{return text})
                     const id = {uid: guid()}
                     const url = item.getDownloadURL().then(url => {return url} )
                     const gsurl = `gs://lcarchivewebsite.appspot.com/${folder}/${item.name}`
-                    files.push({...item, name:item.name, url, gsurl, id:id.uid})
+                    files.push({...item, name:item.name, url, gsurl, id:id.uid, text})
+                    
                     });
                     this.files = files;
                   })
             .catch(error => console.log(error));
   
-  //create async function that 
-  async function getText(docID) {
-    db.db.collection('sermons').doc(docID).onSnapshot(doc=>{
-       const res = doc
-     })
-    return res
-// this will return a promise
+  
+  function getText(docID) {
+        var docRef = firestore.collection("sermons").doc(docID);
+            docRef.get().then(doc=> {
+                if (doc.exists) {        
+                  return doc.data().text
+                } else {console.log("No such document!")}
+             }).catch(err => {
+                console.log("Error getting document:", err);
+            });
 }
-  
-
-  
+ 
   },
     methods:{
       send(file,name,event){
