@@ -6,9 +6,8 @@
         <li v-for="(file,index) in files" :key="index">
           <div class="collapsible-header"><a :href="file.url.i"><i class="material-icons">filter_drama</i></a>{{ file.name }}
           <p>{{ file.path }}</p>
-          <button v-on:click="send(file.gsurl,file.name,$event)">Transcribe</button></div>
-          <div class="collapsible-body"><span>The text is here:
-            {{ file.text }}</span></div>
+          <button v-on:click="send(file.gsurl,file.name,$event)" v-if="file.text">Transcribe</button></div>
+          <div class="collapsible-body"><span>{{file.id}}{{ file.text }}</span></div>
         </li>
       </ul>
     </div> 
@@ -23,7 +22,8 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      files: []
+      files: [],
+      string:'string'
     }
   },
   methods:{
@@ -32,13 +32,12 @@ export default {
    mounted(){  
       var CollapseElems = document.querySelectorAll('.collapsible');
       M.Collapsible.init(CollapseElems)
-    
-    },
-  created(){
-      let guid = () => {
-          let s4 = () => {return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)}
-      return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-      }
+
+
+      //  let guid = () => {
+      //     let s4 = () => {return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)}
+      // return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+      // }
 
     var folder = 'mp3'
     var storageRef = storage.ref()
@@ -51,16 +50,15 @@ export default {
     async function buildFiles(){
       let sermons = await listRef.listAll()
       let files = []
-      for (const sermon in sermons){
-      
+      for (const sermon of sermons.items){
         const text = await getText(sermon.name)
-        const id = {uid: guid()}
-        const url = await item.getDownloadURL()
-        const gsurl = `gs://lcarchivewebsite.appspot.com/${folder}/${item.name}`
-        files.push({...sermon, name:sermon.name, url, gsurl, id:id.uid, text})
-      
-     this.files = files;
+        // const id = {uid: guid()}
+        const url = await sermon.getDownloadURL()
+        const gsurl = `gs://lcarchivewebsite.appspot.com/${folder}/${sermon.name}`
+        files.push({...sermon, name:sermon.name, url, gsurl, text})  
     }
+
+    return files
     }
 
 
@@ -90,12 +88,11 @@ export default {
 //          }
 // }
 
-buildFiles()
+buildFiles().then(res=>this.files = res)
 
   async function getText(docID) {
         var docRef = firestore.collection("sermons").doc(docID);
         let doc = await docRef.get()
-        console.log(doc)
         if (doc.exists){return await doc.data().text}
 }
 
@@ -109,6 +106,10 @@ buildFiles()
 //         })
         
 // }
+    
+    },
+  created(){
+     
  
   },
     methods:{
