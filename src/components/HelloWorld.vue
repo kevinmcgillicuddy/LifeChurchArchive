@@ -32,8 +32,6 @@ export default {
    mounted(){  
       var CollapseElems = document.querySelectorAll('.collapsible');
       M.Collapsible.init(CollapseElems)
-
-
       //  let guid = () => {
       //     let s4 = () => {return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)}
       // return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
@@ -41,13 +39,9 @@ export default {
 
     var folder = 'mp3'
     var storageRef = storage.ref()
-    var listRef = storageRef.child(folder)
+    var listRef = storageRef.child(folder)   
 
-    
-    // var text
-    // getText('5_6.mp3').then(res=>{text = res});
-    
-    async function buildFiles(){
+  async function buildFiles(){
       let sermons = await listRef.listAll()
       let files = []
       for (const sermon of sermons.items){
@@ -61,57 +55,14 @@ export default {
     return files
     }
 
-
-    // listRef.listAll()
-    //         .then(response => {
-    //             let files = []  
-    //             response.items.forEach(item => {
-                    
-    //                 const text = getText(item.name).then(async res => {return res} )
-    //                 console.log(text)
-    //                 const id = {uid: guid()}
-    //                 const url = item.getDownloadURL().then(url => {return url} )
-    //                 const gsurl = `gs://lcarchivewebsite.appspot.com/${folder}/${item.name}`
-    //                 files.push({...item, name:item.name, url, gsurl, id:id.uid, text})
-                    
-    //                 });
-    //                 this.files = files;
-    //               })
-    //         .catch(error => console.log(error));
-  
-  
-//   async function getText(docID) {
-//         var docRef = firestore.collection("sermons").doc(docID);
-//         let doc = await docRef.get()
-//         if (doc.exists){
-//            return doc.data().text
-//          }
-// }
-
-buildFiles().then(res=>this.files = res)
-
   async function getText(docID) {
         var docRef = firestore.collection("sermons").doc(docID);
         let doc = await docRef.get()
-        if (doc.exists){return await doc.data().text}
-}
+        if (doc.exists){return await doc.data().text}}
 
-  
-//   function getText(docID) {
-//         var docRef = firestore.collection("sermons").doc(docID);
-//         docRef.get().then(doc=>{
-//           if (doc.exists){
-//            return doc.data().text
-//          }
-//         })
-        
-// }
+buildFiles().then(res=>this.files = res)
     
     },
-  created(){
-     
- 
-  },
     methods:{
       send(file,name,event){
       event.target.disabled = true
