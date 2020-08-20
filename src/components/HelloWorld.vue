@@ -47,36 +47,39 @@ export default {
     
     // var text
     // getText('5_6.mp3').then(res=>{text = res});
-    // async function buildFiles(){
-    //   let sermons = await listRef.listAll()
-    //   let files = []
-    //   sermons.items.forEach(item =>{
-    //     const text = await getText(item.name)
-    //     const id = {uid: guid()}
-    //     const url = await item.getDownloadURL()
-    //     const gsurl = `gs://lcarchivewebsite.appspot.com/${folder}/${item.name}`
-    //     files.push({...item, name:item.name, url, gsurl, id:id.uid, text})
-    //   })
-    //  this.files = files;
-    // }
+    
+    async function buildFiles(){
+      let sermons = await listRef.listAll()
+      let files = []
+      for (const sermon in sermons){
+      
+        const text = await getText(sermon.name)
+        const id = {uid: guid()}
+        const url = await item.getDownloadURL()
+        const gsurl = `gs://lcarchivewebsite.appspot.com/${folder}/${item.name}`
+        files.push({...sermon, name:sermon.name, url, gsurl, id:id.uid, text})
+      
+     this.files = files;
+    }
+    }
 
 
-    listRef.listAll()
-            .then(response => {
-                let files = []  
-                response.items.forEach(item => {
+    // listRef.listAll()
+    //         .then(response => {
+    //             let files = []  
+    //             response.items.forEach(item => {
                     
-                    const text = getText(item.name).then(res => {return res} )
-                    console.log(text)
-                    const id = {uid: guid()}
-                    const url = item.getDownloadURL().then(url => {return url} )
-                    const gsurl = `gs://lcarchivewebsite.appspot.com/${folder}/${item.name}`
-                    files.push({...item, name:item.name, url, gsurl, id:id.uid, text})
+    //                 const text = getText(item.name).then(async res => {return res} )
+    //                 console.log(text)
+    //                 const id = {uid: guid()}
+    //                 const url = item.getDownloadURL().then(url => {return url} )
+    //                 const gsurl = `gs://lcarchivewebsite.appspot.com/${folder}/${item.name}`
+    //                 files.push({...item, name:item.name, url, gsurl, id:id.uid, text})
                     
-                    });
-                    this.files = files;
-                  })
-            .catch(error => console.log(error));
+    //                 });
+    //                 this.files = files;
+    //               })
+    //         .catch(error => console.log(error));
   
   
 //   async function getText(docID) {
@@ -87,26 +90,25 @@ export default {
 //          }
 // }
 
-// buildFiles()
+buildFiles()
 
-//   async function getText(docID) {
-//         var docRef = firestore.collection("sermons").doc(docID);
-//         let doc = await docRef.get()
-//         if (doc.exists){
-//            return Promise.resolve(doc.data().text)
-//          }
-// }
+  async function getText(docID) {
+        var docRef = firestore.collection("sermons").doc(docID);
+        let doc = await docRef.get()
+        console.log(doc)
+        if (doc.exists){return await doc.data().text}
+}
 
   
-  function getText(docID) {
-        var docRef = firestore.collection("sermons").doc(docID);
-        docRef.get().then(doc=>{
-          if (doc.exists){
-           return   doc.data().text
-         }
-        })
+//   function getText(docID) {
+//         var docRef = firestore.collection("sermons").doc(docID);
+//         docRef.get().then(doc=>{
+//           if (doc.exists){
+//            return doc.data().text
+//          }
+//         })
         
-}
+// }
  
   },
     methods:{
