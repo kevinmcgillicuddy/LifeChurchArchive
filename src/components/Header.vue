@@ -1,7 +1,7 @@
 <template>
 <nav class="nav-extended header">
     <div class="nav-wrapper">
-      <a href="https://lifechurchlancaster.org" class="brand-logo nb"><i class="material-icons"></i>Life Church</a>
+      <a href="https://lifechurchlancaster.org" class="brand-logo nb"><i class="material-icons"></i>Life Church Lancaster</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
    <li><a href="sass.html">Sass</a></li>
