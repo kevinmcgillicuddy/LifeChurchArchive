@@ -5,7 +5,7 @@
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><router-link :to="{name:'Login'}">Log In</router-link></li>
-        <li v-if="user"><a @click="logout">Log Out</a></li>
+        <li v-if="user.loggedIn"><a @click="logout">Log Out</a></li>
 
   
       </ul>
@@ -17,6 +17,8 @@
   </nav>
 </template>
 <script>
+import { mapGetters } from "vuex";
+import { auth } from '@/firebase/init.js'
 export default {
     name: 'Header',
     data(){
@@ -24,10 +26,16 @@ export default {
     },
     methods:{
         logout(){
-            firebase.auth().signOut().then(()=>{
+            auth.signOut().then(()=>{
                this.$router.push({name:'/'}) 
             })
         }
+    },
+    computed:{
+       // map `this.user` to `this.$store.getters.user`
+      ...mapGetters({
+      user: "user"
+    })
     }
 }
 </script>
