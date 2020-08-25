@@ -4,11 +4,11 @@
             <div class="row footermain">
               <div class="col l6 s12">
                 <h5 class="white-text">Life Church Lancaster</h5>
-                <p class="grey-text text-lighten-4"><img src="https://images.squarespace-cdn.com/content/v1/5b8959b796e76f42f164a8b4/1544566935575-UNOD1ACTMVIW5VGHNGD6/ke17ZwdGBToddI8pDm48kGwrK3btlI3EWQwJ6Y0kNmmoCXeSvxnTEQmG4uwOsdIceAoHiyRoc52GMN5_2H8Wp8yrVxZlvyGiJVRFXUmhbI-ctUEcr85o6auTtd2MWfNSpJS6KsTJ3kPRsKlQIsIu4A/faded+icon.png?format=100w" /></p>
+                <!-- <p class="grey-text text-lighten-4"><img src="https://images.squarespace-cdn.com/content/v1/5b8959b796e76f42f164a8b4/1544566935575-UNOD1ACTMVIW5VGHNGD6/ke17ZwdGBToddI8pDm48kGwrK3btlI3EWQwJ6Y0kNmmoCXeSvxnTEQmG4uwOsdIceAoHiyRoc52GMN5_2H8Wp8yrVxZlvyGiJVRFXUmhbI-ctUEcr85o6auTtd2MWfNSpJS6KsTJ3kPRsKlQIsIu4A/faded+icon.png?format=100w" /></p> -->
               </div>
               <div class="col l4 offset-l2 s12">
                 <h5 class="white-text">Links</h5>
-                 <ul v-if="user.loggedIn">
+                 <ul>
                   <li><a class="grey-text text-lighten-3" href="https://lifechurchlancaster.org">Life Church</a></li>
                   <li><a class="grey-text text-lighten-3" href="https://lifechurchlancaster.org/sermons">Sermons</a></li>
                   <li><a class="grey-text text-lighten-3" href="https://lifechurchlancaster.org/app">The App</a></li>
@@ -27,19 +27,12 @@
         </footer>
 </template>
 <script>
-import { mapGetters } from "vuex";
 export default {
     Name:'Footer',
     data(){
         return{
       
         }
-    },
-    computed:{
-       // map `this.user` to `this.$store.getters.user`
-      ...mapGetters({
-      user: "user"
-    })
     }
 }
 </script>
