@@ -1,6 +1,7 @@
 <template>
 <div>
   <div class="container logged-in" style="margin-top: 40px;">
+    <h2>{{user.loggedIn}}</h2>
       <ul class="collapsible z-depth-0 list" style="border: none;">
         <li v-for="(file,index) in files" :key="index">
           <div class="row">
@@ -27,6 +28,7 @@
 import { storage } from '@/firebase/init.js'
 import { functions } from '@/firebase/init.js'
 import { firestore } from '@/firebase/init.js'
+import { mapGetters } from "vuex"
 import M from 'materialize-css'
 export default {
   name: 'HelloWorld',
@@ -36,12 +38,16 @@ export default {
       string:'string'
     }
   },
-  methods:{
+   computed:{
+       // map `this.user` to `this.$store.getters.user`
+      ...mapGetters({
+      user: "user"
+    })
+    },
 
-  },
    mounted(){  
       M.AutoInit()
-
+  console.log('user'+ user)
       //  let guid = () => {
       //     let s4 = () => {return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)}
       // return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();

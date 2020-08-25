@@ -8,8 +8,8 @@
               </div>
               <div class="col l4 offset-l2 s12">
                 <h5 class="white-text">Links</h5>
-                <ul>
-                  node<li><a class="grey-text text-lighten-3" href="https://lifechurchlancaster.org">Life Church</a></li>
+                 <ul v-if="user.loggedIn">
+                  <li><a class="grey-text text-lighten-3" href="https://lifechurchlancaster.org">Life Church</a></li>
                   <li><a class="grey-text text-lighten-3" href="https://lifechurchlancaster.org/sermons">Sermons</a></li>
                   <li><a class="grey-text text-lighten-3" href="https://lifechurchlancaster.org/app">The App</a></li>
                   <li><a class="grey-text text-lighten-3" href="https://lifechurchlancaster.org/contact">Contact</a></li>
@@ -27,10 +27,19 @@
         </footer>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
     Name:'Footer',
     data(){
-        return{}
+        return{
+      
+        }
+    },
+    computed:{
+       // map `this.user` to `this.$store.getters.user`
+      ...mapGetters({
+      user: "user"
+    })
     }
 }
 </script>

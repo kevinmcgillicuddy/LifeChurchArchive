@@ -5,6 +5,7 @@ import 'firebase/firestore'
 import 'firebase/storage'
 import 'firebase/functions'
 
+
 var config = {
     apiKey: "AIzaSyCkWvJ10kr3N7qzDJI4iADb8HSIjhZUKyw",
     authDomain: "lcarchivewebsite.firebaseapp.com",
@@ -16,6 +17,8 @@ var config = {
     measurementId: "G-6WR9RG3DXX"
 };
 firebase.initializeApp(config);
+
+
 export const firestore = firebase.firestore()
 export const db = firebase.database()
 export const auth = firebase.auth()
