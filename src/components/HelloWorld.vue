@@ -63,11 +63,10 @@ export default {
       let files = [];
       for (const sermon of sermons.items) {
         const md = await getMetadata(sermon)
-        // console.log(md.customMetadata.uuid)
         const text = await getText(sermon.name);
         const url = await sermon.getDownloadURL();
         const gsurl = `gs://lcarchivewebsite.appspot.com/${folder}/${sermon.name}`;
-        files.push({ ...sermon, name: sermon.name, url, gsurl, text });
+        files.push({ ...sermon, name: sermon.name, url, gsurl, text, uuid: md.customMetadata.uuid });
       }
       return files;
     }
