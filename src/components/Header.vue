@@ -14,10 +14,10 @@
             <router-link :to="{name:'Login'}">Log In</router-link>
           </li>
           <li v-if="user.loggedIn">
-            <a @click="logout">Log Out</a>
+            <a class="waves-effect waves-light btn" @click="logout">Log Out</a>
           </li>
           <li>
-            <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+            <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Upload</a>
           </li>
         </ul>
       </div>
@@ -26,10 +26,10 @@
           <router-link :to="{name:'Login'}">Log In</router-link>
         </li>
         <li v-if="user.loggedIn">
-          <a @click="logout">Log Out</a>
+          <a class="waves-effect waves-light btn" @click="logout">Log Out</a>
         </li>
         <li>
-          <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+          <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Upload</a>
         </li>
       </ul>
     </nav>

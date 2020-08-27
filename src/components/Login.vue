@@ -36,6 +36,7 @@
 </template>
 <script>
 import { auth } from "@/firebase/init.js";
+import firebase from "@/firebase/init.js";
 export default {
   name: "Login",
   data() {
@@ -48,7 +49,7 @@ export default {
   methods: {
     login() {
       if (this.email && this.password) {
-        auth
+        auth.auth()
           .signInWithEmailAndPassword(this.email, this.password)
           .then(() => {
             this.$router.push({ name: "HelloWorld" });
@@ -62,8 +63,8 @@ export default {
       }
     },
     gLogin() {
-      var provider = new auth.GoogleAuthProvider();
-      auth
+      var provider = new firebase.auth.GoogleAuthProvider()
+      firebase.auth()
         .signInWithPopup(provider)
         .then((result) => {
           var token = result.credential.accessToken;
