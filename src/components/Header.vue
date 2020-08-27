@@ -40,14 +40,10 @@
           <input type="file" @change="previewFile" />
         </div>
         <div>
-          <p>
-            Progress: {{uploadValue.toFixed()+"%"}}
-            <progress
-              id="progress"
-              :value="uploadValue"
-              max="100"
-            ></progress>
-          </p>
+          <p></p>
+          <div v-if="mp3Data" class="progress">
+            <div class="determinate" v-bind:style="{ width: uploadValue + '%'}"></div>
+          </div>
         </div>
       </div>
       <div class="modal-footer">
