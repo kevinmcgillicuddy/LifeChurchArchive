@@ -2,9 +2,7 @@
   <div>
     <nav class="nav-extended header">
       <div class="nav-wrapper">
-        <img
-          src="../assets/logo.png"
-        />
+        <img src="../assets/logo.png" />
         <a href="https://lifechurchlancaster.org" class="brand-logo nb">
           <i class="material-icons"></i>Life Church Lancaster
         </a>
@@ -39,7 +37,7 @@
     <div id="modal1" class="modal">
       <div class="modal-content">
         <div>
-          <input type="file" @change="previewImage" />
+          <input type="file" @change="previewFile" />
         </div>
         <div>
           <p>
@@ -50,13 +48,6 @@
               max="100"
             ></progress>
           </p>
-
-          <!-- <div class="progress">
-            <div class="determinate" style={ width: uploadValue+}> <progress
-              id="progress"
-              max="100"
-            ></progress></div>
-          </div>-->
         </div>
       </div>
       <div class="modal-footer">
@@ -76,7 +67,6 @@ export default {
   data() {
     return {
       mp3Data: null,
-      // mp3: null,
       uploadValue: 0,
     };
   },
@@ -86,9 +76,8 @@ export default {
         this.$router.push({ name: "/" });
       });
     },
-    previewImage(event) {
+    previewFile(event) {
       this.uploadValue = 0;
-      // this.mp3 = null;
       this.mp3Data = event.target.files[0];
     },
     onUpload() {
@@ -107,7 +96,6 @@ export default {
         },
       };
 
-      this.mp3 = null;
       const storageRef = storage
         .ref(`mp3/${this.mp3Data.name}`)
         .put(this.mp3Data, metadata);
@@ -121,12 +109,6 @@ export default {
           console.log(error.message);
         }
       );
-      // ()=>{this.uploadValue=100;
-      //   storageRef.snapshot.ref.getDownloadURL().then((url)=>{
-      //     this.picture =url;
-      //   });
-      // }
-      // );
     },
   },
   computed: {

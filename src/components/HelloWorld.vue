@@ -57,16 +57,22 @@ export default {
     var folder = "mp3";
     var storageRef = storage.ref();
     var listRef = storageRef.child(folder);
-
     async function getFiles() {
       let sermons = await listRef.listAll();
       let files = [];
       for (const sermon of sermons.items) {
-        const md = await getMetadata(sermon)
+        const md = await getMetadata(sermon);
         const text = await getText(sermon.name);
         const url = await sermon.getDownloadURL();
         const gsurl = `gs://lcarchivewebsite.appspot.com/${folder}/${sermon.name}`;
-        files.push({ ...sermon, name: sermon.name, url, gsurl, text, uuid: md.customMetadata.uuid });
+        files.push({
+          ...sermon,
+          name: sermon.name,
+          url,
+          gsurl,
+          text,
+          uuid: md.customMetadata.uuid,
+        });
       }
       return files;
     }
@@ -80,7 +86,7 @@ export default {
     }
     //ref should be sermon
     async function getMetadata(ref) {
-      return ref.getMetadata()
+      return ref.getMetadata();
     }
 
     getFiles().then((res) => (this.files = res));
