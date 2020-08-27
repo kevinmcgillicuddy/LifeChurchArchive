@@ -1,6 +1,6 @@
 <template>
   <div class="login container">
-    <div class="row">
+    <!-- <div class="row">
       <div class="col s6">
         <form @submit.prevent="login" class="card-panel">
           <h2 class="center blue-text">Login</h2>
@@ -32,11 +32,18 @@
         </div>
       </div>
     </div>
+   -->
+    <div id="firebaseui-auth-container"></div>
   </div>
+
+  
 </template>
 <script>
 import { auth } from "@/firebase/init.js";
 import firebase from "@/firebase/init.js";
+
+import * as firebaseui from "firebaseui";
+import "firebaseui/dist/firebaseui.css";
 export default {
   name: "Login",
   data() {
@@ -45,6 +52,18 @@ export default {
       password: null,
       email: null,
     };
+  },
+    mounted(){
+      var uiConfig = {
+      signInSuccessUrl: '/success',
+      signInOptions: [
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        firebase.auth.EmailAuthProvider.PROVIDER_ID
+        ]
+      };
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    ui.start('#firebaseui-auth-container', uiConfig);
+    
   },
   methods: {
     login() {
@@ -76,8 +95,10 @@ export default {
           var email = error.email;
           var credential = error.credential;
         });
-    },
+    }
+
   },
+
 };
 </script>
 <style>
