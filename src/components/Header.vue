@@ -47,6 +47,7 @@
         </div>
       </div>
       <div class="modal-footer">
+        <span v-if="feedback" style="color: red">{{feedback}}</span>
         <button @click="onUpload" class="btn waves-effect waves-light">Upload</button>
         <button class="btn waves-effect waves-light modal-close">Close</button>
       </div>
@@ -64,6 +65,7 @@ export default {
     return {
       mp3Data: null,
       uploadValue: 0,
+      feedback:''
     };
   },
   methods: {
@@ -74,7 +76,14 @@ export default {
     },
     previewFile(event) {
       this.uploadValue = 0;
-      this.mp3Data = event.target.files[0];
+      let type = "audio"
+      if(! event.target.files[0].type.includes(type))
+      {
+        this.feedback = "Please upload an audio file"
+        }
+        else{
+           this.mp3Data = event.target.files[0];
+        }
     },
     onUpload() {
       function guid() {
@@ -91,7 +100,11 @@ export default {
           uuid: guid(),
         },
       };
-
+  if(!this.mp3Data){
+    this.feedback = 'Please select a file'
+  }
+  else{
+    feedback=''
       const storageRef = storage
         .ref(`mp3/${this.mp3Data.name}`)
         .put(this.mp3Data, metadata);
@@ -105,6 +118,7 @@ export default {
           console.log(error.message);
         }
       );
+  }
     },
   },
   computed: {
