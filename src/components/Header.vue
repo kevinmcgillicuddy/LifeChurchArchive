@@ -2,9 +2,8 @@
   <div>
     <nav class="nav-extended header">
       <div class="nav-wrapper">
-        <img src="../assets/logo.png" />
-        <a href="https://lifechurchlancaster.org" class="brand-logo nb">
-          <i class="material-icons"></i>Life Church Lancaster
+            <a href="https://lifechurchlancaster.org" class="brand-logo nb">
+          <i class="material-icons"></i>Life Church Lancaster Archive
         </a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger">
           <i class="material-icons">menu</i>
@@ -14,10 +13,10 @@
             <router-link :to="{name:'Login'}">Log In</router-link>
           </li>
           <li v-if="user.loggedIn">
-            <a class="waves-effect waves-light btn" @click="logout">Log Out</a>
+            <a class="waves-effect waves-light brand-color-dark btn" @click="logout">Log Out</a>
           </li>
           <li>
-            <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Upload</a>
+            <a class="waves-effect waves-light btn modal-trigger white" href="#modal1"><i class="material-icons right text">add</i><span class="text">Upload</span></a>
           </li>
         </ul>
       </div>
@@ -148,4 +147,14 @@ main {
   padding-top: 20px;
   color: #fff;
 }
+.text {
+  color: black;
+}
+.brand-color-dark{
+
+  background-color: #38525c;
+
+
+}
+ .brand-color-dark:hover {background-color: white);}
 </style>

@@ -1,6 +1,16 @@
 <template>
   <div>
     <div class="container logged-in" style="margin-top: 40px;">
+        <!-- Dropdown Trigger -->
+  <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Drop Me!</a>
+
+  <!-- Dropdown Structure -->
+  <ul id='dropdown1' class='dropdown-content'>
+    <li><a href="#!" v-on:click="speek(2020)">2020</a></li>
+    <li><a href="#!">2019</a></li>
+   </ul>
+        
+
       <ul class="collapsible z-depth-0 list" style="border: none;">
         <li v-for="(file,index) in files" :key="index">
           <div class="row">
@@ -24,6 +34,17 @@
           </div>
           <div class="collapsible-body flow-text">
             <span>{{ file.text }}</span>
+              <div class="preloader-wrapper small active">
+                <div class="spinner-layer spinner-green-only">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+              </div>
           </div>
         </li>
       </ul>
@@ -100,6 +121,9 @@ export default {
       });
     },
   },
+  speek: function (text){
+    alert(text)
+  }
 };
 </script>
 
