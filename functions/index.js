@@ -8,6 +8,7 @@ exports.transcribe = functions.runWith({
 }).https.onCall((data, context) => {
   const client = new speech.SpeechClient();
   const gcsUri = data.file;
+  const uuid = data.uuid;
 
   const encoding = 'mp3';
   const sampleRateHertz = 16000;
@@ -38,8 +39,7 @@ exports.transcribe = functions.runWith({
   }
 
   time().then((transcription) => {
-      const path = data.name
-      return admin.firestore().collection('sermons').doc(path).set({
+        return admin.firestore().collection('sermons').doc(uuid).set({
         text: transcription
       })
     })
