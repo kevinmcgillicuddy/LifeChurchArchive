@@ -38,7 +38,7 @@
           </div>
           <div class="collapsible-body flow-text">
             <span>{{ file.text }}</span>
-            <span v-if="loading">
+            <span v-if="loading && !file.text">
               <div class="preloader-wrapper small active">
                 <div class="spinner-layer spinner-green-only">
                   <div class="circle-clipper left">
