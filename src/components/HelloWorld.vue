@@ -84,7 +84,7 @@ export default {
     M.AutoInit();
   },
   methods: {
-    sendFileForTranscription(file, uuid) {
+    sendFileForTranscription(file, uuid, event) {
       event.target.disabled = true;
       this.loading = true
       const transcribe = functions.httpsCallable("transcribe");
