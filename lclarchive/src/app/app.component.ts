@@ -1,5 +1,8 @@
+  
 import { Component } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { FirebaseService } from '../services/firebase.service';
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,12 +10,16 @@ import { AngularFireDatabase } from '@angular/fire/database';
 })
 export class AppComponent {
   title = 'lclarchive';
+  items: Array<any>;
 
-  constructor(private db: AngularFireDatabase){
-      // Read Users List
-  GetUsersList() {
-    this.usersRef = this.db.list('users-list');
-    return this.usersRef;
-  }  
+  constructor(
+    public firebaseService: FirebaseService  ) { }
+
+
+ ngOnInit() {
+   this.firebaseService.getUsers()
+    .subscribe(result => {
+      this.items = result;
+    })
   }
 }
