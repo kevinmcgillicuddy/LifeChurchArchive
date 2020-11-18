@@ -4,3 +4,17 @@
     position: absolute;
     font-size:large;
   }
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* grid-template-rows: 1fr 1fr 1fr; */
+    grid-template-rows: auto auto auto;
+    gap: 15px 0px;
+    grid-template-areas:
+      "a"
+      "b"
+      "c";
+  }
+  .a { grid-area: a; }
+  .b { grid-area: b; }
+  .c { grid-area: c; }

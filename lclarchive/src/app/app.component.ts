@@ -1,6 +1,8 @@
   
 import { Component } from '@angular/core';
+import { finalize } from 'rxjs/operators';
 import { FirebaseService } from '../services/firebase.service';
+
 
 
 @Component({
@@ -14,9 +16,10 @@ export class AppComponent {
   uploadValue: any;
   feedback:string;
   mp3Data:any;
-  downloadURL= this.firebaseService.downloadURL;
-  async=this.firebaseService.test;
-  uploadPercent = this.firebaseService.uploadPercent;
+
+
+  downloadURL:string;
+  uploadPercent:number;
 
   constructor(
     public firebaseService: FirebaseService  ) { }
@@ -42,7 +45,12 @@ export class AppComponent {
   }
 
   submit(event){
-    this.firebaseService.uploadFile(event);
+    const uploadResult = this.firebaseService.uploadFile(event);
+    uploadResult.uploadPercent.pipe(
+      finalize(() => {
+        uploadResult.downloadURL.subscribe(url => this.downloadURL = url);
+      })
+    ).subscribe(percent => this.uploadPercent = percent);
   }
  
 
