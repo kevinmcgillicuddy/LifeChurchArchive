@@ -7,14 +7,9 @@
     </div>
   </mat-grid-tile>
   <mat-grid-tile style="background-color: lightgray;">
-    <div class="grid-container">
-  <div class="a">  <input type="file" (change)="submit($event)" /></div>
-  <div class="b"><mat-progress-bar mode="determinate" [value]="uploadPercent"></mat-progress-bar></div>
-  <div class="c"><a [href]="downloadURL">{{ downloadURL }}</a></div>
-</div>
-  
-    
-    
+    <input type="file" (change)="submit($event)" />
+    <mat-progress-bar mode="determinate" [value]="uploadPercent"></mat-progress-bar>
+    <a [href]="downloadURL">downloadURL</a>
   </mat-grid-tile>
   <mat-grid-tile>General Footer Stuff</mat-grid-tile>
 </mat-grid-list>

@@ -30,6 +30,8 @@ export class AppComponent {
     .subscribe(result => {
       this.items = result;
     })
+
+    this.firebaseService.getSermonsfromFireBase()
   }
 
 
