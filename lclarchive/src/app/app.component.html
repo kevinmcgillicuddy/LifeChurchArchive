@@ -9,7 +9,8 @@
   <mat-grid-tile style="background-color: lightgray;">
     <input type="file" (change)="submit($event)" />
     <mat-progress-bar mode="determinate" [value]="uploadPercent"></mat-progress-bar>
-    <a [href]="downloadURL">downloadURL</a>
+    <a *ngIf="downloadURL" [href]="downloadURL">downloadURL</a>
+    {{feedback}}
   </mat-grid-tile>
   <mat-grid-tile>General Footer Stuff</mat-grid-tile>
 </mat-grid-list>

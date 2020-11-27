@@ -16,7 +16,7 @@ export class AppComponent {
   uploadValue: any;
   feedback:string;
   mp3Data:any;
-
+  
 
   downloadURL:string;
   uploadPercent:number;
@@ -26,33 +26,23 @@ export class AppComponent {
 
 
  ngOnInit() {
-   this.firebaseService.getUsers()
-    .subscribe(result => {
-      this.items = result;
-    })
-
-    this.firebaseService.getSermonsfromFireBase()
+    this.firebaseService.getSermonsfromFireBase().then(res=>console.log(res))
   }
 
-
-
-  previewFile(event) {
-    this.uploadValue = 0;
-    let type = "audio";
-    if (!event.target.files[0].type.includes(type)) {
-      this.feedback = "Please upload an audio file and try again";
-    } else {
-      this.mp3Data = event.target.files[0];
-    }
-  }
-
+  //upload a file
   submit(event){
-    const uploadResult = this.firebaseService.uploadFile(event);
-    uploadResult.uploadPercent.pipe(
-      finalize(() => {
-        uploadResult.downloadURL.subscribe(url => this.downloadURL = url);
-      })
-    ).subscribe(percent => this.uploadPercent = percent);
+    if (!event.target.files[0].type.includes("audio")) {
+      this.feedback = "please enter an audio file"
+    }
+    else{
+      const uploadResult = this.firebaseService.uploadFile(event);
+      uploadResult.uploadPercent.pipe(
+        finalize(() => {
+          uploadResult.downloadURL.subscribe(url => this.downloadURL = url);
+        })
+      ).subscribe(percent => this.uploadPercent = percent);
+    }
+ 
   }
  
 
