@@ -39,11 +39,12 @@ exports.transcribe = functions.runWith({
   }
 
   time().then((transcription) => {
-        return admin.firestore().collection('sermons').doc(uuid).set({
-        text: transcription
-      })
+    return admin.firestore().collection('sermons').doc(uuid).set({
+      text: transcription
     })
-    .catch(() => {
+  })
+    .catch((err) => {
+      console.log(err)
       return {
         text: "error"
       }

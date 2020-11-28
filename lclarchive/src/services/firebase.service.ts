@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireFunctions } from '@angular/fire/functions';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { from, Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
@@ -16,7 +17,14 @@ class UploadResult {
 
 export class FirebaseService {
 
-  constructor(public db: AngularFirestore, public storage: AngularFireStorage) { }
+  constructor(public db: AngularFirestore, public storage: AngularFireStorage, public func:AngularFireFunctions) { }
+
+  sendFileForTranscription(file, uuid, event) {
+    // event.target.disabled = true;
+    // this.loading = true
+    const transcribe = this.func.httpsCallable("transcribe")
+    transcribe({ file: file, uuid: uuid }).toPromise().then(res=>console.log(res)).catch(err=>console.log(err))
+  }
 
   private generateUUID() {
     return Math.random().toString(36).substring(2);
@@ -28,6 +36,11 @@ export class FirebaseService {
       return this.generateUUID();
     }
     return metadata;
+  }
+
+    //why is docID the name and not UUID
+  getText(docID) {
+    return this.db.collection("sermons").doc(docID).snapshotChanges();
   }
 
   uploadFile(event): UploadResult {
@@ -44,7 +57,6 @@ export class FirebaseService {
         )
       };
   }
-
 
   async getFiles(storageRef) {
     let sermons = await storageRef.listAll().toPromise()

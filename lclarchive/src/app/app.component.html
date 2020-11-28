@@ -12,5 +12,14 @@
     <a *ngIf="downloadURL" [href]="downloadURL">downloadURL</a>
     {{feedback}}
   </mat-grid-tile>
-  <mat-grid-tile>General Footer Stuff</mat-grid-tile>
+  <mat-grid-tile>General Footer Stuff
+    <ul *ngFor='let sermon of sermons'>
+      <li>{{sermon.name}}</li>
+      <li>{{sermon.gsurl}}</li>
+      <li>{{sermon.uuid}}</li>
+      <button (click)="sendFile(sermon.gsurl,sermon.uuid,$event)">Text</button>
+    </ul>
+    bl;ash
+    <!-- <button class="btn-small white" (click)="sendFile(file.gsurl,file.uuid,$event)"> -->
+  </mat-grid-tile>
 </mat-grid-list>

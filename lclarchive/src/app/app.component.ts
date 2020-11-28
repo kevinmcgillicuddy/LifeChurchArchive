@@ -20,13 +20,15 @@ export class AppComponent {
 
   downloadURL:string;
   uploadPercent:number;
+  sermons:any;
 
   constructor(
     public firebaseService: FirebaseService  ) { }
 
 
  ngOnInit() {
-    this.firebaseService.getSermonsfromFireBase().then(res=>console.log(res))
+    this.firebaseService.getSermonsfromFireBase().then(res=>{
+      this.sermons=res})
   }
 
   //upload a file
@@ -35,6 +37,7 @@ export class AppComponent {
       this.feedback = "please enter an audio file"
     }
     else{
+      this.feedback=null
       const uploadResult = this.firebaseService.uploadFile(event);
       uploadResult.uploadPercent.pipe(
         finalize(() => {
@@ -42,7 +45,10 @@ export class AppComponent {
         })
       ).subscribe(percent => this.uploadPercent = percent);
     }
- 
+  }
+
+  sendFile(url,uuid,event){
+    this.firebaseService.sendFileForTranscription(url,uuid,event)
   }
  
 
