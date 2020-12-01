@@ -40,7 +40,6 @@ exports.transcribe = functions.runWith({
     }
   }
 
-
   time().then((transcription) => {
     //transcription is the raw text
     return admin.firestore().collection('sermons').doc(uuid).set({
