@@ -1,5 +1,5 @@
 <mat-grid-list cols="1" rowHeight="2:1">
-  <mat-grid-tile><img src="assets/img/main1.jpg"><span class="centered">Life Church Archive</span>
+  <mat-grid-tile><img src="assets/img/main1.jpg"><span class="centered"><h1>Life Church Lancaster Archive</h1></span>
   </mat-grid-tile>
   <mat-grid-tile>
     <div *ngFor="let item of items">
@@ -17,7 +17,7 @@
       <li>{{sermon.name}}</li>
       <li>{{sermon.gsurl}}</li>
       <li>{{sermon.uuid}}</li>
-      <button (click)="sendFile(sermon.gsurl,sermon.uuid,$event)">Text</button>
+      <button (click)="sendFile(sermon)">Text</button>
     </ul>
     bl;ash
     <!-- <button class="btn-small white" (click)="sendFile(file.gsurl,file.uuid,$event)"> -->

@@ -8,8 +8,8 @@ exports.transcribe = functions.runWith({
 }).https.onCall((data, context) => {
   const client = new speech.SpeechClient();
   const gcsUri = data.file;
-  const uuid = data.uuid;
-
+  //if contentType != contentType: 'audio/mpeg', throw error
+  const uuid = String(data.uuid);
   const encoding = 'mp3';
   const sampleRateHertz = 16000;
   const languageCode = 'en-US';
@@ -27,24 +27,28 @@ exports.transcribe = functions.runWith({
   };
   async function time() {
     try {
+
       const [operation] = await client.longRunningRecognize(request);
       const [response] = await operation.promise();
       const transcription = response.results
         .map(result => result.alternatives[0].transcript)
         .join('\n');
+
       return transcription;
     } catch (e) {
       return e;
     }
   }
 
+
   time().then((transcription) => {
+    //transcription is the raw text
     return admin.firestore().collection('sermons').doc(uuid).set({
       text: transcription
     })
   })
     .catch((err) => {
-      console.log(err)
+      console.log('errorz' + err)
       return {
         text: "error"
       }

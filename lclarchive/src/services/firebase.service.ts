@@ -19,11 +19,15 @@ export class FirebaseService {
 
   constructor(public db: AngularFirestore, public storage: AngularFireStorage, public func:AngularFireFunctions) { }
 
-  sendFileForTranscription(file, uuid, event) {
+  sendFileForTranscription(data) {
     // event.target.disabled = true;
     // this.loading = true
     const transcribe = this.func.httpsCallable("transcribe")
-    transcribe({ file: file, uuid: uuid }).toPromise().then(res=>console.log(res)).catch(err=>console.log(err))
+    transcribe(
+      {file:data.gsurl,
+      uuid:data.uuid.customMetadata.uuid,
+      contentType: data.uuid.contentType
+    }).toPromise().catch(err=>console.log('error '+err))
   }
 
   private generateUUID() {
@@ -61,7 +65,7 @@ export class FirebaseService {
   async getFiles(storageRef) {
     let sermons = await storageRef.listAll().toPromise()
     let files = [];
-    var folder = '/mp3/2020';
+    var folder = 'mp3/2020';
     for (const sermon of sermons.items) {
       let md = await this.getMetadata(sermon)
       const url = await sermon.getDownloadURL();

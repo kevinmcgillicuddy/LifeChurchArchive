@@ -18,3 +18,7 @@
   .a { grid-area: a; }
   .b { grid-area: b; }
   .c { grid-area: c; }
+
+  h1 {
+    font-size: 72px;
+}

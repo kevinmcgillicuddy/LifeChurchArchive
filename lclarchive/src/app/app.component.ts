@@ -28,6 +28,7 @@ export class AppComponent {
 
  ngOnInit() {
     this.firebaseService.getSermonsfromFireBase().then(res=>{
+      console.log(res)
       this.sermons=res})
   }
 
@@ -44,12 +45,18 @@ export class AppComponent {
           uploadResult.downloadURL.subscribe(url => this.downloadURL = url);
         })
       ).subscribe(percent => this.uploadPercent = percent);
+
+      //could send this into the sendFile function instead of manually recreating gsURL
     }
   }
 
-  sendFile(url,uuid,event){
-    this.firebaseService.sendFileForTranscription(url,uuid,event)
+  sendFile(data){
+    this.firebaseService.sendFileForTranscription(data)
   }
  
 
 }
+
+
+
+
