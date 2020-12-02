@@ -5,10 +5,11 @@ admin.initializeApp();
 
 exports.transcribe = functions.runWith({
   timeoutSeconds: 360
-}).https.onCall((data, context) => {
+}).https.onCall(async (data, context) => {
+
   const client = new speech.SpeechClient();
   const gcsUri = data.file;
-  //if contentType != contentType: 'audio/mpeg', throw error
+  const contentType = data.contentType;
   const uuid = String(data.uuid);
   const encoding = 'mp3';
   const sampleRateHertz = 16000;
@@ -25,31 +26,25 @@ exports.transcribe = functions.runWith({
     config: config,
     audio: audio,
   };
-  async function time() {
-    try {
 
-      const [operation] = await client.longRunningRecognize(request);
-      const [response] = await operation.promise();
-      const transcription = response.results
-        .map(result => result.alternatives[0].transcript)
-        .join('\n');
 
-      return transcription;
-    } catch (e) {
-      return e;
-    }
+  try {
+    if (contentType !== 'audio/mpeg') { throw new Error("Non audio file")};
+    let document = await admin.firestore().collection('sermons').doc(uuid).get();
+    if (document !== null || document.exists) { throw new Error("Doc exists")};
+    const [operation] = await client.longRunningRecognize(request);
+    const [response] = await operation.promise();
+    const transcription = response.results
+      .map(result => result.alternatives[0].transcript)
+      .join('\n');
+    await admin.firestore().collection('sermons').doc(uuid).set({ text: transcription })
+    console.log('success');
+    return 'success';
+  } 
+  catch (err) {
+    console.log(err);
+    return err;
   }
-
-  time().then((transcription) => {
-    //transcription is the raw text
-    return admin.firestore().collection('sermons').doc(uuid).set({
-      text: transcription
-    })
-  })
-    .catch((err) => {
-      console.log('errorz' + err)
-      return {
-        text: "error"
-      }
-    })
 })
+
+
