@@ -31,14 +31,13 @@ exports.transcribe = functions.runWith({
   try {
     if (contentType !== 'audio/mpeg') { throw new Error("Non audio file")};
     let document = await admin.firestore().collection('sermons').doc(uuid).get();
-    if (document !== null || document.exists) { throw new Error("Doc exists")};
+    if (document.exists) { throw new Error("Doc exists")};
     const [operation] = await client.longRunningRecognize(request);
-    const [response] = await operation.promise();
-    const transcription = response.results
-      .map(result => result.alternatives[0].transcript)
-      .join('\n');
-    await admin.firestore().collection('sermons').doc(uuid).set({ text: transcription })
-    console.log('success');
+    // const [response] = await operation.promise();
+    // const transcription = response.results
+    //   .map(result => result.alternatives[0].transcript)
+    //   .join('\n');
+    await admin.firestore().collection('sermons').doc(uuid).set({ text: operation })
     return 'success';
   } 
   catch (err) {
