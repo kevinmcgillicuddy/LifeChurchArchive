@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { FirebaseService } from '../services/firebase.service';
-import {MatDialog} from '@angular/material/dialog';
-import { UploadFileDialogComponent} from './upload-file-dialog/upload-file-dialog.component'
+import { MatDialog } from '@angular/material/dialog';
+import { UploadFileDialogComponent } from './upload-file-dialog/upload-file-dialog.component'
 
 
 @Component({
@@ -19,8 +19,8 @@ export class AppComponent {
   items: Array<any>;
 
   mp3Data: any;
- 
-  
+
+
   sermons: any;
   folders$: Observable<any>;
   folderResponse: any
@@ -41,7 +41,7 @@ export class AppComponent {
     })
 
     this.folders$ = this.firebaseService.getFolders()
-    this.folders$.subscribe({ next: folder => {this.folderResponse = folder.prefixes} })
+    this.folders$.subscribe({ next: folder => { this.folderResponse = folder.prefixes } })
   }
 
 
