@@ -5,21 +5,27 @@
     <div *ngFor="let item of items">
       {{item.payload.doc.data().username}}
     </div>
+    <ul *ngFor='let folder of folderResponse' style=list-style-type:none;>
+      <li><button mat-raised-button color="primary">{{folder.name}}</button></li>
+    </ul>
   </mat-grid-tile>
+
+
   <mat-grid-tile style="background-color: lightgray;">
-    <input type="file" (change)="submit($event)" />
-    <mat-progress-bar mode="determinate" [value]="uploadPercent"></mat-progress-bar>
-    <a *ngIf="downloadURL" [href]="downloadURL">downloadURL</a>
-    {{feedback}}
+    
+    <button mat-button (click)="openDialog()">Open dialog</button>
   </mat-grid-tile>
+  
+  
+  
+  
   <mat-grid-tile>General Footer Stuff
     <ul *ngFor='let sermon of sermons'>
-      <li>{{sermon.name}}</li>
-      <li>{{sermon.gsurl}}</li>
-      <li>{{sermon.uuid}}</li>
+      <li>name {{sermon.name}}</li>
+      <li>location: {{sermon.gsurl}}</li>
+      <li>uuid: {{sermon.uuid.customMetadata.uuid}}</li>
       <button (click)="sendFile(sermon)">Text</button>
     </ul>
-    bl;ash
     <!-- <button class="btn-small white" (click)="sendFile(file.gsurl,file.uuid,$event)"> -->
   </mat-grid-tile>
 </mat-grid-list>

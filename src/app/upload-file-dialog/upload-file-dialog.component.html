@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Upload an MP3</h2>
+<mat-dialog-content class="mat-typography">
+
+  <input type="file" (change)="submit($event)" />
+  <p></p>
+  <div>
+    <mat-progress-bar *ngIf="uploadPercent" mode="determinate" [value]="uploadPercent"></mat-progress-bar>
+    <a *ngIf="downloadURL" [href]="downloadURL">downloadURL</a>
+  </div>
+
+  <div class="mat-typography" style="color:red">{{feedback}}</div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Close</button>
+</mat-dialog-actions>

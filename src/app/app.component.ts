@@ -1,8 +1,10 @@
-  
+
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { FirebaseService } from '../services/firebase.service';
-
+import {MatDialog} from '@angular/material/dialog';
+import { UploadFileDialogComponent} from './upload-file-dialog/upload-file-dialog.component'
 
 
 @Component({
@@ -10,50 +12,44 @@ import { FirebaseService } from '../services/firebase.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
+
 export class AppComponent {
   title = 'lclarchive';
   items: Array<any>;
-  uploadValue: any;
-  feedback:string;
-  mp3Data:any;
+
+  mp3Data: any;
+ 
   
+  sermons: any;
+  folders$: Observable<any>;
+  folderResponse: any
 
-  downloadURL:string;
-  uploadPercent:number;
-  sermons:any;
+  constructor(public firebaseService: FirebaseService, public dialog: MatDialog) { }
 
-  constructor(
-    public firebaseService: FirebaseService  ) { }
+  openDialog() {
+    const dialogRef = this.dialog.open(UploadFileDialogComponent);
 
-
- ngOnInit() {
-    this.firebaseService.getSermonsfromFireBase().then(res=>{
-      console.log(res)
-      this.sermons=res})
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
-  //upload a file
-  submit(event){
-    if (!event.target.files[0].type.includes("audio")) {
-      this.feedback = "please enter an audio file"
-    }
-    else{
-      this.feedback=null
-      const uploadResult = this.firebaseService.uploadFile(event);
-      uploadResult.uploadPercent.pipe(
-        finalize(() => {
-          uploadResult.downloadURL.subscribe(url => this.downloadURL = url);
-        })
-      ).subscribe(percent => this.uploadPercent = percent);
+  ngOnInit() {
+    this.firebaseService.getSermonsfromFireBase().then(response => {
+      this.sermons = response
+    })
 
-      //could send this into the sendFile function instead of manually recreating gsURL
-    }
+    this.folders$ = this.firebaseService.getFolders()
+    this.folders$.subscribe({ next: folder => {this.folderResponse = folder.prefixes} })
   }
 
-  sendFile(data){
+
+
+  sendFile(data) {
     this.firebaseService.sendFileForTranscription(data)
   }
- 
+
 
 }
 

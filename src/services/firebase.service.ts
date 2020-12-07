@@ -42,9 +42,8 @@ export class FirebaseService {
     return metadata;
   }
 
-    //why is docID the name and not UUID
-  getText(docID) {
-    return this.db.collection("sermons").doc(docID).snapshotChanges();
+  getText(uuid) {
+    return this.db.collection("sermons").doc(uuid).snapshotChanges();
   }
 
   uploadFile(event): UploadResult {
@@ -60,6 +59,10 @@ export class FirebaseService {
           })
         )
       };
+  }
+
+  getFolders(){
+    return this.storage.ref('/mp3/').listAll()
   }
 
   async getFiles(storageRef) {

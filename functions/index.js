@@ -1,13 +1,15 @@
 const functions = require('firebase-functions');
 const speech = require('@google-cloud/speech');
 const admin = require('firebase-admin');
+const {PubSub} = require('@google-cloud/pubsub');
 admin.initializeApp();
 
 exports.transcribe = functions.runWith({
   timeoutSeconds: 360
 }).https.onCall(async (data, context) => {
-
+  const pubsub = new PubSub();
   const client = new speech.SpeechClient();
+  
   const gcsUri = data.file;
   const contentType = data.contentType;
   const uuid = String(data.uuid);
