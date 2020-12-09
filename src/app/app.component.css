@@ -1,8 +1,22 @@
 .centered {
     position: center;
-    color:White;
+  
+    justify-content: center;
     position: absolute;
     font-size:large;
+    color:White;
+    display: flex;
+    flex-flow:row wrap;
+  }
+  @media all and (max-width: 500px) {
+    .centered {
+      font-size:small;
+    }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
   }
   .grid-container {
     display: grid;
