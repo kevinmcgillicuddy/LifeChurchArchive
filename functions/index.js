@@ -1,18 +1,15 @@
 const functions = require('firebase-functions');
 const speech = require('@google-cloud/speech');
 const admin = require('firebase-admin');
-const {PubSub} = require('@google-cloud/pubsub');
 admin.initializeApp();
 
 exports.transcribe = functions.runWith({
   timeoutSeconds: 360
-}).https.onCall(async (data, context) => {
-  const pubsub = new PubSub();
+}).https.onCall((data, context) => {
   const client = new speech.SpeechClient();
-  
   const gcsUri = data.file;
-  const contentType = data.contentType;
-  const uuid = String(data.uuid);
+  const uuid = data.uuid;
+
   const encoding = 'mp3';
   const sampleRateHertz = 16000;
   const languageCode = 'en-US';
@@ -28,24 +25,27 @@ exports.transcribe = functions.runWith({
     config: config,
     audio: audio,
   };
-
-
-  try {
-    if (contentType !== 'audio/mpeg') { throw new Error("Non audio file")};
-    let document = await admin.firestore().collection('sermons').doc(uuid).get();
-    if (document.exists) { throw new Error("Doc exists")};
-    const [operation] = await client.longRunningRecognize(request);
-    // const [response] = await operation.promise();
-    // const transcription = response.results
-    //   .map(result => result.alternatives[0].transcript)
-    //   .join('\n');
-    await admin.firestore().collection('sermons').doc(uuid).set({ text: operation })
-    return 'success';
-  } 
-  catch (err) {
-    console.log(err);
-    return err;
+  async function time() {
+    try {
+      const [operation] = await client.longRunningRecognize(request);
+      const [response] = await operation.promise();
+      const transcription = response.results
+        .map(result => result.alternatives[0].transcript)
+        .join('\n');
+      return transcription;
+    } catch (e) {
+      return e;
+    }
   }
+
+  time().then((transcription) => {
+        return admin.firestore().collection('sermons').doc(uuid).set({
+        text: transcription
+      })
+    })
+    .catch(() => {
+      return {
+        text: "error"
+      }
+    })
 })
-
-
