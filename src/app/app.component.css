@@ -1,38 +1,19 @@
-.centered {
+.hero-container {
     position: center;
-  
     justify-content: center;
     position: absolute;
-    font-size:large;
-    color:White;
+    color:white;
     display: flex;
     flex-flow:row wrap;
   }
-  @media all and (max-width: 500px) {
-    .centered {
-      font-size:small;
-    }
-  }
-
-  img {
+ img{
     max-width: 100%;
     height: auto;
   }
-  .grid-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    /* grid-template-rows: 1fr 1fr 1fr; */
-    grid-template-rows: auto auto auto;
-    gap: 15px 0px;
-    grid-template-areas:
-      "a"
-      "b"
-      "c";
+  h1{
+    font-size:5vw;
   }
-  .a { grid-area: a; }
-  .b { grid-area: b; }
-  .c { grid-area: c; }
-
-  h1 {
-    font-size: 72px;
-}
+  .intro-container{
+    margin-left:50px;
+    margin-right:50px;
+  }

@@ -1,12 +1,15 @@
 <mat-grid-list cols="1" rowHeight="2:1">
-  <mat-grid-tile><img src="assets/img/main1.jpg">
-    <span class="centered">
-      <div style></div>
-      <h1 class="text-child">Life Church</h1>&nbsp;
-      <h1 class="text-child">Lancaster Archive</h1>
+  <mat-grid-tile>
+    <img src="assets/img/main1.jpg">
+    <span class="hero-container">
+      <div><h1>Life Church&nbsp;</h1></div>
+      <div><h1>Lancaster Archive</h1></div>
     </span>
   </mat-grid-tile>
   <mat-grid-tile>
+    <span class="intro-container">
+      <p>Life Church is a faith community that makes space for every race, ethnicity, age, sexual orientation and gender identity. We welcome belief and doubt, devotion and exploration, while hoping to connect with God, one another and our world.</p>
+    </span>
     <div *ngFor="let item of items">
       {{item.payload.doc.data().username}}
     </div>
