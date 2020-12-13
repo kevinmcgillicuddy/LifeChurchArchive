@@ -10,9 +10,6 @@
     <span class="intro-container">
       <p>Life Church is a faith community that makes space for every race, ethnicity, age, sexual orientation and gender identity. We welcome belief and doubt, devotion and exploration, while hoping to connect with God, one another and our world.</p>
     </span>
-    <div *ngFor="let item of items">
-      {{item.payload.doc.data().username}}
-    </div>
     <ul *ngFor='let folder of folderResponse' style=list-style-type:none;>
       <li><button mat-raised-button color="primary">{{folder.name}}</button></li>
     </ul>
@@ -23,17 +20,16 @@
     
     <button mat-button (click)="openDialog()">Open dialog</button>
   </mat-grid-tile>
-  
-  
-  
-  
-  <mat-grid-tile>General Footer Stuff
-    <ul *ngFor='let sermon of sermons'>
-      <li>name {{sermon.name}}</li>
-      <li>location: {{sermon.gsurl}}</li>
-      <li>uuid: {{sermon.uuid.customMetadata.uuid}}</li>
-      <button (click)="sendFile(sermon)">Text</button>
-    </ul>
-    <!-- <button class="btn-small white" (click)="sendFile(file.gsurl,file.uuid,$event)"> -->
+
+  <mat-grid-tile>
+    <mat-list>
+      <mat-list-item *ngFor='let sermon of sermons'>
+        <mat-icon mat-list-icon>library_music</mat-icon>
+        <div mat-line>{{sermon.name}}</div>
+        <div mat-line>{{sermon.text}}</div>
+        <!-- <div mat-line>{{(text | async)?.text}}</div> -->
+        <div mat-line> <button mat-raised-button color="primary" (click)="sendFile(file.gsurl,file.uuid,$event)">Send File</button></div>
+      </mat-list-item>
+    </mat-list>  
   </mat-grid-tile>
 </mat-grid-list>

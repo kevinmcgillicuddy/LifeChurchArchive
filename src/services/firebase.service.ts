@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { from, Observable } from 'rxjs';
@@ -42,8 +42,13 @@ export class FirebaseService {
     return metadata;
   }
 
+  private itemDoc: AngularFirestoreDocument<string>;
+  item: Observable<string>;
+  
   getText(uuid) {
-    return this.db.collection("sermons").doc(uuid).snapshotChanges();
+    // return this.db.collection("sermons").doc(uuid)
+    return this.db.collection("sermons").doc<string>(uuid).snapshotChanges().toPromise()
+    // return this.itemDoc.valueChanges().toPromise()
   }
 
   uploadFile(event): UploadResult {
@@ -72,13 +77,14 @@ export class FirebaseService {
     for (const sermon of sermons.items) {
       let md = await this.getMetadata(sermon)
       const url = await sermon.getDownloadURL();
-      //const text = await getText(sermon.name);
+      const text = await this.getText(md.customMetadata.uuid);
       const gsurl = `gs://lcarchivewebsite.appspot.com/${folder}/${sermon.name}`;
       files.push({
         ...sermon,
         name: sermon.name,
         url,
         gsurl,
+        text,
         uuid: md,
       });
     }

@@ -16,14 +16,10 @@ import { UploadFileDialogComponent } from './upload-file-dialog/upload-file-dial
 
 export class AppComponent {
   title = 'lclarchive';
-  items: Array<any>;
-
-  mp3Data: any;
-
-
-  sermons: any;
+  sermons: any[];
   folders$: Observable<any>;
   folderResponse: any
+  text:Observable<any>;
 
   constructor(public firebaseService: FirebaseService, public dialog: MatDialog) { }
 
@@ -40,11 +36,11 @@ export class AppComponent {
       this.sermons = response
     })
 
+   
+    // this.text = this.firebaseService.getText('1wsvh390y4g')
     this.folders$ = this.firebaseService.getFolders()
     this.folders$.subscribe({ next: folder => { this.folderResponse = folder.prefixes } })
   }
-
-
 
   sendFile(data) {
     this.firebaseService.sendFileForTranscription(data)
