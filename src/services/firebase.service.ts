@@ -47,8 +47,8 @@ export class FirebaseService {
   
   getText(uuid) {
     // return this.db.collection("sermons").doc(uuid)
-    return this.db.collection("sermons").doc<string>(uuid).snapshotChanges().toPromise()
-    // return this.itemDoc.valueChanges().toPromise()
+    this.itemDoc = this.db.doc<string>("sermons/"+uuid)
+    return this.itemDoc.valueChanges().toPromise()
   }
 
   uploadFile(event): UploadResult {
@@ -70,7 +70,13 @@ export class FirebaseService {
     return this.storage.ref('/mp3/').listAll()
   }
 
+  getSermonFilesObv(){
+    this.storage.ref('/mp3/2020').listAll().subscribe()
+  }
+
+
   async getFiles(storageRef) {
+  
     let sermons = await storageRef.listAll().toPromise()
     let files = [];
     var folder = 'mp3/2020';
@@ -78,7 +84,7 @@ export class FirebaseService {
       let md = await this.getMetadata(sermon)
       const url = await sermon.getDownloadURL();
       const text = await this.getText(md.customMetadata.uuid);
-      const gsurl = `gs://lcarchivewebsite.appspot.com/${folder}/${sermon.name}`;
+       const gsurl = `gs://lcarchivewebsite.appspot.com/${folder}/${sermon.name}`;
       files.push({
         ...sermon,
         name: sermon.name,
@@ -88,7 +94,7 @@ export class FirebaseService {
         uuid: md,
       });
     }
-    return files
+       return files
   }
 
   getSermonsfromFireBase() {

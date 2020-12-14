@@ -34,6 +34,7 @@ export class AppComponent {
   ngOnInit() {
     this.firebaseService.getSermonsfromFireBase().then(response => {
       this.sermons = response
+      console.log(response)
     })
 
    
