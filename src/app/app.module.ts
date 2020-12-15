@@ -17,12 +17,14 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { environment } from '../environments/environment';
 import { UploadFileDialogComponent } from './upload-file-dialog/upload-file-dialog.component';
+import { MetadataPipe } from './pipes/metadata.pipe';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    UploadFileDialogComponent
+    UploadFileDialogComponent,
+    MetadataPipe
   ],
   imports: [
     BrowserModule,

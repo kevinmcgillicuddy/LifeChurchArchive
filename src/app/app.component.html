@@ -22,14 +22,20 @@
   </mat-grid-tile>
 
   <mat-grid-tile>
+    <div *ngIf="sermons$ | async as sermons">
     <mat-list>
       <mat-list-item *ngFor='let sermon of sermons'>
         <mat-icon mat-list-icon>library_music</mat-icon>
         <div mat-line>{{sermon.name}}</div>
-        <!-- <div mat-line>{{sermon.text}}</div> -->
+        <div mat-line>{{sermon.metadata.customMetadata.uuid }}</div>
         <!-- <div mat-line>{{(text | async)?.text}}</div> -->
         <div mat-line> <button mat-raised-button color="primary" (click)="sendFile(file.gsurl,file.uuid,$event)">Send File</button></div>
       </mat-list-item>
     </mat-list>  
+</div>
+        
+    
+     
+    
   </mat-grid-tile>
 </mat-grid-list>

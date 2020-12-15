@@ -26,13 +26,25 @@ export class UploadFileDialogComponent implements OnInit {
       else {
         this.feedback = null
         const uploadResult = this.firebaseService.uploadFile(event);
-        uploadResult.uploadPercent.pipe(
+          uploadResult.uploadPercent.pipe(
           finalize(() => {
             uploadResult.downloadURL.subscribe(url => this.downloadURL = url);
+            //create firestore record
+            console.log('finished')
+            this.firebaseService.createFirestoreRecord({
+              downloadURL: this.downloadURL,
+              fileName:uploadResult.fileName,
+              metadata: uploadResult.metadata
+              })
+                 
+                
           })
         ).subscribe(percent => this.uploadPercent = percent);
-        //could send this into the sendFile function instead of manually recreating gsURL
+        
       }
     }
 
+
+    ngOnDestroy(): void {
+         }
 }

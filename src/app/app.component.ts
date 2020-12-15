@@ -1,11 +1,11 @@
 
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, map, mergeMap } from 'rxjs/operators';
 import { FirebaseService } from '../services/firebase.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UploadFileDialogComponent } from './upload-file-dialog/upload-file-dialog.component'
-
+import {MetadataPipe} from './pipes/metadata.pipe'
 
 @Component({
   selector: 'app-root',
@@ -20,6 +20,7 @@ export class AppComponent {
   folders$: Observable<any>;
   folderResponse: any
   text:Observable<any>;
+  sermons$:Observable<any>
 
   constructor(public firebaseService: FirebaseService, public dialog: MatDialog) { }
 
@@ -32,12 +33,20 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.firebaseService.getSermonsfromFireBase().then(response => {
-      this.sermons = response
-      console.log(response)
-    })
+    // this.firebaseService.getSermonsfromFireBase().then(response => {
+    //   this.sermons = response
+    // })
 
-   
+    this.sermons$ = this.firebaseService.getSermonFilesObv().pipe(
+      mergeMap(sermons => {
+        return Promise.all(sermons.items.map( async sermon => ({
+          name: sermon.name,
+          metadata: await sermon.getMetadata()
+        })))
+      }))
+      
+    
+    
     // this.text = this.firebaseService.getText('1wsvh390y4g')
     this.folders$ = this.firebaseService.getFolders()
     this.folders$.subscribe({ next: folder => { this.folderResponse = folder.prefixes } })

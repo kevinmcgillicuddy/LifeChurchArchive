@@ -9,6 +9,8 @@ class UploadResult {
   uploadPercent?: Observable<number>;
   downloadURL?: Observable<string>;
   feedback?:string;
+  metadata:object;
+  fileName:string;
 }
 
 @Injectable({
@@ -48,15 +50,18 @@ export class FirebaseService {
   getText(uuid) {
     // return this.db.collection("sermons").doc(uuid)
     this.itemDoc = this.db.doc<string>("sermons/"+uuid)
-    return this.itemDoc.valueChanges().toPromise()
+    return this.itemDoc.valueChanges()
   }
 
   uploadFile(event): UploadResult {
       const uuid = this.generateUUID();
       const file = event.target.files[0];
-      const filePath = `mp3/2020/${file.name}`;
-      const task = this.storage.upload(filePath, file, { customMetadata: { uuid } });
-      return {
+      const filePath = `mp3/${file.name}`;
+      const metadata = {uuid, gsurl: `gs://lcarchivewebsite.appspot.com/${filePath}` }
+      const task = this.storage.upload(filePath, file, {customMetadata: metadata });
+       return {
+        metadata,
+        fileName: file.name,
         uploadPercent: task.percentageChanges(),
         downloadURL: task.snapshotChanges().pipe(
           mergeMap(snapshot => {
@@ -66,12 +71,16 @@ export class FirebaseService {
       };
   }
 
+  createFirestoreRecord(value){
+    this.db.collection('sermons').doc(value.metadata.uuid).set(value).then(res=>console.log(res))
+  
+  }
   getFolders(){
     return this.storage.ref('/mp3/').listAll()
   }
 
-  getSermonFilesObv(){
-    this.storage.ref('/mp3/2020').listAll().subscribe()
+  getSermonFilesObv():Observable<any>{
+    return this.storage.ref('/mp3/2020').listAll()
   }
 
 
