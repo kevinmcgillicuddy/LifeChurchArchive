@@ -72,7 +72,8 @@ export class FirebaseService {
   }
 
   createFirestoreRecord(value){
-    this.db.collection('sermons').doc(value.metadata.uuid).set(value).then(res=>console.log(res))
+    //promise
+    this.db.collection('sermons').doc(value.metadata.uuid).set(value)
   
   }
   getFolders(){
@@ -85,10 +86,9 @@ export class FirebaseService {
 
 
   async getFiles(storageRef) {
-  
     let sermons = await storageRef.listAll().toPromise()
     let files = [];
-    var folder = 'mp3/2020';
+    var folder = 'mp3';
     for (const sermon of sermons.items) {
       let md = await this.getMetadata(sermon)
       const url = await sermon.getDownloadURL();
@@ -107,7 +107,7 @@ export class FirebaseService {
   }
 
   getSermonsfromFireBase() {
-    return this.getFiles(this.storage.ref('/mp3/2020'))
+    return this.getFiles(this.storage.ref('/mp3'))
   }
 
 

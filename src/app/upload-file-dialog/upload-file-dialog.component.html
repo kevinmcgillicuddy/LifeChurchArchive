@@ -1,13 +1,16 @@
 <h2 mat-dialog-title>Upload an MP3</h2>
-<mat-dialog-content class="mat-typography">
+<mat-dialog-content class="mat-typography" id="content">
 
-  <input type="file" (change)="submit($event)" />
+  <input type="file" (change)="submit($event, yearPicked)" />
   <p></p>
   <div>
     <mat-progress-bar *ngIf="uploadPercent" mode="determinate" [value]="uploadPercent"></mat-progress-bar>
     <a *ngIf="downloadURL" [href]="downloadURL">downloadURL</a>
   </div>
-
+  <mat-radio-group aria-label="Select a year for this sermon" [(ngModel)]="yearPicked">
+    <mat-radio-button style="margin-right: 10px" value="2019">2020</mat-radio-button>
+    <mat-radio-button style="margin-right: 10px" value="2020">2019</mat-radio-button>
+  </mat-radio-group>
   <div class="mat-typography" style="color:red">{{feedback}}</div>
 
 </mat-dialog-content>

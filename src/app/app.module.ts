@@ -10,6 +10,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
+import {MatRadioModule} from '@angular/material/radio';
+import {FormsModule } from'@angular/forms';
 //firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -17,21 +19,22 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { environment } from '../environments/environment';
 import { UploadFileDialogComponent } from './upload-file-dialog/upload-file-dialog.component';
-import { MetadataPipe } from './pipes/metadata.pipe';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    UploadFileDialogComponent,
-    MetadataPipe
+    UploadFileDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    FormsModule,
     MatDialogModule,
+    MatRadioModule,
     MatIconModule,
     MatGridListModule,
     MatProgressBarModule,
