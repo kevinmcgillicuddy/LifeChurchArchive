@@ -2,17 +2,21 @@
   <mat-grid-tile>
     <img src="assets/img/main1.jpg">
     <span class="hero-container">
-      <div><h1>Life Church&nbsp;</h1></div>
-      <div><h1>Lancaster Archive</h1></div>
+      <div>
+        <h1>Life Church&nbsp;</h1>
+      </div>
+      <div>
+        <h1>Lancaster Archive</h1>
+      </div>
     </span>
   </mat-grid-tile>
   <mat-grid-tile>
     <span class="intro-container">
-      <p>Life Church is a faith community that makes space for every race, ethnicity, age, sexual orientation and gender identity. We welcome belief and doubt, devotion and exploration, while hoping to connect with God, one another and our world.</p>
+      <p>Life Church is a faith community that makes space for every race, ethnicity, age, sexual orientation and gender
+        identity. We welcome belief and doubt, devotion and exploration, while hoping to connect with God, one another
+        and our world.</p>
       <p><button mat-raised-button (click)="openDialog()">Upload a File</button></p>
     </span>
-    
-   
   </mat-grid-tile>
   <mat-grid-tile style="background-color: lightgray;">
     <ng-container *ngIf="(folders$ | async) === null">
@@ -21,36 +25,11 @@
     <mat-tab-group animationDuration="0ms">
       <mat-tab *ngFor="let folder of (folders$ | async)?.prefixes">
         <ng-template mat-tab-label>{{folder.name}}</ng-template>
-          <app-sermon-diplay [year]='folder.name'></app-sermon-diplay>
-        
-        
-        <!-- nestable component? -->
-        <!-- <div *ngIf="sermons$ | async as sermons">
-          <mat-list>
-            <mat-list-item *ngFor='let sermon of sermons'>
-              <mat-icon mat-list-icon>library_music</mat-icon>
-              <div mat-line>{{sermon.name}}</div>
-              <div mat-line>{{sermon.metadata.customMetadata.uuid }}</div> -->
-              <!-- <div mat-line>{{(text | async)?.text}}</div> -->
-              <!-- <div mat-line> <button mat-raised-button color="primary" (click)="sendFile(file.gsurl,file.uuid,$event)">Send
-                  File</button></div>
-            </mat-list-item>
-          </mat-list>
-        </div> -->
-
-
-
-
+        <app-sermon-diplay [year]='folder.name'></app-sermon-diplay>
       </mat-tab>
     </mat-tab-group>
-    
   </mat-grid-tile>
-
   <mat-grid-tile>
-
-        
-    
-     
-    
+    <p>general footer stuff </p>
   </mat-grid-tile>
 </mat-grid-list>

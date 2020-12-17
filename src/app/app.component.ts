@@ -15,12 +15,8 @@ import { UploadFileDialogComponent } from './upload-file-dialog/upload-file-dial
 
 
 export class AppComponent {
-  title = 'lclarchive';
-  sermons: any[];
+  title = 'Life Church Lancaster Archive';
   folders$: Observable<any>;
-  folderResponse: any
-  text:Observable<any>;
-  sermons$:Observable<any>
 
   constructor(public firebaseService: FirebaseService, public dialog: MatDialog) { }
 
@@ -29,15 +25,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    // this.sermons$ = this.firebaseService.getSermonFilesObv().pipe(
-    //   mergeMap(sermons => {
-    //     return Promise.all(sermons.items.map( async sermon => ({
-    //       name: sermon.name,
-    //       metadata: await sermon.getMetadata()
-    //     })))
-    //   }))
-    // this.text = this.firebaseService.getText('1wsvh390y4g')
-    this.folders$ = this.firebaseService.getFolders()
+      this.folders$ = this.firebaseService.getFolders()
     
   }
   sendFile(data) {

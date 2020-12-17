@@ -6,7 +6,7 @@
   <br />
   <div>
     <mat-radio-group aria-label="Select a year for this sermon" [(ngModel)]="yearPicked"
-    *ngFor="let folder of (folders$ | async)?.prefixes">
+      *ngFor="let folder of (folders$ | async)?.prefixes">
       <mat-radio-button style="margin-right: 10px" [value]="folder.name">{{folder.name}}</mat-radio-button>
     </mat-radio-group>
   </div>
@@ -24,6 +24,4 @@
       <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Close</button>
     </mat-dialog-actions>
   </div>
-
-
 </div>

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { FirebaseService } from '../../services/firebase.service';
 
@@ -9,15 +10,14 @@ import { FirebaseService } from '../../services/firebase.service';
 })
 export class SermonDiplayComponent implements OnInit {
 
-  @Input() year;
+  @Input() year: string;
 
   constructor(public firebaseService: FirebaseService,) { }
-  sermons$
+  sermons$: Observable<any>;
   ngOnInit(): void {
-
     this.sermons$ = this.firebaseService.getSermonFilesObv(this.year).pipe(
       mergeMap(sermons => {
-        return Promise.all(sermons.items.map( async sermon => ({
+        return Promise.all(sermons.items.map(async sermon => ({
           name: sermon.name,
           metadata: await sermon.getMetadata()
         })))
