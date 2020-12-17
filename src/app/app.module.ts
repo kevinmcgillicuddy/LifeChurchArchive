@@ -12,6 +12,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatRadioModule} from '@angular/material/radio';
 import {FormsModule } from'@angular/forms';
+import {MatTabsModule} from '@angular/material/tabs';
 //firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -19,13 +20,15 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { environment } from '../environments/environment';
 import { UploadFileDialogComponent } from './upload-file-dialog/upload-file-dialog.component';
+import { SermonDiplayComponent } from './sermon-diplay/sermon-diplay.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    UploadFileDialogComponent
+    UploadFileDialogComponent,
+    SermonDiplayComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +36,7 @@ import { UploadFileDialogComponent } from './upload-file-dialog/upload-file-dial
     BrowserAnimationsModule,
     MatButtonModule,
     FormsModule,
+    MatTabsModule,
     MatDialogModule,
     MatRadioModule,
     MatIconModule,

@@ -25,32 +25,24 @@ export class AppComponent {
   constructor(public firebaseService: FirebaseService, public dialog: MatDialog) { }
 
   openDialog() {
-    const dialogRef = this.dialog.open(UploadFileDialogComponent,{
-      height: '300px',
-      width: '400px',
-    });
+    const dialogRef = this.dialog.open(UploadFileDialogComponent);
   }
 
   ngOnInit() {
-    // this.firebaseService.getSermonsfromFireBase().then(response => {
-    //   this.sermons = response
-    // })
-    this.sermons$ = this.firebaseService.getSermonFilesObv().pipe(
-      mergeMap(sermons => {
-        return Promise.all(sermons.items.map( async sermon => ({
-          name: sermon.name,
-          metadata: await sermon.getMetadata()
-        })))
-      }))
+    // this.sermons$ = this.firebaseService.getSermonFilesObv().pipe(
+    //   mergeMap(sermons => {
+    //     return Promise.all(sermons.items.map( async sermon => ({
+    //       name: sermon.name,
+    //       metadata: await sermon.getMetadata()
+    //     })))
+    //   }))
     // this.text = this.firebaseService.getText('1wsvh390y4g')
     this.folders$ = this.firebaseService.getFolders()
-    this.folders$.subscribe({ next: folder => { this.folderResponse = folder.prefixes } })
+    
   }
-
   sendFile(data) {
     this.firebaseService.sendFileForTranscription(data)
   }
-
 
 }
 

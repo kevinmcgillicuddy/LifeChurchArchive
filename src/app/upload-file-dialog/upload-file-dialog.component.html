@@ -1,19 +1,29 @@
-<h2 mat-dialog-title>Upload an MP3</h2>
-<mat-dialog-content class="mat-typography" id="content">
-
-  <input type="file" (change)="submit($event, yearPicked)" />
+<div id="content-container">
+  <div>
+    <h2 mat-dialog-title>Upload an MP3</h2>
+  </div>
+  <div></div>
+  <br />
+  <div>
+    <mat-radio-group aria-label="Select a year for this sermon" [(ngModel)]="yearPicked"
+    *ngFor="let folder of (folders$ | async)?.prefixes">
+      <mat-radio-button style="margin-right: 10px" [value]="folder.name">{{folder.name}}</mat-radio-button>
+    </mat-radio-group>
+  </div>
   <p></p>
   <div>
-    <mat-progress-bar *ngIf="uploadPercent" mode="determinate" [value]="uploadPercent"></mat-progress-bar>
-    <a *ngIf="downloadURL" [href]="downloadURL">downloadURL</a>
+    <mat-dialog-content class="mat-typography" style="display: inline">
+      <input type="file" (change)="submit($event, yearPicked)" />
+      <p></p>
+      <div>
+        <mat-progress-bar *ngIf="uploadPercent" mode="determinate" [value]="uploadPercent"></mat-progress-bar>
+      </div>
+      <div class="mat-typography" style="color:red">{{feedback}}</div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Close</button>
+    </mat-dialog-actions>
   </div>
-  <mat-radio-group aria-label="Select a year for this sermon" [(ngModel)]="yearPicked">
-    <mat-radio-button style="margin-right: 10px" value="2019">2020</mat-radio-button>
-    <mat-radio-button style="margin-right: 10px" value="2020">2019</mat-radio-button>
-  </mat-radio-group>
-  <div class="mat-typography" style="color:red">{{feedback}}</div>
 
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Close</button>
-</mat-dialog-actions>
+
+</div>

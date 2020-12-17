@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
 import { FirebaseService } from 'src/services/firebase.service';
 
@@ -16,31 +17,36 @@ export class UploadFileDialogComponent implements OnInit {
 
   constructor(public firebaseService: FirebaseService) { }
 
+  folders$:Observable<any>
   ngOnInit(): void {
+    this.folders$ =  this.firebaseService.getFolders()
   }
 
     //upload a file
     submit(event, yearPicked) {
-      console.log(yearPicked)
-      if (!event.target.files[0].type.includes("audio")) {
+     if (!event.target.files[0].type.includes("audio")) {
         this.feedback = "Please select an audio file"
       }
       else {
         this.feedback = null
-        const uploadResult = this.firebaseService.uploadFile(event);
+        const uploadResult = this.firebaseService.uploadFile(event,yearPicked);
           uploadResult.uploadPercent.pipe(
           finalize(() => {
-            //may have to  get download URL later this has an access token
             uploadResult.downloadURL.pipe(
               tap(downloadURL => this.firebaseService.createFirestoreRecord({
                 downloadURL: downloadURL,
                 fileName:uploadResult.fileName,
                 metadata: uploadResult.metadata
               }))
-            ).subscribe(url => this.downloadURL = url);
+            ).subscribe();
           })
-        ).subscribe(percent => this.uploadPercent = percent);
-        
+        ).subscribe(percent => {
+          this.uploadPercent = percent;
+          if (percent === 100){
+            this.feedback = "Complete"
+          }
+        }
+          );
       }
     }
 

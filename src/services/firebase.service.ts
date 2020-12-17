@@ -21,6 +21,7 @@ export class FirebaseService {
 
   constructor(public db: AngularFirestore, public storage: AngularFireStorage, public func:AngularFireFunctions) { }
 
+  
   sendFileForTranscription(data) {
     // event.target.disabled = true;
     // this.loading = true
@@ -53,14 +54,18 @@ export class FirebaseService {
     return this.itemDoc.valueChanges()
   }
 
-  uploadFile(event): UploadResult {
+  uploadFile(event,yearPicked): UploadResult {
+    if (!yearPicked) {yearPicked === 2019} 
       const uuid = this.generateUUID();
       const file = event.target.files[0];
-      const filePath = `mp3/${file.name}`;
+      const filePath = `mp3/${yearPicked}/${file.name}`;
       const metadata = {uuid, gsurl: `gs://lcarchivewebsite.appspot.com/${filePath}` }
       const task = this.storage.upload(filePath, file, {customMetadata: metadata });
+      console.log(task)
        return {
         metadata,
+        //task.md5Hash
+        //task.timeCreated
         fileName: file.name,
         uploadPercent: task.percentageChanges(),
         downloadURL: task.snapshotChanges().pipe(
@@ -76,12 +81,12 @@ export class FirebaseService {
     this.db.collection('sermons').doc(value.metadata.uuid).set(value)
   
   }
-  getFolders(){
+  getFolders():Observable<any>{
     return this.storage.ref('/mp3/').listAll()
   }
 
-  getSermonFilesObv():Observable<any>{
-    return this.storage.ref('/mp3/2020').listAll()
+  getSermonFilesObv(year:string):Observable<any>{
+    return this.storage.ref(`/mp3/${year}/`).listAll()
   }
 
 
