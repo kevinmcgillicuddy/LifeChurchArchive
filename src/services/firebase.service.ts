@@ -37,19 +37,18 @@ export class FirebaseService {
     return Math.random().toString(36).substring(2);
   }
 
-  private async getMetadata(ref) {
-    const metadata = await ref.getMetadata();
-    if (!metadata.customMetadata) {
-      return this.generateUUID();
-    }
-    return metadata;
-  }
+  // private async getMetadata(ref) {
+  //   const metadata = await ref.getMetadata();
+  //   if (!metadata.customMetadata) {
+  //     return this.generateUUID();
+  //   }
+  //   return metadata;
+  // }
 
   private itemDoc: AngularFirestoreDocument<string>;
   item: Observable<string>;
   
   getText(uuid) {
-    // return this.db.collection("sermons").doc(uuid)
     this.itemDoc = this.db.doc<string>("sermons/"+uuid)
     return this.itemDoc.valueChanges()
   }
@@ -77,10 +76,9 @@ export class FirebaseService {
   }
 
   createFirestoreRecord(value){
-    //promise
-    this.db.collection('sermons').doc(value.metadata.uuid).set(value)
-  
+    this.db.collection('sermons').doc(value.metadata.uuid).set(value)  
   }
+
   getFolders():Observable<any>{
     return this.storage.ref('/mp3/').listAll()
   }
@@ -90,30 +88,30 @@ export class FirebaseService {
   }
 
 
-  async getFiles(storageRef) {
-    let sermons = await storageRef.listAll().toPromise()
-    let files = [];
-    var folder = 'mp3';
-    for (const sermon of sermons.items) {
-      let md = await this.getMetadata(sermon)
-      const url = await sermon.getDownloadURL();
-      const text = await this.getText(md.customMetadata.uuid);
-       const gsurl = `gs://lcarchivewebsite.appspot.com/${folder}/${sermon.name}`;
-      files.push({
-        ...sermon,
-        name: sermon.name,
-        url,
-        gsurl,
-        text,
-        uuid: md,
-      });
-    }
-       return files
-  }
+  // async getFiles(storageRef) {
+  //   let sermons = await storageRef.listAll().toPromise()
+  //   let files = [];
+  //   var folder = 'mp3';
+  //   for (const sermon of sermons.items) {
+  //     let md = await this.getMetadata(sermon)
+  //     const url = await sermon.getDownloadURL();
+  //     const text = await this.getText(md.customMetadata.uuid);
+  //      const gsurl = `gs://lcarchivewebsite.appspot.com/${folder}/${sermon.name}`;
+  //     files.push({
+  //       ...sermon,
+  //       name: sermon.name,
+  //       url,
+  //       gsurl,
+  //       text,
+  //       uuid: md,
+  //     });
+  //   }
+  //      return files
+  // }
 
-  getSermonsfromFireBase() {
-    return this.getFiles(this.storage.ref('/mp3'))
-  }
+  // getSermonsfromFireBase() {
+  //   return this.getFiles(this.storage.ref('/mp3'))
+  // }
 
 
 }
