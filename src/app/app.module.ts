@@ -13,6 +13,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatRadioModule} from '@angular/material/radio';
 import {FormsModule } from'@angular/forms';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatTooltipModule} from '@angular/material/tooltip';
 //firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -21,6 +22,7 @@ import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { environment } from '../environments/environment';
 import { UploadFileDialogComponent } from './upload-file-dialog/upload-file-dialog.component';
 import { SermonDiplayComponent } from './sermon-diplay/sermon-diplay.component';
+import { TextDiplayDialogComponent } from './text-diplay-dialog/text-diplay-dialog.component';
 
 
 
@@ -28,13 +30,15 @@ import { SermonDiplayComponent } from './sermon-diplay/sermon-diplay.component';
   declarations: [
     AppComponent,
     UploadFileDialogComponent,
-    SermonDiplayComponent
+    SermonDiplayComponent,
+    TextDiplayDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatTooltipModule,
     FormsModule,
     MatTabsModule,
     MatDialogModule,

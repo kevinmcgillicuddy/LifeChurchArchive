@@ -1,13 +1,32 @@
-<!-- <div *ngIf="sermons$ | async as sermons"> -->
-  <div *ngIf="sermons">
-    <mat-list>
-      <mat-list-item *ngFor='let sermon of sermons'>
-        <mat-icon mat-list-icon>library_music</mat-icon>
-        <div mat-line>{{sermon}}</div>
-        <div mat-line>{{sermon.metadata.customMetadata.uuid }}</div>
-        <!-- <div mat-line>{{(text | async)?.text}}</div> -->
-        <div mat-line> <button mat-raised-button color="primary" (click)="sendFile(file.gsurl,file.uuid,$event)">Send
-            File</button></div>
-      </mat-list-item>
-    </mat-list>
-  </div>
+<div *ngIf="sermons">
+  <mat-list>
+    <mat-list-item *ngFor='let sermon of sermons'>
+      <mat-icon mat-list-icon>library_music</mat-icon>
+      <div mat-line>{{sermon.fileName}}</div>
+      
+      <button #tooltip="matTooltip" matTooltip="Download or Listen to the sermon" matTooltipPosition="below"
+         mat-icon-button color="primary" (click)="goToDownloadPage(sermon.downloadURL)"
+        aria-label="Example icon-button with a heart icon">
+        <mat-icon>cloud_download</mat-icon>
+      </button>
+      
+      <button mat-icon-button #tooltip="matTooltip" matTooltip="Send this file to be converted to text for reading"
+        matTooltipPosition="below" color="primary"
+        [disabled]="sermon.text ? true : null"
+        (click)="sendFile(sermon.metadata.gsurl,sermon.metadata.uuid,$event)"
+        aria-label="Example icon-button with a heart icon">
+        <mat-icon>g_translate</mat-icon>
+      </button>
+
+      <button mat-icon-button #tooltip="matTooltip" matTooltip="Read the transcript of this sermon"
+        matTooltipPosition="below"  [disabled]="sermon.text ? null : true" 
+        (click)="getText(sermon.metadata.uuid)" 
+        color="primary"
+        aria-label="Example icon-button with a heart icon">
+        <mat-icon>chrome_reader_mode</mat-icon>
+      </button>
+
+
+    </mat-list-item>
+  </mat-list>
+</div>

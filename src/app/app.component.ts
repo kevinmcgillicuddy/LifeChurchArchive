@@ -3,8 +3,9 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { finalize, map, mergeMap } from 'rxjs/operators';
 import { FirebaseService } from '../services/firebase.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { UploadFileDialogComponent } from './upload-file-dialog/upload-file-dialog.component'
+import { TextDiplayDialogComponent } from './text-diplay-dialog/text-diplay-dialog.component';
 
 
 @Component({
@@ -20,6 +21,12 @@ export class AppComponent {
 
   constructor(public firebaseService: FirebaseService, public dialog: MatDialog) { }
 
+  onTextClick(text:string):void{
+    console.log("cliked"+text)
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = text
+    const textRef = this.dialog.open(TextDiplayDialogComponent,dialogConfig);
+  }
   openDialog() {
     const dialogRef = this.dialog.open(UploadFileDialogComponent);
   }

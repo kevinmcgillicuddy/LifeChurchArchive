@@ -36,16 +36,17 @@ export class FirebaseService {
   private generateUUID() {
     return Math.random().toString(36).substring(2);
   }
-
-
-
   private itemDoc: AngularFirestoreDocument<string>;
   item: Observable<string>;
   
-  getText(uuid) {
-    this.itemDoc = this.db.doc<string>("sermons/"+uuid)
-    return this.itemDoc.valueChanges()
-  }
+  // getText(uuid) {
+  //   this.itemDoc = this.db.doc<string>("sermons/"+uuid)
+  //   return this.itemDoc.valueChanges()
+  // }
+
+  getText(uuid:string):Promise<any>{
+    return this.db.collection('sermons').ref.where(`metadata.uuid`,'==',`${uuid}`).get()
+   }
 
   uploadFile(event,yearPicked): UploadResult {
     if (!yearPicked) {yearPicked === 2019} 
@@ -57,8 +58,6 @@ export class FirebaseService {
       console.log(task)
        return {
         metadata,
-        //task.md5Hash
-        //task.timeCreated
         fileName: file.name,
         uploadPercent: task.percentageChanges(),
         downloadURL: task.snapshotChanges().pipe(
@@ -69,7 +68,7 @@ export class FirebaseService {
       };
   }
 
-  createFirestoreRecord(value){
+  createFirestoreRecord(value):void{
     this.db.collection('sermons').doc(value.metadata.uuid).set(value)  
   }
 
@@ -79,10 +78,6 @@ export class FirebaseService {
 
   getSermonFilesRecords(year:string):Promise<any>{
    return  this.db.collection('sermons').ref.where(`year`,'==',`${year}`).get()
-       
-
-    // valueChanges().subscribe(eve=>console.log(eve))
-    // return this.storage.ref(`/mp3/${year}/`).listAll()
   }
 
   // private async getMetadata(ref) {
