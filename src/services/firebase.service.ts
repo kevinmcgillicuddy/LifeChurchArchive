@@ -37,13 +37,7 @@ export class FirebaseService {
     return Math.random().toString(36).substring(2);
   }
 
-  // private async getMetadata(ref) {
-  //   const metadata = await ref.getMetadata();
-  //   if (!metadata.customMetadata) {
-  //     return this.generateUUID();
-  //   }
-  //   return metadata;
-  // }
+
 
   private itemDoc: AngularFirestoreDocument<string>;
   item: Observable<string>;
@@ -83,10 +77,21 @@ export class FirebaseService {
     return this.storage.ref('/mp3/').listAll()
   }
 
-  getSermonFilesObv(year:string):Observable<any>{
-    return this.storage.ref(`/mp3/${year}/`).listAll()
+  getSermonFilesRecords(year:string):Promise<any>{
+   return  this.db.collection('sermons').ref.where(`year`,'==',`${year}`).get()
+       
+
+    // valueChanges().subscribe(eve=>console.log(eve))
+    // return this.storage.ref(`/mp3/${year}/`).listAll()
   }
 
+  // private async getMetadata(ref) {
+  //   const metadata = await ref.getMetadata();
+  //   if (!metadata.customMetadata) {
+  //     return this.generateUUID();
+  //   }
+  //   return metadata;
+  // }
 
   // async getFiles(storageRef) {
   //   let sermons = await storageRef.listAll().toPromise()

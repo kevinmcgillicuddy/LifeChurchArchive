@@ -17,40 +17,40 @@ export class UploadFileDialogComponent implements OnInit {
 
   constructor(public firebaseService: FirebaseService) { }
 
-  folders$:Observable<any>
+  folders$: Observable<any>
   ngOnInit(): void {
-    this.folders$ =  this.firebaseService.getFolders()
+    this.folders$ = this.firebaseService.getFolders()
   }
 
-    //upload a file
-    submit(event, yearPicked) {
-     if (!event.target.files[0].type.includes("audio")) {
-        this.feedback = "Please select an audio file"
-      }
-      else {
-        this.feedback = null
-        const uploadResult = this.firebaseService.uploadFile(event,yearPicked);
-          uploadResult.uploadPercent.pipe(
-          finalize(() => {
-            uploadResult.downloadURL.pipe(
-              tap(downloadURL => this.firebaseService.createFirestoreRecord({
-                downloadURL: downloadURL,
-                fileName:uploadResult.fileName,
-                metadata: uploadResult.metadata
-              }))
-            ).subscribe();
-          })
-        ).subscribe(percent => {
-          this.uploadPercent = percent;
-          if (percent === 100){
-            this.feedback = "Complete"
-          }
-        }
-          );
-      }
+  //upload a file
+  submit(event, yearPicked) {
+    if (!event.target.files[0].type.includes("audio")) {
+      this.feedback = "Please select an audio file"
     }
-
-
-    ngOnDestroy(): void {
-         }
+    else if (!this.yearPicked) {
+      this.feedback = "Please select a year for this archive file"
+    }
+    else {
+      this.feedback = null
+      const uploadResult = this.firebaseService.uploadFile(event, yearPicked);
+      uploadResult.uploadPercent.pipe(
+        finalize(() => {
+          uploadResult.downloadURL.pipe(
+            tap(downloadURL => this.firebaseService.createFirestoreRecord({
+              downloadURL: downloadURL,
+              year: this.yearPicked,
+              fileName: uploadResult.fileName,
+              metadata: uploadResult.metadata
+            }))
+          ).subscribe();
+        })
+      ).subscribe(percent => {
+        this.uploadPercent = percent;
+        if (percent === 100) {
+          this.feedback = "Complete"
+        }
+      }
+      );
+    }
+  }
 }

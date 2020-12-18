@@ -25,7 +25,9 @@
     <mat-tab-group animationDuration="0ms">
       <mat-tab *ngFor="let folder of (folders$ | async)?.prefixes">
         <ng-template mat-tab-label>{{folder.name}}</ng-template>
-        <app-sermon-diplay [year]='folder.name'></app-sermon-diplay>
+        <ng-template matTabContent>
+          <app-sermon-diplay [year]='folder.name'></app-sermon-diplay>
+        </ng-template>
       </mat-tab>
     </mat-tab-group>
   </mat-grid-tile>
