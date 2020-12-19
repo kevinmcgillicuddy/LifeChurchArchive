@@ -13,7 +13,7 @@
   <p></p>
   <div>
     <mat-dialog-content class="mat-typography" style="display: inline">
-      <input type="file" (change)="submit($event, yearPicked)" />
+      <input type="file" multiple (change)="submit($event, yearPicked)" />
       <p></p>
       <div>
         <mat-progress-bar *ngIf="uploadPercent" mode="determinate" [value]="uploadPercent"></mat-progress-bar>

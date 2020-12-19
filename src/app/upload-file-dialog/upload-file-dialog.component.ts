@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
 import { FirebaseService } from 'src/services/firebase.service';
@@ -24,33 +24,40 @@ export class UploadFileDialogComponent implements OnInit {
 
   //upload a file
   submit(event, yearPicked) {
-    if (!event.target.files[0].type.includes("audio")) {
-      this.feedback = "Please select an audio file"
-    }
-    else if (!this.yearPicked) {
-      this.feedback = "Please select a year for this archive file"
-    }
-    else {
-      this.feedback = null
-      const uploadResult = this.firebaseService.uploadFile(event, yearPicked);
-      uploadResult.uploadPercent.pipe(
-        finalize(() => {
-          uploadResult.downloadURL.pipe(
-            tap(downloadURL => this.firebaseService.createFirestoreRecord({
-              downloadURL: downloadURL,
-              year: this.yearPicked,
-              fileName: uploadResult.fileName,
-              metadata: uploadResult.metadata
-            }))
-          ).subscribe();
-        })
-      ).subscribe(percent => {
-        this.uploadPercent = percent;
-        if (percent === 100) {
-          this.feedback = "Complete"
-        }
+   
+
+      if (!event.target.files[0].type.includes("audio")) {
+        this.feedback = "Please select an audio file"
       }
-      );
-    }
+      else if (!this.yearPicked) {
+        this.feedback = "Please select a year for this archive file"
+      }
+      else {
+        this.feedback = null
+        const uploadResult = this.firebaseService.uploadFile(event, yearPicked);
+        uploadResult.uploadPercent.pipe(
+          finalize(() => {
+            uploadResult.downloadURL.pipe(
+              tap(downloadURL => this.firebaseService.createFirestoreRecord({
+                downloadURL: downloadURL,
+                year: this.yearPicked,
+                fileName: uploadResult.fileName,
+                metadata: uploadResult.metadata
+              }))
+            ).subscribe();
+          })
+        ).subscribe(percent => {
+          this.uploadPercent = percent;
+          if (percent === 100) {
+            this.feedback = "Complete"
+          }
+        }
+        );
+      }
+      
+    
+  
+    
+   
   }
 }
