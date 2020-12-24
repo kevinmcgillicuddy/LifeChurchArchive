@@ -1,9 +1,7 @@
-import { EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
 import { FirebaseService } from '../../services/firebase.service';
+import { TextDiplayDialogComponent } from '../text-diplay-dialog/text-diplay-dialog.component';
 
 @Component({
   selector: 'app-sermon-diplay',
@@ -13,33 +11,34 @@ import { FirebaseService } from '../../services/firebase.service';
 export class SermonDiplayComponent implements OnInit {
 
   @Input() year: string;
-  
-  @Output() textPopOut: EventEmitter<string> =
-  new EventEmitter<string>();
 
-  constructor(public firebaseService: FirebaseService,) { }
-  sermons:any;
-  text:any;
-  
-  goToDownloadPage(href) { window.open(`${href}`,'_blank')};
 
-  getText(uuid:string):void{
-      this.firebaseService.getText(uuid).then(docs=>{
-      this.text = docs.docs.map(e=>e.data())
-      console.log(this.text[0].text)
-      this.textPopOut.emit(this.text[0].text)
-      })
+  constructor(public firebaseService: FirebaseService, public dialog: MatDialog) { }
+  sermons: any;
+  text: any;
+
+  goToDownloadPage(href) { window.open(`${href}`, '_blank') };
+
+  getText(uuid: string): void {
+    this.firebaseService.getText(uuid).then(docs => {
+      this.text = docs.docs.map(e => e.data())
+      this.openDialog();
+    })
   }
-//emit an event to parent container to send the file to a modal on that window
+
+  openDialog() {
+    const dialogRef = this.dialog.open(TextDiplayDialogComponent, {
+      data: {
+        text: this.text[0].text
+      }
+    });
+  }
+
   ngOnInit(): void {
-
-
-  this.firebaseService.getSermonFilesRecords(this.year).then(docs=>{
-    this.sermons = docs.docs.map(e=>e.data())}
+    this.firebaseService.getSermonFilesRecords(this.year).then(docs => {
+      this.sermons = docs.docs.map(e => e.data())
+    }
     )
- 
-
-
   }
 }
 

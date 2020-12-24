@@ -23,6 +23,8 @@ import { environment } from '../environments/environment';
 import { UploadFileDialogComponent } from './upload-file-dialog/upload-file-dialog.component';
 import { SermonDiplayComponent } from './sermon-diplay/sermon-diplay.component';
 import { TextDiplayDialogComponent } from './text-diplay-dialog/text-diplay-dialog.component';
+import { AuthenticationComponent } from './authentication/authentication.component';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 
 
@@ -31,7 +33,8 @@ import { TextDiplayDialogComponent } from './text-diplay-dialog/text-diplay-dial
     AppComponent,
     UploadFileDialogComponent,
     SermonDiplayComponent,
-    TextDiplayDialogComponent
+    TextDiplayDialogComponent,
+    AuthenticationComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +43,7 @@ import { TextDiplayDialogComponent } from './text-diplay-dialog/text-diplay-dial
     MatButtonModule,
     MatTooltipModule,
     FormsModule,
+    AngularFireAuthModule,
     MatTabsModule,
     MatDialogModule,
     MatRadioModule,

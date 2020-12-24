@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-text-diplay-dialog',
@@ -7,8 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TextDiplayDialogComponent implements OnInit {
 
-  constructor() { }
-  @Input() text: string;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
+
   ngOnInit(): void {
   }
 
