@@ -9,7 +9,6 @@ exports.transcribe = functions.runWith({
   const client = new speech.SpeechClient();
   const gcsUri = data.file;
   const uuid = data.uuid;
-
   const encoding = 'mp3';
   const sampleRateHertz = 16000;
   const languageCode = 'en-US';

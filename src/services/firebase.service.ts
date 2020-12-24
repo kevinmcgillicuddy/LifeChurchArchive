@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { AngularFireStorage } from '@angular/fire/storage';
+import firebase from 'firebase/app';
 import { from, Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
@@ -19,7 +21,7 @@ class UploadResult {
 
 export class FirebaseService {
 
-  constructor(public db: AngularFirestore, public storage: AngularFireStorage, public func:AngularFireFunctions) { }
+  constructor(public db: AngularFirestore, public storage: AngularFireStorage, public func:AngularFireFunctions, public auth: AngularFireAuth) { }
 
   
   sendFileForTranscription(data) {
@@ -66,6 +68,13 @@ export class FirebaseService {
           })
         )
       };
+  }
+  
+  login() {
+    this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  }
+  logout() {
+    this.auth.signOut();
   }
 
   createFirestoreRecord(value):void{

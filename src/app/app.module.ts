@@ -26,8 +26,6 @@ import { TextDiplayDialogComponent } from './text-diplay-dialog/text-diplay-dial
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
