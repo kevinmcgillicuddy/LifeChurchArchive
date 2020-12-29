@@ -19,14 +19,14 @@
     </span>
   </mat-grid-tile>
   <mat-grid-tile style="background-color: lightgray;">
-    <ng-container *ngIf="(folders$ | async) === null">
+    <ng-container *ngIf="!(folders$ | async)">
       Loading...
     </ng-container>
     <mat-tab-group animationDuration="0ms">
-      <mat-tab *ngFor="let folder of (folders$ | async)?.prefixes">
-        <ng-template mat-tab-label>{{folder.name}}</ng-template>
+      <mat-tab *ngFor="let folder of (folders$ | async)">
+        <ng-template mat-tab-label>{{folder}}</ng-template>
         <ng-template matTabContent>
-          <app-sermon-diplay [year]='folder.name'></app-sermon-diplay>
+          <app-sermon-diplay [year]='folder'></app-sermon-diplay>
         </ng-template>
       </mat-tab>
     </mat-tab-group>

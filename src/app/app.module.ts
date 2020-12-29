@@ -23,7 +23,7 @@ import { environment } from '../environments/environment';
 import { UploadFileDialogComponent } from './upload-file-dialog/upload-file-dialog.component';
 import { SermonDiplayComponent } from './sermon-diplay/sermon-diplay.component';
 import { TextDiplayDialogComponent } from './text-diplay-dialog/text-diplay-dialog.component';
-import { AuthenticationComponent } from './authentication/authentication.component';
+// import { AuthenticationComponent } from './authentication/authentication.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
 @NgModule({
@@ -32,7 +32,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     UploadFileDialogComponent,
     SermonDiplayComponent,
     TextDiplayDialogComponent,
-    AuthenticationComponent
+    // AuthenticationComponent
   ],
   imports: [
     BrowserModule,

@@ -4,7 +4,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { AngularFireStorage } from '@angular/fire/storage';
 import firebase from 'firebase/app';
-import { from, Observable } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
 class UploadResult {
@@ -40,11 +40,7 @@ export class FirebaseService {
   }
   private itemDoc: AngularFirestoreDocument<string>;
   item: Observable<string>;
-  
-  // getText(uuid) {
-  //   this.itemDoc = this.db.doc<string>("sermons/"+uuid)
-  //   return this.itemDoc.valueChanges()
-  // }
+
 
   getText(uuid:string):Promise<any>{
     return this.db.collection('sermons').ref.where(`metadata.uuid`,'==',`${uuid}`).get()
@@ -82,45 +78,12 @@ export class FirebaseService {
   }
 
   getFolders():Observable<any>{
-    return this.storage.ref('/mp3/').listAll()
+    return of([2018,2019,2020])
+    // return this.storage.ref('/mp3/').listAll()
   }
 
   getSermonFilesRecords(year:string):Promise<any>{
    return  this.db.collection('sermons').ref.where(`year`,'==',`${year}`).get()
   }
-
-  // private async getMetadata(ref) {
-  //   const metadata = await ref.getMetadata();
-  //   if (!metadata.customMetadata) {
-  //     return this.generateUUID();
-  //   }
-  //   return metadata;
-  // }
-
-  // async getFiles(storageRef) {
-  //   let sermons = await storageRef.listAll().toPromise()
-  //   let files = [];
-  //   var folder = 'mp3';
-  //   for (const sermon of sermons.items) {
-  //     let md = await this.getMetadata(sermon)
-  //     const url = await sermon.getDownloadURL();
-  //     const text = await this.getText(md.customMetadata.uuid);
-  //      const gsurl = `gs://lcarchivewebsite.appspot.com/${folder}/${sermon.name}`;
-  //     files.push({
-  //       ...sermon,
-  //       name: sermon.name,
-  //       url,
-  //       gsurl,
-  //       text,
-  //       uuid: md,
-  //     });
-  //   }
-  //      return files
-  // }
-
-  // getSermonsfromFireBase() {
-  //   return this.getFiles(this.storage.ref('/mp3'))
-  // }
-
 
 }

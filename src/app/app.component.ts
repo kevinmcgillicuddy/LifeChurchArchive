@@ -1,7 +1,6 @@
 
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { finalize, map, mergeMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 import { FirebaseService } from '../services/firebase.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { UploadFileDialogComponent } from './upload-file-dialog/upload-file-dialog.component'
@@ -32,7 +31,8 @@ export class AppComponent {
   }
 
   ngOnInit() {
-      this.folders$ = this.firebaseService.getFolders()
+      this.folders$ = this.firebaseService.getFolders();
+      // this.firebaseService.getFolders().subscribe(n=>console.log(n))
     
   }
   sendFile(data) {
