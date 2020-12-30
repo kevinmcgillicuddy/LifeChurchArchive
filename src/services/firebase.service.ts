@@ -6,14 +6,10 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import firebase from 'firebase/app';
 import { from, Observable, of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
+import {FirestoreRecord} from '../app/interfaces/FirestoreRecord'
+import {UploadResult} from '../app/interfaces/UploadResult'
 
-class UploadResult {
-  uploadPercent?: Observable<number>;
-  downloadURL?: Observable<string>;
-  feedback?:string;
-  metadata:object;
-  fileName:string;
-}
+
 
 @Injectable({
   providedIn: 'root'
@@ -23,26 +19,22 @@ export class FirebaseService {
 
   constructor(public db: AngularFirestore, public storage: AngularFireStorage, public func:AngularFireFunctions, public auth: AngularFireAuth) { }
 
-  
-  sendFileForTranscription(data) {
-    // event.target.disabled = true;
-    // this.loading = true
+  sendFileForTranscription(data):void {
     const transcribe = this.func.httpsCallable("transcribe")
     transcribe(
-      {file:data.gsurl,
-      uuid:data.uuid.customMetadata.uuid,
-      contentType: data.uuid.contentType
-    }).toPromise().catch(err=>console.log('error '+err))
+      {file:data.metadata.gsurl,
+      uuid:data.metadata.uuid
+    }).toPromise().catch(err=>console.log('error '+ err))
   }
 
-  private generateUUID() {
+  private generateUUID():string {
     return Math.random().toString(36).substring(2);
   }
   private itemDoc: AngularFirestoreDocument<string>;
   item: Observable<string>;
 
 
-  getText(uuid:string):Promise<any>{
+  getText(uuid:string):Promise<firebase.firestore.QuerySnapshot<unknown>>{
     return this.db.collection('sermons').ref.where(`metadata.uuid`,'==',`${uuid}`).get()
    }
 
@@ -53,7 +45,6 @@ export class FirebaseService {
       const filePath = `mp3/${yearPicked}/${file.name}`;
       const metadata = {uuid, gsurl: `gs://lcarchivewebsite.appspot.com/${filePath}` }
       const task = this.storage.upload(filePath, file, {customMetadata: metadata });
-      console.log(task)
        return {
         metadata,
         fileName: file.name,
@@ -73,17 +64,16 @@ export class FirebaseService {
     this.auth.signOut();
   }
 
-  createFirestoreRecord(value):void{
-    this.db.collection('sermons').doc(value.metadata.uuid).set(value)  
+  createFirestoreRecord(record:FirestoreRecord):void{
+    this.db.collection('sermons').doc(record.metadata.uuid).set(record)  
   }
 
-  getFolders():Observable<any>{
+  getFolders():Observable<number[]>{
     return of([2018,2019,2020])
-    // return this.storage.ref('/mp3/').listAll()
   }
 
-  getSermonFilesRecords(year:string):Promise<any>{
-   return  this.db.collection('sermons').ref.where(`year`,'==',`${year}`).get()
+  getSermonFilesRecords(year:number):Promise<firebase.firestore.QuerySnapshot<unknown>>{
+   return this.db.collection('sermons').ref.where(`year`,'==',year).get()
   }
 
 }

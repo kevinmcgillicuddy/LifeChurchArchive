@@ -1,5 +1,5 @@
 const functions = require('firebase-functions');
-const speech = require('@google-cloud/speech');
+const speech = require('@google-cloud/speech').v1p1beta1; //beta version needed until stable supports mp3 encoding - https://cloud.google.com/speech-to-text/docs/reference/rest/v1p1beta1/RecognitionConfig#AudioEncoding
 const admin = require('firebase-admin');
 admin.initializeApp();
 
@@ -9,17 +9,19 @@ exports.transcribe = functions.runWith({
   const client = new speech.SpeechClient();
   const gcsUri = data.file;
   const uuid = data.uuid;
-  const encoding = 'mp3';
+  const encoding = 'MP3'
   const sampleRateHertz = 16000;
   const languageCode = 'en-US';
+  
   const config = {
-    encoding: encoding,
-    sampleRateHertz: sampleRateHertz,
-    languageCode: languageCode,
+    encoding,
+    sampleRateHertz,
+    languageCode,
   };
   const audio = {
     uri: gcsUri,
   };
+  
   const request = {
     config: config,
     audio: audio,
@@ -28,19 +30,23 @@ exports.transcribe = functions.runWith({
     try {
       const [operation] = await client.longRunningRecognize(request);
       const [response] = await operation.promise();
+      console.log(response)
       const transcription = response.results
         .map(result => result.alternatives[0].transcript)
         .join('\n');
-      return transcription;
+      console.log(transcription)
+        return transcription;
+
     } catch (e) {
       return e;
     }
   }
 
   time().then((transcription) => {
+    console.log(transcription)
         return admin.firestore().collection('sermons').doc(uuid).set({
         text: transcription
-      })
+      },{ merge: true })
     })
     .catch(() => {
       return {

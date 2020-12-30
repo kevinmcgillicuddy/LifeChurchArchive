@@ -6,14 +6,14 @@
   <br />
   <div>
     <mat-radio-group aria-label="Select a year for this sermon" [(ngModel)]="yearPicked"
-      *ngFor="let folder of (folders$ | async)?.prefixes">
-      <mat-radio-button style="margin-right: 10px" [value]="folder.name">{{folder.name}}</mat-radio-button>
+      *ngFor="let year of years$ | async">
+      <mat-radio-button style="margin-right: 10px" [value]="year">{{year}}</mat-radio-button>
     </mat-radio-group>
   </div>
   <p></p>
   <div>
     <mat-dialog-content class="mat-typography" style="display: inline">
-      <input type="file" multiple (change)="submit($event, yearPicked)" />
+      <input type="file" multiple (change)="UploadFileToStorage($event, yearPicked)" />
       <p></p>
       <div>
         <mat-progress-bar *ngIf="uploadPercent" mode="determinate" [value]="uploadPercent"></mat-progress-bar>

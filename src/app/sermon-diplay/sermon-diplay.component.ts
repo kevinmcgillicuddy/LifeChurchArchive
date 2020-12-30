@@ -10,7 +10,7 @@ import { TextDiplayDialogComponent } from '../text-diplay-dialog/text-diplay-dia
 })
 export class SermonDiplayComponent implements OnInit {
 
-  @Input() year: string;
+  @Input() year: number;
 
 
   constructor(public firebaseService: FirebaseService, public dialog: MatDialog) { }
@@ -19,13 +19,17 @@ export class SermonDiplayComponent implements OnInit {
 
   goToDownloadPage(href) { window.open(`${href}`, '_blank') };
 
-  getText(uuid: string): void {
+  getTranslatedText(uuid: string): void {
     this.firebaseService.getText(uuid).then(docs => {
       this.text = docs.docs.map(e => e.data())
       this.openDialog();
     })
   }
 
+  sendFileForTranscription(data){
+    console.log(typeof(data))
+    this.firebaseService.sendFileForTranscription(data)
+  }
   openDialog() {
     const dialogRef = this.dialog.open(TextDiplayDialogComponent, {
       data: {
@@ -37,6 +41,7 @@ export class SermonDiplayComponent implements OnInit {
   ngOnInit(): void {
     this.firebaseService.getSermonFilesRecords(this.year).then(docs => {
       this.sermons = docs.docs.map(e => e.data())
+      console.log(this.sermons)
     }
     )
   }
