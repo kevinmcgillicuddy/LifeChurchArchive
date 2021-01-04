@@ -16,6 +16,7 @@ export class SermonDiplayComponent implements OnInit {
   constructor(public firebaseService: FirebaseService, public dialog: MatDialog) { }
   sermons: any;
   text: any;
+  outForTranscription:boolean = false
 
   goToDownloadPage(href) { window.open(`${href}`, '_blank') };
 
@@ -28,6 +29,7 @@ export class SermonDiplayComponent implements OnInit {
 
   sendFileForTranscription(data:object):void {
      this.firebaseService.sendFileForTranscription(data)
+     this.outForTranscription = true;
   }
   openDialog() {
     const dialogRef = this.dialog.open(TextDiplayDialogComponent, {
@@ -42,7 +44,7 @@ export class SermonDiplayComponent implements OnInit {
 
   ngOnInit(): void {
     this.firebaseService.getSermonFilesRecords(this.year).then(docs => {
-      this.sermons = docs.docs.map(e => e.data())
+          this.sermons = docs.docs.map(e => e.data())
         }
     )
   }

@@ -17,8 +17,8 @@ export class FirebaseService {
     const transcribe = this.func.httpsCallable("transcribe")
     transcribe(
       {
-        file: data.metadata.gsurl,
-        uuid: data.metadata.uuid
+        file: data.gsurl,
+        uuid: data.uuid
       }).toPromise().catch(err => console.log('error ' + err))
   }
 

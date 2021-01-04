@@ -18,7 +18,9 @@
     </span>
   </mat-grid-tile>
   <mat-grid-tile style="background-color: lightgray;">
+ 
     <p><button mat-raised-button (click)="openDialog()">Upload a File</button></p>
+    <p><app-authentication></app-authentication></p>
   </mat-grid-tile>
   <mat-grid-tile>
     <ng-container *ngIf="!(folders$ | async)">
@@ -32,7 +34,6 @@
         </ng-template>
       </mat-tab>
     </mat-tab-group>
-    <app-authentication></app-authentication>
     <mat-grid-tile-footer>
       <div><p>Life Church. 700 Brentwood Drive. Lititz, PA 17543 </p></div>
       </mat-grid-tile-footer>
