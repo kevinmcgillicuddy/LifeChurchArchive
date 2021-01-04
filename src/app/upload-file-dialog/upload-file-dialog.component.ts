@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { finalize, tap } from 'rxjs/operators';
 import { FirebaseService } from 'src/services/firebase.service';
-import { FirestoreRecord } from '../interfaces/FirestoreRecord';
+
 
 @Component({
   selector: 'app-upload-file-dialog',
@@ -12,10 +11,9 @@ import { FirestoreRecord } from '../interfaces/FirestoreRecord';
 export class UploadFileDialogComponent implements OnInit {
 
   feedback: string;
-  downloadURL: string;
-  uploadPercent: number;
   yearPicked: number;
   years$: Observable<number[]>
+  files: File[] = [];
 
   constructor(public firebaseService: FirebaseService) { }
 
@@ -23,36 +21,16 @@ export class UploadFileDialogComponent implements OnInit {
     this.years$ = this.firebaseService.getFolders()
   }
 
-  UploadFileToStorage(event: Event, yearPicked: number): void {
-    const files = (event.target as HTMLInputElement).files
-
-    if (!files[0].type.includes("audio/mp3")) {
-      this.feedback = "Please select an mp3 audio file"
-    }
-    else if (!this.yearPicked) {
-      this.feedback = "Please select a year for this archive file"
-    }
-    else {
-      this.feedback = null
-      const uploadResult = this.firebaseService.uploadFile(event, yearPicked);
-      uploadResult.uploadPercent.pipe(
-        finalize(() => {
-          uploadResult.downloadURL.pipe(
-            tap(downloadURL => this.firebaseService.createFirestoreRecord({
-              downloadURL: downloadURL,
-              year: this.yearPicked,
-              fileName: uploadResult.fileName,
-              metadata: uploadResult.metadata
-            } as FirestoreRecord))
-          ).subscribe();
-        })
-      ).subscribe(percent => {
-        this.uploadPercent = percent;
-        if (percent === 100) {
-          this.feedback = "Complete"
-        }
+  onSelectFiles(event: Event) {
+    const targetFiles = (event.target as HTMLInputElement).files
+    for (let i = 0; i < targetFiles.length; i++) {
+      if (targetFiles.item(i).type === 'audio/mpeg') {
+        this.files.push(targetFiles.item(i));
+        this.feedback = null
       }
-      );
+      else {
+        this.feedback = "One of your files was not an mp3 audio file and will excluded from upload "
+      }
     }
   }
 }

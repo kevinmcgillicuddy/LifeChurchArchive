@@ -26,23 +26,24 @@ export class SermonDiplayComponent implements OnInit {
     })
   }
 
-  sendFileForTranscription(data){
-    console.log(typeof(data))
-    this.firebaseService.sendFileForTranscription(data)
+  sendFileForTranscription(data:object):void {
+     this.firebaseService.sendFileForTranscription(data)
   }
   openDialog() {
     const dialogRef = this.dialog.open(TextDiplayDialogComponent, {
       data: {
         text: this.text[0].text
-      }
+      },
+      autoFocus: false,
+      maxHeight: '90vh'
+
     });
   }
 
   ngOnInit(): void {
     this.firebaseService.getSermonFilesRecords(this.year).then(docs => {
       this.sermons = docs.docs.map(e => e.data())
-      console.log(this.sermons)
-    }
+        }
     )
   }
 }

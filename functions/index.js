@@ -27,23 +27,23 @@ exports.transcribe = functions.runWith({
     audio: audio,
   };
   async function time() {
+    let docExists = await admin.firestore().collection('sermons').doc(uuid).get()
     try {
+      if (docExists.exists){ throw "uuid exists"}
       const [operation] = await client.longRunningRecognize(request);
       const [response] = await operation.promise();
       console.log(response)
       const transcription = response.results
         .map(result => result.alternatives[0].transcript)
         .join('\n');
-      console.log(transcription)
         return transcription;
-
-    } catch (e) {
-      return e;
+    } catch (err) {
+      console.log(err)
+      return err;
     }
   }
 
   time().then((transcription) => {
-    console.log(transcription)
         return admin.firestore().collection('sermons').doc(uuid).set({
         text: transcription
       },{ merge: true })

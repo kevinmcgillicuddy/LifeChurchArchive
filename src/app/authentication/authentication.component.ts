@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from 'src/services/firebase.service';
+import { AngularFireAuth } from '@angular/fire/auth';
+import firebase from 'firebase/app';
 
 @Component({
   selector: 'app-authentication',
@@ -8,13 +10,22 @@ import { FirebaseService } from 'src/services/firebase.service';
 })
 export class AuthenticationComponent implements OnInit {
 
-  constructor(public firebaseService: FirebaseService) { }
+  authenticated:boolean;
 
-  login;
-  logout;
-  ngOnInit(): void {
-    this.login = this.firebaseService.login;
-    this.logout = this.firebaseService.logout
+  constructor(public auth: FirebaseService) { 
+  
+  }
+
+  login(){
+    this.auth.login()
+  }
+  logout(){
+    this.auth.logout()
+    this.authenticated = this.auth.isAuthenticated()
+  }
+
+  ngOnInit(): void {  
+    this.authenticated = this.auth.isAuthenticated()
   }
 
 }

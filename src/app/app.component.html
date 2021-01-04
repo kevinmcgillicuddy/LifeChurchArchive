@@ -15,10 +15,12 @@
       <p>Life Church is a faith community that makes space for every race, ethnicity, age, sexual orientation and gender
         identity. We welcome belief and doubt, devotion and exploration, while hoping to connect with God, one another
         and our world.</p>
-      <p><button mat-raised-button (click)="openDialog()">Upload a File</button></p>
     </span>
   </mat-grid-tile>
   <mat-grid-tile style="background-color: lightgray;">
+    <p><button mat-raised-button (click)="openDialog()">Upload a File</button></p>
+  </mat-grid-tile>
+  <mat-grid-tile>
     <ng-container *ngIf="!(folders$ | async)">
       Loading...
     </ng-container>
@@ -30,8 +32,10 @@
         </ng-template>
       </mat-tab>
     </mat-tab-group>
+    <app-authentication></app-authentication>
+    <mat-grid-tile-footer>
+      <div><p>Life Church. 700 Brentwood Drive. Lititz, PA 17543 </p></div>
+      </mat-grid-tile-footer>
   </mat-grid-tile>
-  <mat-grid-tile>
-    <p>general footer stuff </p>
-  </mat-grid-tile>
+ 
 </mat-grid-list>

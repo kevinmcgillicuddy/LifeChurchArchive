@@ -13,12 +13,15 @@
   <p></p>
   <div>
     <mat-dialog-content class="mat-typography" style="display: inline">
-      <input type="file" multiple (change)="UploadFileToStorage($event, yearPicked)" />
+      <input type="file" multiple (change)="onSelectFiles($event)" />
       <p></p>
-      <div>
-        <mat-progress-bar *ngIf="uploadPercent" mode="determinate" [value]="uploadPercent"></mat-progress-bar>
-      </div>
       <div class="mat-typography" style="color:red">{{feedback}}</div>
+      <div>
+        <p></p>
+        <div *ngFor="let file of files">
+          <app-upload-task [file]="file" [yearPicked]="yearPicked"></app-upload-task>
+        </div>
+      </div>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Close</button>

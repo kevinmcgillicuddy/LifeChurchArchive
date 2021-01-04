@@ -16,15 +16,15 @@ import { TextDiplayDialogComponent } from './text-diplay-dialog/text-diplay-dial
 
 export class AppComponent {
   title = 'Life Church Lancaster Archive';
-  folders$: Observable<any>;
+  folders$: Observable<number[]>;
 
   constructor(public firebaseService: FirebaseService, public dialog: MatDialog) { }
 
   onTextClick(text:string):void{
-    console.log("cliked"+text)
+    // console.log("cliked"+text)
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = text
-    const textRef = this.dialog.open(TextDiplayDialogComponent,dialogConfig);
+    // const textRef = this.dialog.open(TextDiplayDialogComponent,dialogConfig);
   }
   openDialog() {
     const dialogRef = this.dialog.open(UploadFileDialogComponent);
@@ -32,8 +32,7 @@ export class AppComponent {
 
   ngOnInit() {
       this.folders$ = this.firebaseService.getFolders();
-      // this.firebaseService.getFolders().subscribe(n=>console.log(n))
-    
+   
   }
   sendFile(data) {
     this.firebaseService.sendFileForTranscription(data)
