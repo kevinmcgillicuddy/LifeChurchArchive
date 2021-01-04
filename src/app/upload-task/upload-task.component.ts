@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { finalize, tap } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 import { FirebaseService } from 'src/services/firebase.service';
 
 @Component({
@@ -31,7 +31,7 @@ export class UploadTaskComponent implements OnInit {
     this.snapshot  = this.task.snapshotChanges().pipe(
         finalize( async() =>  {
         this.downloadURL = await ref.getDownloadURL().toPromise();
-        this.db.collection('files').doc(uuid).set( {filename: this.file.name, downloadURL: this.downloadURL, path, uuid, gsurl:`gs://lcarchivewebsite.appspot.com/${path}`, year:this.yearPicked });
+        this.db.collection('sermons').doc(uuid).set( {filename: this.file.name, downloadURL: this.downloadURL, path, uuid, gsurl:`gs://lcarchivewebsite.appspot.com/${path}`, year:this.yearPicked });
       }),
     );
   }
