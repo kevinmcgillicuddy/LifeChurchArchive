@@ -5,10 +5,14 @@
   <div></div>
   <br />
   <div>
-    <mat-radio-group aria-label="Select a year for this sermon" [(ngModel)]="yearPicked"
-      *ngFor="let year of years$ | async">
-      <mat-radio-button style="margin-right: 10px" [value]="year">{{year}}</mat-radio-button>
-    </mat-radio-group>
+    <mat-form-field appearance="fill">
+      <mat-label>Select a year</mat-label>
+      <mat-select [(value)]="yearPicked">
+        <mat-option *ngFor="let year of years$ | async" [value]="year">
+          {{year}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
   <p></p>
   <div>

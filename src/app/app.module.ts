@@ -14,6 +14,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {FormsModule } from'@angular/forms';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSelectModule} from '@angular/material/select';
 //firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -39,6 +40,7 @@ import { UploadTaskComponent } from './upload-task/upload-task.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatSelectModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatTooltipModule,
