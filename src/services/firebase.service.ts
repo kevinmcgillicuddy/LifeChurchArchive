@@ -27,7 +27,7 @@ export class FirebaseService {
   }
 
   getText(uuid: string): Promise<firebase.firestore.QuerySnapshot<unknown>> {
-    return this.db.collection('sermons').ref.where(`metadata.uuid`, '==', `${uuid}`).get()
+    return this.db.collection('sermons').ref.where(`uuid`, '==', `${uuid}`).get()
   }
 
   getUserToken(): void {
@@ -56,11 +56,19 @@ export class FirebaseService {
   }
 
   getFolders(): Observable<number[]> {
-    return of([2018, 2019, 2020,2021])
+    return of([2010,2011,2012,2013,2014,2015,2016,2017,2018, 2019, 2020,2021])
   }
 
-  getSermonFilesRecords(year: number): Promise<firebase.firestore.QuerySnapshot<unknown>> {
+  getSermonFilesRecords(year: number): any {
     return this.db.collection('sermons').ref.where(`year`, '==', year).get()
+    // const query = this.db.collection('sermons').ref.where(`year`, '==', year)
+    // const sermons = []
+    // query.onSnapshot(querySnapshot => {
+    //   querySnapshot.docs.forEach(element => {
+    //      sermons.push(element.data())
+    //   });
+    // })
+    // return sermons
   }
 
 }

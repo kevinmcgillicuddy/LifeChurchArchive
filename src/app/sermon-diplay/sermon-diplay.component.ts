@@ -9,10 +9,7 @@ import { TextDiplayDialogComponent } from '../text-diplay-dialog/text-diplay-dia
   styleUrls: ['./sermon-diplay.component.css']
 })
 export class SermonDiplayComponent implements OnInit {
-
   @Input() year: number;
-
-
   constructor(public firebaseService: FirebaseService, public dialog: MatDialog) { }
   sermons: any;
   text: any;
@@ -43,10 +40,11 @@ export class SermonDiplayComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.sermons = this.firebaseService.getSermonFilesRecords(this.year)
     this.firebaseService.getSermonFilesRecords(this.year).then(docs => {
           this.sermons = docs.docs.map(e => e.data())
-        }
-    )
+        })
+    
   }
 }
 
