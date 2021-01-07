@@ -1,31 +1,38 @@
-<div *ngIf="sermons">
+<div *ngIf="sermons" class="parent">
   <mat-list class="main">
     <mat-list-item *ngFor='let sermon of sermons'>
-      <mat-icon mat-list-icon>library_music</mat-icon>
-      <div mat-line>{{sermon.filename}}</div>
-      
-      <button #tooltip="matTooltip" matTooltip="Download or Listen to the sermon" matTooltipPosition="below"
-         mat-icon-button color="primary" (click)="goToDownloadPage(sermon.downloadURL)"
-        aria-label="Cloud download icon">
-        <mat-icon>cloud_download</mat-icon>
-      </button>
-      
-      <button mat-icon-button #tooltip="matTooltip" matTooltip="Send this file to be converted to text for reading"
-        matTooltipPosition="below" color="primary"
-        [disabled]="sermon.text || outForTranscription ? true : null"
-        (click)="sendFileForTranscription(sermon)"
-        aria-label="Google Translate Icon">
-        <mat-icon>g_translate</mat-icon>
-      </button>
 
-      <button mat-icon-button #tooltip="matTooltip" matTooltip="Read the transcript of this sermon"
-        matTooltipPosition="below" [disabled]="sermon.text ? null : true" 
-        (click)="getTranslatedText(sermon.uuid)" 
-        color="primary"
-        aria-label="Open Book Icon">
-        <mat-icon>chrome_reader_mode</mat-icon>
-      </button>
+      <div class="item1">
+        <mat-icon mat-list-icon>library_music</mat-icon>
+        <div mat-line>{{sermon.filename}}</div>
+      </div>
 
+      <div class="item2">
+        <button #tooltip="matTooltip" matTooltip="Download or Listen to the sermon" matTooltipPosition="below"
+          mat-icon-button color="primary" (click)="goToDownloadPage(sermon.downloadURL)"
+          aria-label="Cloud download icon">
+          <mat-icon>cloud_download</mat-icon>
+        </button>
+      </div>
+
+
+      <div class="item3">
+        <button mat-icon-button #tooltip="matTooltip" matTooltip="Send this file to be converted to text for reading"
+          matTooltipPosition="below" color="primary" [disabled]="sermon.text || outForTranscription ? true : null"
+          (click)="sendFileForTranscription(sermon)" aria-label="Google Translate Icon">
+          <mat-icon>g_translate</mat-icon>
+        </button>
+      </div>
+
+
+      <div class="item4">
+        <button mat-icon-button #tooltip="matTooltip" matTooltip="Read the transcript of this sermon"
+          matTooltipPosition="below" [disabled]="sermon.text ? null : true" (click)="getTranslatedText(sermon.uuid)"
+          color="primary" aria-label="Open Book Icon">
+          <mat-icon>chrome_reader_mode</mat-icon>
+        </button>
+      </div>
+   
 
     </mat-list-item>
   </mat-list>

@@ -28,6 +28,7 @@ export class SermonDiplayComponent implements OnInit {
      this.firebaseService.sendFileForTranscription(data)
      this.outForTranscription = true;
   }
+
   openDialog() {
     const dialogRef = this.dialog.open(TextDiplayDialogComponent, {
       data: {
@@ -43,8 +44,7 @@ export class SermonDiplayComponent implements OnInit {
     // this.sermons = this.firebaseService.getSermonFilesRecords(this.year)
     this.firebaseService.getSermonFilesRecords(this.year).then(docs => {
           this.sermons = docs.docs.map(e => e.data())
-        })
-    
+        })  
   }
 }
 

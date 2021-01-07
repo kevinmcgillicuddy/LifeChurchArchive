@@ -19,7 +19,8 @@ export class FirebaseService {
       {
         file: data.gsurl,
         uuid: data.uuid
-      }).toPromise().catch(err => console.log('error ' + err))
+      }).toPromise()
+      .catch(err => alert(err))
   }
 
   generateUUID(): string {
