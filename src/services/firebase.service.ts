@@ -47,6 +47,16 @@ export class FirebaseService {
 
   login(): void {
     this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(response => {
+      this.db.collection('users-list').doc(response.user.uid).get().subscribe(obvData => {
+        if (!obvData.exists) {
+          //first login
+          this.db.collection('users-list').doc(response.user.uid).set({
+            name: response.user.displayName,
+            email: response.user.email,
+            textRequests:0
+          })
+        }
+      })
       this.getUserToken()
     })
   }
