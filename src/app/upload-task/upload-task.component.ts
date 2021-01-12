@@ -19,21 +19,29 @@ export class UploadTaskComponent implements OnInit {
   percentage: Observable<number>;
   snapshot: Observable<any>;
   downloadURL: string;
+  feedback: string;
 
-  constructor(private storage: AngularFireStorage, private db: AngularFirestore, public firebaseService: FirebaseService) { }
+  constructor(private storage: AngularFireStorage, private db: AngularFirestore, public firebaseService: FirebaseService, public auth: FirebaseService) { }
 
-  startUpload() {
-    const path = `mp3/${this.yearPicked}/${this.file.name}`;
-    const ref = this.storage.ref(path);
-    const uuid = this.firebaseService.generateUUID();
-    this.task = this.storage.upload(path, this.file,{customMetadata: {uuid}});
-    this.percentage = this.task.percentageChanges();
-    this.snapshot  = this.task.snapshotChanges().pipe(
-        finalize( async() =>  {
-        this.downloadURL = await ref.getDownloadURL().toPromise();
-        this.db.collection('sermons').doc(uuid).set( {filename: this.file.name, downloadURL: this.downloadURL, path, uuid, gsurl:`gs://lcarchivewebsite.appspot.com/${path}`, year:this.yearPicked });
-      }),
-    );
+  async startUpload() {
+    //check auth
+    if(this.firebaseService.returnAdminClaims()){
+      this.feedback = null;
+      const path = `mp3/${this.yearPicked}/${this.file.name}`;
+      const ref = this.storage.ref(path);
+      const uuid = this.firebaseService.generateUUID();
+      this.task = this.storage.upload(path, this.file,{customMetadata: {uuid}});
+      this.percentage = this.task.percentageChanges();
+      this.snapshot  = this.task.snapshotChanges().pipe(
+          finalize( async() =>  {
+          this.downloadURL = await ref.getDownloadURL().toPromise();
+          this.db.collection('sermons').doc(uuid).set( {filename: this.file.name, downloadURL: this.downloadURL, path, uuid, gsurl:`gs://lcarchivewebsite.appspot.com/${path}`, year:this.yearPicked });
+        }),
+      );
+    }
+    else{
+      this.feedback = "You must sign in and be an admin to upload files";
+    }
   }
 
   ngOnInit(): void {

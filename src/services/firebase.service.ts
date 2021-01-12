@@ -20,7 +20,7 @@ export class FirebaseService {
         file: data.gsurl,
         uuid: data.uuid
       }).toPromise()
-      .catch(err => alert(err))
+      .catch(err => console.log(err))
   }
 
   generateUUID(): string {
@@ -45,6 +45,23 @@ export class FirebaseService {
     return (localStorage.getItem('isLoggedIn')) ? true : false;
   }
 
+  returnAdminClaims(): boolean {
+    if (this.isAuthenticated()) {
+      firebase.auth().currentUser.getIdTokenResult()
+        .then((idTokenResult) => {
+          //check is user has an admin custom claim
+          return (!!idTokenResult.claims.admin) ? true : false
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+    else {
+      //user is not authenticated
+      return false
+    }
+  }
+
   login(): void {
     this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(response => {
       this.db.collection('users-list').doc(response.user.uid).get().subscribe(obvData => {
@@ -53,7 +70,7 @@ export class FirebaseService {
           this.db.collection('users-list').doc(response.user.uid).set({
             name: response.user.displayName,
             email: response.user.email,
-            textRequests:0
+            textRequests: 0
           })
         }
       })
@@ -67,19 +84,11 @@ export class FirebaseService {
   }
 
   getFolders(): Observable<number[]> {
-    return of([2010,2011,2012,2013,2014,2015,2016,2017,2018, 2019, 2020,2021])
+    return of([2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021])
   }
 
-  getSermonFilesRecords(year: number): any {
+  getSermonFilesRecords(year: number): Promise<firebase.firestore.QuerySnapshot<unknown>> {
     return this.db.collection('sermons').ref.where(`year`, '==', year).get()
-    // const query = this.db.collection('sermons').ref.where(`year`, '==', year)
-    // const sermons = []
-    // query.onSnapshot(querySnapshot => {
-    //   querySnapshot.docs.forEach(element => {
-    //      sermons.push(element.data())
-    //   });
-    // })
-    // return sermons
   }
 
 }

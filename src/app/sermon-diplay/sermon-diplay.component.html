@@ -18,7 +18,7 @@
 
       <div class="item3">
         <button mat-icon-button #tooltip="matTooltip" matTooltip="Send this file to be converted to text for reading"
-          matTooltipPosition="below" color="primary" [disabled]="sermon.text || outForTranscription ? true : null"
+          matTooltipPosition="below" color="primary" [disabled]="sermon.text"
           (click)="sendFileForTranscription(sermon)" aria-label="Google Translate Icon">
           <mat-icon>g_translate</mat-icon>
         </button>

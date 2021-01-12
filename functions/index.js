@@ -14,8 +14,6 @@ exports.transcribe = functions.runWith({
   const sampleRateHertz = 16000;
   const languageCode = 'en-US';
 
-
-  
   const config = {
     encoding,
     sampleRateHertz,
@@ -36,7 +34,7 @@ exports.transcribe = functions.runWith({
     if (!context.auth) {
       throw new functions.https.HttpsError(
         'unauthenticated', 
-        'only authenticated users can vote up requests'
+        'Only authenticated users can vote up requests'
       );
     }
     //view 
@@ -63,8 +61,9 @@ exports.transcribe = functions.runWith({
 .catch((err) => {
   console.log('err' + err)
   return {
-    text: err
+    text: `Catch Error: ${err}`
   }
 })
  
 })
+
