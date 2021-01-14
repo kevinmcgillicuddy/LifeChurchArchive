@@ -1,3 +1,4 @@
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
@@ -90,5 +91,10 @@ export class FirebaseService {
   getSermonFilesRecords(year: number): Promise<firebase.firestore.QuerySnapshot<unknown>> {
     return this.db.collection('sermons').ref.where(`year`, '==', year).get()
   }
+
+  // getSermonFilesRecordsSnapshot(year: number): any {
+  // return  this.db.collection('sermons').ref.where(`year`, '==', year)
+     
+  // }
 
 }

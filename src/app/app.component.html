@@ -22,7 +22,7 @@
     <p><button mat-raised-button (click)="openDialog()">Upload a File</button></p>
     <p><app-authentication></app-authentication></p>
   </mat-grid-tile>
-  <mat-grid-tile [rowspan]=2>
+  <mat-grid-tile>
     <ng-container *ngIf="!(folders$ | async)">
       Loading...
     </ng-container>
