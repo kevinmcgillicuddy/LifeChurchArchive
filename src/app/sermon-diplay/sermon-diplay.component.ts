@@ -46,9 +46,7 @@ export class SermonDiplayComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.firebaseService.getSermonFilesRecords(this.year).then(docs => {
-    //       this.sermons = docs.docs.map(e => e.data())
-    //     })     
+ 
     this.sermons = this.firebaseService.getSermonFilesRecordsObv(this.year)     
   
 

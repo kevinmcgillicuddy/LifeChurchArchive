@@ -91,10 +91,6 @@ export class FirebaseService {
   getFolders(): Observable<number[]> {
     return of([2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021])
   }
-
-  // getSermonFilesRecords(year: number): Promise<firebase.firestore.QuerySnapshot<unknown>> {
-  //   return this.db.collection('sermons').ref.where(`year`, '==', year).get()
-  // }
  
   getSermonFilesRecordsObv(year: number): Observable<FirestoreRecord[]> {
     this.itemsCollection = this.db.collection<FirestoreRecord>('sermons',ref => ref.where(`year`, '==', year));
