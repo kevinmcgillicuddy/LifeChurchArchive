@@ -1,7 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 import { FirebaseService } from '../../services/firebase.service';
+import { FirestoreRecord } from '../interfaces/FirestoreRecord';
 import { TextDiplayDialogComponent } from '../text-diplay-dialog/text-diplay-dialog.component';
+
+
 
 @Component({
   selector: 'app-sermon-diplay',
@@ -10,11 +15,12 @@ import { TextDiplayDialogComponent } from '../text-diplay-dialog/text-diplay-dia
 })
 export class SermonDiplayComponent implements OnInit {
   @Input() year: number;
-  constructor(public firebaseService: FirebaseService, public dialog: MatDialog) { }
-  sermons: object;
+  
+  constructor(public firebaseService: FirebaseService, public dialog: MatDialog) {  }
+
+  sermons: Observable<FirestoreRecord[]> ;
   text: any;
-  blah: any;
-  blahy:any;
+
 
   goToDownloadPage(href:string) { window.open(`${href}`, '_blank') };
 
@@ -40,21 +46,12 @@ export class SermonDiplayComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.firebaseService.getSermonFilesRecords(this.year).then(docs => {
-          this.sermons = docs.docs.map(e => e.data())
-        })  
-        
-        // function mappy(input){
-        //   this.blahy = this.blahy.push(input)
-        // }
+    // this.firebaseService.getSermonFilesRecords(this.year).then(docs => {
+    //       this.sermons = docs.docs.map(e => e.data())
+    //     })     
+    this.sermons = this.firebaseService.getSermonFilesRecordsObv(this.year)     
+  
 
-        // this.blah = this.firebaseService.getSermonFilesRecordsSnapshot(this.year)
-        // this.blah.onSnapshot(querySnapshot=> {
-        //     querySnapshot.forEach(function(doc) {
-        //       mappy(doc)
-        //     });      
-        // });
-    
   }
           
 }

@@ -1,6 +1,6 @@
 <div *ngIf="sermons" class="parent">
   <mat-list class="main">
-    <mat-list-item *ngFor='let sermon of sermons'>
+    <mat-list-item *ngFor='let sermon of sermons | async'>
 
       <div class="item1">
         <mat-icon mat-list-icon>library_music</mat-icon>

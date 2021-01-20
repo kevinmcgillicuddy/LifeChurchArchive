@@ -1,11 +1,11 @@
-import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AngularFireFunctions } from '@angular/fire/functions';
-import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
+import { AngularFireStorage } from '@angular/fire/storage';
 import firebase from 'firebase/app';
 import { Observable, of } from 'rxjs';
+import {FirestoreRecord} from '../app/interfaces/FirestoreRecord'
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,10 @@ import { Observable, of } from 'rxjs';
 
 export class FirebaseService {
   constructor(public db: AngularFirestore, public storage: AngularFireStorage, public func: AngularFireFunctions, public auth: AngularFireAuth) { }
+
+  items: Observable<FirestoreRecord[]>;
+  private itemsCollection: AngularFirestoreCollection<FirestoreRecord>;
+  
 
   sendFileForTranscription(data): void {
     const transcribe = this.func.httpsCallable("transcribe")
@@ -88,13 +92,13 @@ export class FirebaseService {
     return of([2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021])
   }
 
-  getSermonFilesRecords(year: number): Promise<firebase.firestore.QuerySnapshot<unknown>> {
-    return this.db.collection('sermons').ref.where(`year`, '==', year).get()
-  }
-
-  // getSermonFilesRecordsSnapshot(year: number): any {
-  // return  this.db.collection('sermons').ref.where(`year`, '==', year)
-     
+  // getSermonFilesRecords(year: number): Promise<firebase.firestore.QuerySnapshot<unknown>> {
+  //   return this.db.collection('sermons').ref.where(`year`, '==', year).get()
   // }
+ 
+  getSermonFilesRecordsObv(year: number): Observable<FirestoreRecord[]> {
+    this.itemsCollection = this.db.collection<FirestoreRecord>('sermons',ref => ref.where(`year`, '==', year));
+    return this.items = this.itemsCollection.valueChanges();
+  }
 
 }

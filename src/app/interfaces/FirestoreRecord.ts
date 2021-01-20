@@ -1,7 +1,12 @@
 export interface FirestoreRecord {
     downloadURL: string;
-    metadata:any;
-    fileName:any;
-    year:number
+    uuid:string;
+    filename:string;
+    year:number;
+    awaitingTranscription?:boolean;
+    text?:string;
+    path:string;
+    gsurl:string;
+
   }
   
