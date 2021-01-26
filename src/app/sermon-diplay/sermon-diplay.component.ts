@@ -14,13 +14,12 @@ import { TextDiplayDialogComponent } from '../text-diplay-dialog/text-diplay-dia
   styleUrls: ['./sermon-diplay.component.css']
 })
 export class SermonDiplayComponent implements OnInit {
-  @Input() year: number;
+  @Input() year: string;
   
   constructor(public firebaseService: FirebaseService, public dialog: MatDialog) {  }
 
-  sermons: Observable<FirestoreRecord[]> ;
+  sermons$: Observable<FirestoreRecord[]> ;
   text: any;
-
 
   goToDownloadPage(href:string) { window.open(`${href}`, '_blank') };
 
@@ -46,11 +45,8 @@ export class SermonDiplayComponent implements OnInit {
   }
 
   ngOnInit(): void {
- 
-    this.sermons = this.firebaseService.getSermonFilesRecordsObv(this.year)     
-  
-
-  }
+     this.sermons$ = this.firebaseService.getSermonFilesRecordsObv(this.year)
+    }
           
 }
 

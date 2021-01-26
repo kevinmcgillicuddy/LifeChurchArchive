@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { FirebaseService } from '../services/firebase.service';
 import { MatDialog} from '@angular/material/dialog';
 import { UploadFileDialogComponent } from './upload-file-dialog/upload-file-dialog.component'
+import firebase from 'firebase/app';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ import { UploadFileDialogComponent } from './upload-file-dialog/upload-file-dial
 
 export class AppComponent {
   title = 'Life Church Lancaster Archive';
-  folders$: Observable<number[]>;
+  tabs$: firebase.firestore.QueryDocumentSnapshot<any>[]
 
   constructor(public firebaseService: FirebaseService, public dialog: MatDialog) { }
 
@@ -21,7 +22,9 @@ export class AppComponent {
   }
 
   ngOnInit() {
-      this.folders$ = this.firebaseService.getFolders();
+      this.firebaseService.getYears().subscribe(e=>{
+        this.tabs$ = e.docs
+      })
   }
 }
 

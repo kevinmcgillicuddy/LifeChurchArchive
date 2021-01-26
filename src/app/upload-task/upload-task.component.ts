@@ -13,7 +13,7 @@ import { FirebaseService } from 'src/services/firebase.service';
 export class UploadTaskComponent implements OnInit {
 
   @Input() file: File;
-  @Input() yearPicked: number;
+  @Input() yearPicked: string;
 
   task: AngularFireUploadTask;
   percentage: Observable<number>;
@@ -25,7 +25,8 @@ export class UploadTaskComponent implements OnInit {
 
   async startUpload() {
     //check auth
-    if(this.firebaseService.returnAdminClaims()){
+    // console.log(this.firebaseService.returnAdminClaims())
+    // if(this.firebaseService.returnAdminClaims()){
       this.feedback = null;
       const path = `mp3/${this.yearPicked}/${this.file.name}`;
       const ref = this.storage.ref(path);
@@ -35,14 +36,15 @@ export class UploadTaskComponent implements OnInit {
       this.snapshot  = this.task.snapshotChanges().pipe(
           finalize( async() =>  {
           this.downloadURL = await ref.getDownloadURL().toPromise();
-          this.db.collection('sermons').doc(uuid).set( {filename: this.file.name, downloadURL: this.downloadURL, path, uuid, gsurl:`gs://lcarchivewebsite.appspot.com/${path}`, year:this.yearPicked });
+          let date = new Date()
+          this.db.collection('sermons').doc(this.yearPicked).collection('items').add( {created:date,filename: this.file.name, downloadURL: this.downloadURL, path, uuid, gsurl:`gs://lcarchivewebsite.appspot.com/${path}`, year:this.yearPicked });
         }),
       );
     }
-    else{
-      this.feedback = "You must sign in and be an admin to upload files";
-    }
-  }
+  //   else{
+  //     this.feedback = "You must sign in and be an admin to upload files";
+  //   }
+  // }
 
   ngOnInit(): void {
     this.startUpload()

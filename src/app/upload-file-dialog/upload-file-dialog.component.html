@@ -8,8 +8,8 @@
     <mat-form-field appearance="fill">
       <mat-label>Select a year</mat-label>
       <mat-select [(value)]="yearPicked">
-        <mat-option *ngFor="let year of years$ | async" [value]="year">
-          {{year}}
+        <mat-option *ngFor="let year of years" [value]="year.id">
+          {{year.id}}
         </mat-option>
       </mat-select>
     </mat-form-field>

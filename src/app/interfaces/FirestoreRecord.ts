@@ -1,4 +1,5 @@
 export interface FirestoreRecord {
+    created: object;
     downloadURL: string;
     uuid:string;
     filename:string;

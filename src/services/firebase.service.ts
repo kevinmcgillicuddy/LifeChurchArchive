@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, docChanges, DocumentChangeAction } from '@angular/fire/firestore';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { AngularFireStorage } from '@angular/fire/storage';
 import firebase from 'firebase/app';
@@ -23,7 +23,8 @@ export class FirebaseService {
     transcribe(
       {
         file: data.gsurl,
-        uuid: data.uuid
+        uuid: data.uuid,
+        year: data.year
       }).toPromise()
       .catch(err => console.log(err))
   }
@@ -87,14 +88,14 @@ export class FirebaseService {
     this.auth.signOut();
     localStorage.removeItem('isLoggedIn');
   }
-
-  getFolders(): Observable<number[]> {
-    return of([2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021])
-  }
+  
+  getYears(): Observable<firebase.firestore.QuerySnapshot<any>> {  
+    return this.db.collection('sermons').get()
+   }
  
-  getSermonFilesRecordsObv(year: number): Observable<FirestoreRecord[]> {
-    this.itemsCollection = this.db.collection<FirestoreRecord>('sermons',ref => ref.where(`year`, '==', year));
-    return this.items = this.itemsCollection.valueChanges();
+  getSermonFilesRecordsObv(year: string): Observable<FirestoreRecord[]> {
+    this.itemsCollection = this.db.collection('sermons').doc(year).collection('items')
+    return this.items = this.itemsCollection.valueChanges()
   }
 
 }

@@ -23,14 +23,11 @@
     <p><app-authentication></app-authentication></p>
   </mat-grid-tile>
   <mat-grid-tile>
-    <ng-container *ngIf="!(folders$ | async)">
-      Loading...
-    </ng-container>
     <mat-tab-group style="max-width: 90%" animationDuration="0ms">
-      <mat-tab *ngFor="let folder of (folders$ | async)">
-        <ng-template mat-tab-label>{{folder}}</ng-template>
+      <mat-tab *ngFor="let tab of tabs$">
+        <ng-template mat-tab-label>{{tab.id}}</ng-template>
         <ng-template matTabContent>
-          <app-sermon-diplay [year]='folder'></app-sermon-diplay>
+          <app-sermon-diplay [year]='tab.id'></app-sermon-diplay>
         </ng-template>
       </mat-tab>
     </mat-tab-group>

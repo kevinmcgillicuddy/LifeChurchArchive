@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import firebase from 'firebase/app';
 import { Observable } from 'rxjs';
 import { FirebaseService } from 'src/services/firebase.service';
 
@@ -8,17 +9,18 @@ import { FirebaseService } from 'src/services/firebase.service';
   styleUrls: ['./upload-file-dialog.component.css']
 })
 export class UploadFileDialogComponent implements OnInit {
-
-
+  
   feedback: string;
   yearPicked: number;
-  years$: Observable<number[]>
+  years: Array<any>;
   files: File[] = [];
 
   constructor(public firebaseService: FirebaseService) { }
 
   ngOnInit(): void {
-    this.years$ = this.firebaseService.getFolders()
+    this.firebaseService.getYears().subscribe(e=>{
+      this.years = e.docs
+    })
   }
 
   onSelectFiles(event: Event) {
