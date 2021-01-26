@@ -44,7 +44,7 @@ exports.transcribe = functions.runWith({
       textRequests: admin.firestore.FieldValue.increment(1)
     })
 
-    let docExists = await admin.firestore().collection('sermons').doc(year).collection('items').where('uuid', '==', uuid)
+    let docExists = admin.firestore().collection('sermons').doc(year).collection('items').where('uuid', '==', uuid)
     if (!docExists.exists) {
       throw new Error('The UUID exists')
     }
