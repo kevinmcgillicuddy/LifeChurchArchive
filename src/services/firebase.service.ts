@@ -83,12 +83,21 @@ export class FirebaseService {
   }
   
   getYears(): Observable<firebase.firestore.QuerySnapshot<any>> {  
+    let res = this.db.collection('sermons').doc('2018').collection('items').ref.where('uuid','==','m27mtkt20ls').get()
+    res.then(snapshot=>{
+      snapshot.forEach(doc=>doc.id)
+    })
     return this.db.collection('sermons').get()
    }
  
   getSermonFilesRecordsObv(year: string): Observable<FirestoreRecord[]> {
     this.itemsCollection = this.db.collection('sermons').doc(year).collection('items')
     return this.items = this.itemsCollection.valueChanges()
+  }
+
+  setWaitingText(year:string, uuid:string): void {
+    //let FE know its waiting
+    this.db.collection('sermons').doc(year).collection('items').doc(uuid).update({text: 'Waiting for transcription to finish'})
   }
 
 }

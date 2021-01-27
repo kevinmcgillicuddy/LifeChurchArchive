@@ -31,7 +31,8 @@ export class SermonDiplayComponent implements OnInit {
   }
 
   sendFileForTranscription(data:FirestoreRecord):void {
-     this.firebaseService.sendFileForTranscription(data)
+    this.firebaseService.setWaitingText((data.year as unknown) as string,data.uuid)
+    this.firebaseService.sendFileForTranscription(data)
   }
 
   openDialog() {

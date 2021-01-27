@@ -31,7 +31,7 @@ exports.transcribe = functions.runWith({
   };
 
   async function time() {
-
+   
     if (!context.auth) {
       throw new functions.https.HttpsError(
         'unauthenticated',
@@ -43,10 +43,6 @@ exports.transcribe = functions.runWith({
     user.update({
       textRequests: admin.firestore.FieldValue.increment(1)
     })
-    //let FE know its waiting
-    admin.firestore().collection('sermons').doc(year).collection('items').where('uuid','==',uuid).add({
-      text: 'waiting'
-    }, { merge: true })
 
     const [operation] = await client.longRunningRecognize(request);
     const [response] = await operation.promise();
@@ -57,7 +53,7 @@ exports.transcribe = functions.runWith({
   }
 
   time().then((transcription) => {
-    return admin.firestore().collection('sermons').doc(year).collection('items').where('uuid','==',uuid).add({
+    return admin.firestore().collection('sermons').doc(year).collection('items').doc(uuid).update({
       text: transcription,
     }, { merge: true })
   })

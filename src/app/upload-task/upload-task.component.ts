@@ -37,7 +37,7 @@ export class UploadTaskComponent implements OnInit {
         finalize(async () => {
           this.downloadURL = await ref.getDownloadURL().toPromise();
           let date = new Date()
-          this.db.collection('sermons').doc(this.yearPicked).collection('items').add({ created: date, filename: this.file.name, downloadURL: this.downloadURL, path, uuid, gsurl: `gs://lcarchivewebsite.appspot.com/${path}`, year: this.yearPicked });
+          this.db.collection('sermons').doc(this.yearPicked).collection('items').doc(uuid).set({ created: date, filename: this.file.name, downloadURL: this.downloadURL, path, uuid, gsurl: `gs://lcarchivewebsite.appspot.com/${path}`, year: this.yearPicked });
         }),
       );
     }
