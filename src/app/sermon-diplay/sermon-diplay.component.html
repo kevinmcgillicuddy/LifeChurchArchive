@@ -24,7 +24,7 @@
 
       <div class="item4">
         <button mat-icon-button #tooltip="matTooltip" matTooltip="Read the transcript of this sermon"
-          matTooltipPosition="below" [disabled]="sermon.text ? null : true" (click)="getTranslatedText(sermon.uuid)"
+          matTooltipPosition="below" [disabled]="sermon.text ? null : true" (click)="getTranslatedText(sermon.uuid, sermon.year)"
           color="primary" aria-label="Open Book Icon">
           <mat-icon>chrome_reader_mode</mat-icon>
         </button>

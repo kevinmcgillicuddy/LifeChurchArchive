@@ -33,8 +33,8 @@ export class FirebaseService {
     return Math.random().toString(36).substring(2);
   }
 
-  getText(uuid: string): Promise<firebase.firestore.QuerySnapshot<unknown>> {
-    return this.db.collection('sermons').ref.where(`uuid`, '==', `${uuid}`).get()
+  getText(uuid: string, year: string): Promise<firebase.firestore.QuerySnapshot<unknown>> {
+    return this.db.collection('sermons').doc(year).collection('items').ref.where(`uuid`, '==', `${uuid}`).get()
   }
 
   getUserToken(): void {

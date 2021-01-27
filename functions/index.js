@@ -44,7 +44,7 @@ exports.transcribe = functions.runWith({
       textRequests: admin.firestore.FieldValue.increment(1)
     })
     //let FE know its waiting
-    admin.firestore().collection('sermons').doc(year).collection('items').add({
+    admin.firestore().collection('sermons').doc(year).collection('items').where('uuid','==',uuid).add({
       text: 'waiting'
     }, { merge: true })
 
@@ -57,7 +57,7 @@ exports.transcribe = functions.runWith({
   }
 
   time().then((transcription) => {
-    return admin.firestore().collection('sermons').doc(year).collection('items').add({
+    return admin.firestore().collection('sermons').doc(year).collection('items').where('uuid','==',uuid).add({
       text: transcription,
     }, { merge: true })
   })
