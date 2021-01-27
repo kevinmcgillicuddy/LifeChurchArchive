@@ -10,7 +10,7 @@ exports.transcribe = functions.runWith({
   const client = new speech.SpeechClient();
   const gcsUri = data.file;
   const uuid = data.uuid;
-  const year = data.yer;
+  const year = data.year;
   const encoding = 'MP3'
   const sampleRateHertz = 16000;
   const languageCode = 'en-US';
@@ -43,17 +43,11 @@ exports.transcribe = functions.runWith({
     user.update({
       textRequests: admin.firestore.FieldValue.increment(1)
     })
+    //let FE know its waiting
+    admin.firestore().collection('sermons').doc(year).collection('items').add({
+      text: 'waiting'
+    }, { merge: true })
 
-    let docExists = admin.firestore().collection('sermons').doc(year).collection('items').where('uuid', '==', uuid)
-    if (!docExists.exists) {
-      throw new Error('The UUID exists')
-    }
-    else{
-      //let FE know its waiting
-      admin.firestore().collection('sermons').doc(year).collection('items').add({
-        text: 'waiting'
-      },{ merge: true })
-    }
     const [operation] = await client.longRunningRecognize(request);
     const [response] = await operation.promise();
     const transcription = response.results

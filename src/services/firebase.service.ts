@@ -4,7 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection, docChanges, DocumentChang
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { AngularFireStorage } from '@angular/fire/storage';
 import firebase from 'firebase/app';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import {FirestoreRecord} from '../app/interfaces/FirestoreRecord'
 
 @Injectable({
@@ -18,7 +18,7 @@ export class FirebaseService {
   private itemsCollection: AngularFirestoreCollection<FirestoreRecord>;
   
 
-  sendFileForTranscription(data): void {
+  sendFileForTranscription(data: FirestoreRecord): void {
     const transcribe = this.func.httpsCallable("transcribe")
     transcribe(
       {

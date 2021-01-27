@@ -26,11 +26,12 @@ export class SermonDiplayComponent implements OnInit {
   getTranslatedText(uuid: string): void {
     this.firebaseService.getText(uuid).then(docs => {
       this.text = docs.docs.map(e => e.data())
+      console.log(typeof(this.text))
       this.openDialog();
     })
   }
 
-  sendFileForTranscription(data:object):void {
+  sendFileForTranscription(data:FirestoreRecord):void {
      this.firebaseService.sendFileForTranscription(data)
   }
 
