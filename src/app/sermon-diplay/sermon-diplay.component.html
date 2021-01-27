@@ -1,4 +1,5 @@
 <div *ngIf="sermons$" class="parent">
+ {{feedback}} 
   <mat-list class="main">
     <mat-list-item *ngFor='let sermon of sermons$ | async'>
       <div class="item1">

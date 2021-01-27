@@ -95,9 +95,11 @@ export class FirebaseService {
     return this.items = this.itemsCollection.valueChanges()
   }
 
-  setWaitingText(year:string, uuid:string): void {
+  setWaitingText(year:string, uuid:string): Promise<void> {
     //let FE know its waiting
-    this.db.collection('sermons').doc(year).collection('items').doc(uuid).update({text: 'Waiting for transcription to finish'})
+    //user needs to be logged in to use this per rules so Promise can be handled her to show feedbakc
+   return this.db.collection('sermons').doc(year).collection('items').doc(uuid).update({text: 'Waiting for transcription to finish'})
+   
   }
 
 }

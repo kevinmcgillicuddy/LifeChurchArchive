@@ -20,6 +20,7 @@ export class SermonDiplayComponent implements OnInit {
 
   sermons$: Observable<FirestoreRecord[]> ;
   text: object;
+  feedback:string;
 
   goToDownloadPage(href:string) { window.open(`${href}`, '_blank') };
 
@@ -32,6 +33,9 @@ export class SermonDiplayComponent implements OnInit {
 
   sendFileForTranscription(data:FirestoreRecord):void {
     this.firebaseService.setWaitingText((data.year as unknown) as string,data.uuid)
+    .then(res=>{this.feedback = null})
+    .catch(err=>{this.feedback = 'You must be logged in'})
+    
     this.firebaseService.sendFileForTranscription(data)
   }
 
