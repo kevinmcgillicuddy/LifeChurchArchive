@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
@@ -25,26 +25,26 @@ export class UploadTaskComponent implements OnInit {
 
   async startUpload() {
     //check auth
-    // console.log(this.firebaseService.returnAdminClaims())
-    // if(this.firebaseService.returnAdminClaims()){
+    let isAdmin = await this.firebaseService.returnAdminClaims()
+    if (isAdmin.claims.admin) {
       this.feedback = null;
       const path = `mp3/${this.yearPicked}/${this.file.name}`;
       const ref = this.storage.ref(path);
       const uuid = this.firebaseService.generateUUID();
-      this.task = this.storage.upload(path, this.file,{customMetadata: {uuid}});
+      this.task = this.storage.upload(path, this.file, { customMetadata: { uuid } });
       this.percentage = this.task.percentageChanges();
-      this.snapshot  = this.task.snapshotChanges().pipe(
-          finalize( async() =>  {
+      this.snapshot = this.task.snapshotChanges().pipe(
+        finalize(async () => {
           this.downloadURL = await ref.getDownloadURL().toPromise();
           let date = new Date()
-          this.db.collection('sermons').doc(this.yearPicked).collection('items').add( {created:date,filename: this.file.name, downloadURL: this.downloadURL, path, uuid, gsurl:`gs://lcarchivewebsite.appspot.com/${path}`, year:this.yearPicked });
+          this.db.collection('sermons').doc(this.yearPicked).collection('items').add({ created: date, filename: this.file.name, downloadURL: this.downloadURL, path, uuid, gsurl: `gs://lcarchivewebsite.appspot.com/${path}`, year: this.yearPicked });
         }),
       );
     }
-  //   else{
-  //     this.feedback = "You must sign in and be an admin to upload files";
-  //   }
-  // }
+    else {
+      this.feedback = "You must sign in and be an admin to upload files";
+    }
+  }
 
   ngOnInit(): void {
     this.startUpload()

@@ -51,20 +51,13 @@ export class FirebaseService {
     return (localStorage.getItem('isLoggedIn')) ? true : false;
   }
 
-  returnAdminClaims(): boolean {
+  returnAdminClaims(): Promise<firebase.auth.IdTokenResult> {
     if (this.isAuthenticated()) {
-      firebase.auth().currentUser.getIdTokenResult()
-        .then((idTokenResult) => {
-          //check is user has an admin custom claim
-          return (!!idTokenResult.claims.admin) ? true : false
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+      return firebase.auth().currentUser.getIdTokenResult()
+     }
     else {
       //user is not authenticated
-      return false
+      return Promise.reject()
     }
   }
 
