@@ -1,24 +1,23 @@
-.parent{
-    margin-top: 10%;
-}
 .main{
-    max-width: 40%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    -ms-box-orient: horizontal;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
     display: flex;
-    flex-direction: column ;
-    flex-wrap: wrap;
-    align-content: center;
-    height: auto;
-    width: auto;
+    flex-flow: row wrap;
+    
 }
 .item1{
-    flex-grow:3;
-    flex-shrink: 2;
+    max-width: 250px;
+    
 }
-.item2{
-}
-.item3{  
-  
-}
-.item4{  
 
+.item2{
+     width:  150px;
 }
+

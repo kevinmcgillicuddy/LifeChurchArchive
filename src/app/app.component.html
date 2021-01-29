@@ -17,13 +17,13 @@
         and our world.</p>
     </span>
   </mat-grid-tile>
-  <mat-grid-tile style="background-color: lightgray;">
+  <mat-grid-tile style="background-color:#38525c;">
  
     <p><button mat-raised-button (click)="openDialog()">Upload a File</button></p>
     <p><app-authentication></app-authentication></p>
   </mat-grid-tile>
-  <mat-grid-tile>
-    <mat-tab-group style="max-width: 90%" animationDuration="0ms">
+  <mat-grid-tile >
+    <mat-tab-group style="min-width: 80%; min-height: 90%;" animationDuration="0ms">
       <mat-tab *ngFor="let tab of tabs$">
         <ng-template mat-tab-label>{{tab.id}}</ng-template>
         <ng-template matTabContent>
