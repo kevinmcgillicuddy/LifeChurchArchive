@@ -14,17 +14,19 @@ import firebase from 'firebase/app';
 export class AppComponent {
   title = 'Life Church Lancaster Archive';
   tabs$: firebase.firestore.QueryDocumentSnapshot<any>[]
+  loggedIn: boolean;
 
   constructor(public firebaseService: FirebaseService, public dialog: MatDialog) { }
 
   openDialog() {
-    const dialogRef = this.dialog.open(UploadFileDialogComponent);
+    this.dialog.open(UploadFileDialogComponent);
   }
 
   ngOnInit() {
       this.firebaseService.getYears().subscribe(e=>{
         this.tabs$ = e.docs
       })
+      this.loggedIn = this.firebaseService.isAuthenticated()
   }
 }
 
