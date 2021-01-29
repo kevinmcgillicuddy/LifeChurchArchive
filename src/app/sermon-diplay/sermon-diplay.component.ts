@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { FirebaseService } from '../../services/firebase.service';
+import { DialogData } from '../interfaces/DialogData';
 import { FirestoreRecord } from '../interfaces/FirestoreRecord';
 import { TextDiplayDialogComponent } from '../text-diplay-dialog/text-diplay-dialog.component';
 
@@ -27,22 +27,26 @@ export class SermonDiplayComponent implements OnInit {
   getTranslatedText(uuid: string, year:string): void {
     this.firebaseService.getText(uuid, year).then(docs => {
       this.text = docs.docs.map(e => e.data())
-      this.openDialog();
+      this.openDialog({title:'Transcription',text:this.text[0].text});
     })
+
+   
   }
 
   sendFileForTranscription(data:FirestoreRecord):void {
     this.firebaseService.setWaitingText((data.year as unknown) as string,data.uuid)
     .then(res=>{this.feedback = null})
-    .catch(err=>{this.feedback = 'You must be logged in'})
+    .catch(err=>{ this.openDialog({title:'Error',text:'You must be logged in'})
+      })
     
     this.firebaseService.sendFileForTranscription(data)
   }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(TextDiplayDialogComponent, {
+  openDialog(data:DialogData) {
+    this.dialog.open(TextDiplayDialogComponent, {
       data: {
-        text: this.text[0].text
+        title:data.title,
+        text:data.text
       },
       autoFocus: false,
       maxHeight: '90vh'
