@@ -29,10 +29,8 @@ export class SermonDiplayComponent implements OnInit {
       this.text = docs.docs.map(e => e.data())
       this.openDialog({title:'Transcription',text:this.text[0].text});
     })
-
-   
-  }
-
+  }   
+  
   sendFileForTranscription(data:FirestoreRecord):void {
     this.firebaseService.setWaitingText((data.year as unknown) as string,data.uuid)
     .then(res=>{this.feedback = null})
