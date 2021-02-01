@@ -7,9 +7,11 @@
     flex-flow:row wrap;
   }
  .mainImg{
-    max-width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
+
   }
+
   h1{
     font-size:5vw;
   }

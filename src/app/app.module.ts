@@ -15,6 +15,8 @@ import {FormsModule } from'@angular/forms';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 //firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -45,6 +47,7 @@ import { UploadTaskComponent } from './upload-task/upload-task.component';
     MatButtonModule,
     MatTooltipModule,
     FormsModule,
+    FlexLayoutModule,
     AngularFireAuthModule,
     MatTabsModule,
     MatDialogModule,
