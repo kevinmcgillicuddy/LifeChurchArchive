@@ -1,4 +1,4 @@
-<div *ngIf="sermons$" class="parent">
+<div *ngIf="sermons$">
   <mat-list class="main">
     <mat-list-item style="max-width:400px" *ngFor='let sermon of sermons$ | async'>
        
@@ -11,7 +11,6 @@
           <mat-icon>cloud_download</mat-icon>
         </button>
 
-
         <button mat-icon-button #tooltip="matTooltip" matTooltip="Send this file to be converted to text for reading"
           matTooltipPosition="below" color="primary" [disabled]="sermon.text" (click)="sendFileForTranscription(sermon)"
           aria-label="Google Translate Icon">
@@ -23,6 +22,7 @@
           (click)="getTranslatedText(sermon.uuid, sermon.year)" color="primary" aria-label="Open Book Icon">
           <mat-icon>chrome_reader_mode</mat-icon>
         </button>
+
       </div>
     </mat-list-item>
   </mat-list>

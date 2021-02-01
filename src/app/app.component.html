@@ -1,6 +1,6 @@
-<mat-grid-list cols="1" rowHeight="2:1">
+<mat-grid-list cols="1" rowHeight="50%">
   <mat-grid-tile>
-    <img src="assets/img/main1.jpg">
+    <img class="mainImg" src="assets/img/main1.jpg">
     <span class="hero-container">
       <div>
         <h1>Life Church&nbsp;</h1>
@@ -11,29 +11,29 @@
     </span>
   </mat-grid-tile>
   <mat-grid-tile>
-    <span class="intro-container">
-      <div><img src="assets/img/logo_black.png" width="160" height="145"></div>
-      <br>
-      <p>Life Church is a faith community that makes space for every race, ethnicity, age, sexual orientation and gender
+    <div class="intro-container">
+      <div><img src="assets/img/logo_black.png" width="315px" height="145px" style="margin-bottom: 10px;"></div>
+      <mat-divider></mat-divider>
+      <div>
+        <p>Life Church is a faith community that makes space for every race, ethnicity, age, sexual orientation and gender
         identity. We welcome belief and doubt, devotion and exploration, while hoping to connect with God, one another
         and our world.</p>
         <p>This website serves as a way to interact with older content from the early days of Life Church, you can download, request an english text transcript or read the sermon</p>
         <p>For new content visit <a href="https://lifechurchlancaster.org/sermons">our main website</a></p>
-    </span>
+      </div> 
     <div>
+      </div>
+      <mat-divider></mat-divider>
       <div *ngIf="this.loggedIn; else elseBlock"><button mat-raised-button (click)="openDialog()">Upload a File</button></div>
       <ng-template #elseBlock><div><app-authentication></app-authentication></div></ng-template>
     </div>
   </mat-grid-tile>
-  <!-- <mat-grid-tile style="background-color:#38525c;">
-   color:274472 primary
-  </mat-grid-tile> -->
   <mat-grid-tile style="background-color:#5d737e;">
-    <mat-tab-group style="width: 80%; min-height: 90%;" animationDuration="0ms">
+    <mat-tab-group style="width: 90%; min-height: 90%;" animationDuration="0ms">
       <mat-tab *ngFor="let tab of tabs$">
         <ng-template mat-tab-label>{{tab.id}}</ng-template>
         <ng-template matTabContent>
-          <app-sermon-diplay [year]='tab.id'></app-sermon-diplay>
+          <app-sermon-diplay style="min-height: 90%;"[year]='tab.id'></app-sermon-diplay>
         </ng-template>
       </mat-tab>
     </mat-tab-group>
