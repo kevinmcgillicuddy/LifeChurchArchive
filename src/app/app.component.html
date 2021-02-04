@@ -1,21 +1,19 @@
 <div fxLayout="column" fxLayoutAlign=" none">
-  <div>
-    <img class="mainImg" src="assets/img/main2.jpg">
-    <div class="hero-container">
-      <div>
-        <h1>Life Church&nbsp;</h1>
-      </div>
-      <div>
-        <h1>Lancaster Archive</h1>
-      </div>
-    </div>
+  <div class="hero-container">
+    <img class="heroImg" src="assets/img/main2.jpg">
+      <span class="centeredLogo">
+        <img src="assets/img/logo.png" width="65%" height="65%" style="margin-bottom: 10px;">
+      </span>
   </div>
-  <div>
+  <div class="welcomeBlock">
+    <p class="mat-display-1"><strong>Life Church Lancaster Archive</strong></p>
+  </div>
+  <div style="background-color: #38525c">
     <div class="intro-container">
-      <div><img src="assets/img/logo_black.png" width="315px" height="145px" style="margin-bottom: 10px;"></div>
-      <mat-divider></mat-divider>
-      <div>
-        <p>Life Church is a faith community that makes space for every race, ethnicity, age, sexual orientation and
+      <div class="bodyText">
+        <p class="mat-display-1">This website represents an attempt to collect and archive old content taught from years 2010 to 2015.</p>
+          <p class="body-1">
+          Life Church is a faith community that makes space for every race, ethnicity, age, sexual orientation and
           gender
           identity. We welcome belief and doubt, devotion and exploration, while hoping to connect with God, one another
           and our world.</p>
@@ -29,14 +27,16 @@
       <div *ngIf="this.loggedIn; else elseBlock"><button mat-raised-button (click)="openDialog()">Upload a File</button>
       </div>
       <ng-template #elseBlock>
-        <div>
-          <app-authentication></app-authentication>
-        </div>
+     
       </ng-template>
     </div>
   </div>
   <div>
-    <!-- <mat-grid-tile style="background-color:#5d737e;"> -->
+    <div>
+      <app-authentication></app-authentication>
+    </div>
+  </div>
+  <div class="child3" style="background-color:#5d737e;">
     <mat-tab-group style="width: 90%; min-height: 90%;" animationDuration="0ms">
       <mat-tab *ngFor="let tab of tabs$">
         <ng-template mat-tab-label>{{tab.id}}</ng-template>
