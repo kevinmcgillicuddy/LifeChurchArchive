@@ -17,10 +17,15 @@
 
 
 .welcomeBlock{
-  margin-top: 10%;
+  
   margin-left:50px;
   margin-right:50px;
   text-align: center;
+}
+
+.welcomeBlock p{
+  margin-top: 5%;
+  margin-bottom: 5%;
 }
 
 
