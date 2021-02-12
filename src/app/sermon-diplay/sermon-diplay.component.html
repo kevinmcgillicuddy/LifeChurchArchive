@@ -1,8 +1,33 @@
 <div *ngIf="sermons$">
   <mat-list class="main">
-    <div class="coloredContainerX box" fxflex="" fxlayout="row" fxlayout.sm="column" fxlayout.xs="column" style="flex-direction: column; box-sizing: border-box; display: flex; flex: 1 1 0%;"><div fxflex="" style="flex: 1 1 1e-09px; box-sizing: border-box;"> I'm above on mobile, and to the left on larger devices.</div><div fxflex="" style="flex: 1 1 1e-09px; box-sizing: border-box;"> I'm below on mobile, and to the right on larger devices.</div></div>
-    <mat-list-item style="max-width:400px" *ngFor='let sermon of sermons$ | async'>
-       
+    
+    <!-- this is container --> <mat-list-item class="containerX" *ngFor='let sermon of sermons$ | async'>
+     
+      <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex class="coloredContainerX box">
+        <div fxFlex> <div class="item1" mat-subheader>{{sermon.filename}}</div></div>
+        <div fxFlex> <div class="item2">
+          <button #tooltip="matTooltip" matTooltip="Download or Listen to the sermon" matTooltipPosition="below"
+            mat-icon-button color="primary" (click)="goToDownloadPage(sermon.downloadURL)"
+            aria-label="Cloud download icon">
+            <mat-icon>cloud_download</mat-icon>
+          </button>
+  
+          <button mat-icon-button #tooltip="matTooltip" matTooltip="Send this file to be converted to text for reading"
+            matTooltipPosition="below" color="primary" [disabled]="sermon.text" (click)="sendFileForTranscription(sermon)"
+            aria-label="Google Translate Icon">
+            <mat-icon>g_translate</mat-icon>
+          </button>
+  
+          <button mat-icon-button #tooltip="matTooltip" matTooltip="Read the transcript of this sermon"
+            matTooltipPosition="below" [disabled]="sermon.text ? null : true"
+            (click)="getTranslatedText(sermon.uuid, sermon.year)" color="primary" aria-label="Open Book Icon">
+            <mat-icon>chrome_reader_mode</mat-icon>
+          </button>
+  
+        </div></div>
+      </div>
+
+<!-- 
       <div class="item1" mat-subheader>{{sermon.filename}}</div>
               
       <div class="item2">
@@ -24,7 +49,8 @@
           <mat-icon>chrome_reader_mode</mat-icon>
         </button>
 
-      </div>
+      </div> -->
+      
     </mat-list-item>
   </mat-list>
 </div>

@@ -16,6 +16,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 
 //firebase
 import { AngularFireModule } from '@angular/fire';
@@ -42,6 +43,7 @@ import { UploadTaskComponent } from './upload-task/upload-task.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgxAuthFirebaseUIModule.forRoot(environment.firebaseConfig),
     MatSelectModule,
     BrowserAnimationsModule,
     MatButtonModule,

@@ -1,9 +1,9 @@
 <div fxLayout="column" fxLayoutAlign=" none">
   <div class="hero-container">
     <img class="heroImg" src="assets/img/main2.jpg">
-      <span class="centeredLogo">
-        <img src="assets/img/logo.png" width="65%" height="65%" style="margin-bottom: 10px;">
-      </span>
+    <span class="centeredLogo">
+      <img src="assets/img/logo.png" width="65%" height="65%" style="margin-bottom: 10px;">
+    </span>
   </div>
   <div class="welcomeBlock">
     <p class="mat-display-1"><strong>Life Church Lancaster Archive</strong></p>
@@ -11,12 +11,14 @@
   <div style="background-color: #38525c">
     <div class="intro-container">
       <div class="bodyText">
-        <p class="mat-display-1">This website represents an attempt to collect and archive old content taught from years 2010 to 2015.</p>
-          <p class="body-1">
-          Life Church is a faith community that makes space for every race, ethnicity, age, sexual orientation and
+        <p class="mat-display-1">Welcome</p>
+        <p class="body-1">This website represents an attempt to collect and archive old content taught from years 2010
+          to 2015.
+        <p>Life Church is a faith community that makes space for every race, ethnicity, age, sexual orientation and
           gender
           identity. We welcome belief and doubt, devotion and exploration, while hoping to connect with God, one another
-          and our world.</p>
+          and our world.
+        </p>
         <p>This website serves as a way to interact with older content from the early days of Life Church, you can
           download, request an english text transcript or read the sermon</p>
         <p>For new content visit <a href="https://lifechurchlancaster.org/sermons">our main website</a></p>
@@ -27,16 +29,19 @@
       <div *ngIf="this.loggedIn; else elseBlock"><button mat-raised-button (click)="openDialog()">Upload a File</button>
       </div>
       <ng-template #elseBlock>
-     
+
       </ng-template>
     </div>
   </div>
   <div>
-    <div>
-      <app-authentication></app-authentication>
+    <div class="authBlock">
+      <p class="body-1">To get started please sign in so you can request stuff</p>
+      <!-- <app-authentication></app-authentication> -->
+      <ngx-auth-firebaseui [guestEnabled]=false [providers]="[providers.Google, providers.Facebook, providers.Twitter]">></ngx-auth-firebaseui>
     </div>
   </div>
   <div class="child3" style="background-color:#5d737e;">
+    <div class='sermonBlock'>
     <mat-tab-group style="width: 90%; min-height: 90%;" animationDuration="0ms">
       <mat-tab *ngFor="let tab of tabs$">
         <ng-template mat-tab-label>{{tab.id}}</ng-template>
@@ -45,5 +50,6 @@
         </ng-template>
       </mat-tab>
     </mat-tab-group>
+  </div>
   </div>
 </div>

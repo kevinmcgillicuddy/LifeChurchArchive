@@ -4,6 +4,7 @@ import { FirebaseService } from '../services/firebase.service';
 import { MatDialog} from '@angular/material/dialog';
 import { UploadFileDialogComponent } from './upload-file-dialog/upload-file-dialog.component'
 import firebase from 'firebase/app';
+import { AuthProvider } from 'ngx-auth-firebaseui';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ export class AppComponent {
   title = 'Life Church Lancaster Archive';
   tabs$: firebase.firestore.QueryDocumentSnapshot<any>[]
   loggedIn: boolean;
-
+  providers = AuthProvider;
   constructor(public firebaseService: FirebaseService, public dialog: MatDialog) { }
 
   openDialog() {

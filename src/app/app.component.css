@@ -15,7 +15,6 @@
   transform: translate(-50%, -50%);
 }
 
-
 .welcomeBlock{
   
   margin-left:50px;
@@ -28,6 +27,21 @@
   margin-bottom: 5%;
 }
 
+.authBlock{
+  margin-left: 10%;
+  margin-right:10%;
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+
+.authBlock p{
+  margin-top: 5%;
+  margin-bottom: 5%;
+
+}
 
 .intro-container{
     margin-left:50px;
@@ -48,4 +62,18 @@
     line-height: 1.6em;
     text-transform: none; */
     color:white
+  }
+
+  .child3{
+    min-height: 500px;
+  }
+
+  .sermonBlock{
+    margin-left: 5%;
+    margin-right:2.5%;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
   }

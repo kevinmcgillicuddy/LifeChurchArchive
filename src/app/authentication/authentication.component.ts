@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from 'src/services/firebase.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase/app';
+import {AuthProvider} from 'ngx-auth-firebaseui';
 
 @Component({
   selector: 'app-authentication',
@@ -9,6 +10,7 @@ import firebase from 'firebase/app';
   styleUrls: ['./authentication.component.css']
 })
 export class AuthenticationComponent implements OnInit {
+
 
   authenticated:boolean;
 
