@@ -8,13 +8,15 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatDialogModule} from '@angular/material/dialog';
-import {MatIconModule} from '@angular/material/icon';
+import {MatIconModule, MatIconRegistry} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatRadioModule} from '@angular/material/radio';
 import {FormsModule } from'@angular/forms';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 //firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -27,6 +29,7 @@ import { TextDiplayDialogComponent } from './text-diplay-dialog/text-diplay-dial
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { UploadTaskComponent } from './upload-task/upload-task.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,8 @@ import { UploadTaskComponent } from './upload-task/upload-task.component';
     MatButtonModule,
     MatTooltipModule,
     FormsModule,
+    HttpClientModule,
+    FlexLayoutModule,
     AngularFireAuthModule,
     MatTabsModule,
     MatDialogModule,
@@ -58,7 +63,7 @@ import { UploadTaskComponent } from './upload-task/upload-task.component';
     AngularFireStorageModule,
     AngularFireFunctionsModule
   ],
-  providers: [],
+  providers: [MatIconRegistry],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

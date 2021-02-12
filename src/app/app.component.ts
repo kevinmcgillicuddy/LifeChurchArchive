@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
 import { FirebaseService } from '../services/firebase.service';
 import { MatDialog} from '@angular/material/dialog';
 import { UploadFileDialogComponent } from './upload-file-dialog/upload-file-dialog.component'
+import {AuthenticationComponent} from './authentication/authentication.component';
 import firebase from 'firebase/app';
+
 
 @Component({
   selector: 'app-root',
@@ -15,11 +16,13 @@ export class AppComponent {
   title = 'Life Church Lancaster Archive';
   tabs$: firebase.firestore.QueryDocumentSnapshot<any>[]
   loggedIn: boolean;
-
   constructor(public firebaseService: FirebaseService, public dialog: MatDialog) { }
 
-  openDialog() {
+  openUploadDialog() {
     this.dialog.open(UploadFileDialogComponent);
+  }
+  openAuthDialog() {
+    this.dialog.open(AuthenticationComponent);
   }
 
   ngOnInit() {

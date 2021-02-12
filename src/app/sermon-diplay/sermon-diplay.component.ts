@@ -32,12 +32,7 @@ export class SermonDiplayComponent implements OnInit {
   }   
   
   sendFileForTranscription(data:FirestoreRecord):void {
-    this.firebaseService.setWaitingText((data.year as unknown) as string,data.uuid)
-    .then(res=>{this.feedback = null})
-    .catch(err=>{ this.openDialog({title:'Error',text:'You must be logged in'})
-      })
-    
-    this.firebaseService.sendFileForTranscription(data)
+    this.firebaseService.sendFileForTranscription(data).catch(err=>this.openDialog(err))
   }
 
   openDialog(data:DialogData) {

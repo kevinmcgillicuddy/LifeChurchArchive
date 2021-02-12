@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from 'src/services/firebase.service';
-import { AngularFireAuth } from '@angular/fire/auth';
-import firebase from 'firebase/app';
+import { MatIconRegistry} from "@angular/material/icon";
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-authentication',
@@ -10,10 +10,14 @@ import firebase from 'firebase/app';
 })
 export class AuthenticationComponent implements OnInit {
 
-  authenticated:boolean;
 
-  constructor(public auth: FirebaseService) { 
-  
+  authenticated:boolean;
+  provider:string
+
+  constructor(public auth: FirebaseService, private matIconRegistry: MatIconRegistry,  private domSanitizer: DomSanitizer,) { 
+    this.matIconRegistry
+    .addSvgIcon('google',this.domSanitizer.bypassSecurityTrustResourceUrl('assets/img/icon/google.svg'))
+    .addSvgIcon('microsoft',this.domSanitizer.bypassSecurityTrustResourceUrl('assets/img/icon/microsoft.svg'))
   }
 
   login(){
