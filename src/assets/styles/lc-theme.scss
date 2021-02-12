@@ -6,6 +6,39 @@
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
+$mat-lc-green: (
+  50: #5d737e,
+  100: #5d737e,
+  200: #5d737e,
+  300: #5d737e,
+  400: #5d737e,
+  500: #5d737e,
+  600: #5d737e,
+  700: #5d737e,
+  800: #5d737e,
+  900: #5d737e,
+  A100: #5d737e,
+  A200: #5d737e,
+  A400: #5d737e,
+  A700: #5d737e,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  )
+);
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
