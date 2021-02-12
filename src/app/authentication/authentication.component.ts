@@ -21,7 +21,7 @@ export class AuthenticationComponent implements OnInit {
   }
 
   login(){
-    this.auth.login(provider)
+    this.auth.login()
   }
   logout(){
     this.auth.logout()

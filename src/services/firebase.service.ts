@@ -69,7 +69,7 @@ export class FirebaseService {
   }
 
 
-  setUser(response):void{
+  setUser(response: firebase.auth.UserCredential):void{
     this.db.collection('users-list').doc(response.user.uid).get().subscribe(obvData => {
       if (!obvData.exists) {
         //first login
@@ -84,21 +84,21 @@ export class FirebaseService {
   }
 
 
-  login(provider:string): void {
+  login(): void {
    
-   switch(provider){
-     case 'google':
+  //  switch(provider){
+  //    case 'google':
       this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(response => {
         this.setUser(response)
       })
-     break;
-     case 'microsoft':
+    //  break;
+    //  case 'microsoft':
       // this.auth.signInWithPopup(new firebase.auth.sig.then(response => {
       //   console.log(response)
       //   this.setUser(response)
       // })
-     break;
-   }
+    //  break;
+  //  }
    
 
   }//fin
