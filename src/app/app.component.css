@@ -30,6 +30,7 @@
 .authBlock{
   margin-left: 10%;
   margin-right:10%;
+  margin-bottom: 5%;
   display: flex;
   flex-direction:column;
   justify-content: center;
@@ -40,7 +41,18 @@
 .authBlock p{
   margin-top: 5%;
   margin-bottom: 5%;
+}
 
+
+ 
+@media screen and (min-width: 500px){
+  .ngx {
+    width: 500px;
+  }
+ }
+.ngx{
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .intro-container{

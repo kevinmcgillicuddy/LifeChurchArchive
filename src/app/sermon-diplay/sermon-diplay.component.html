@@ -1,11 +1,13 @@
 <div *ngIf="sermons$">
-  <mat-list class="main">
+  <mat-list > 
+    <!-- class="main" -->
     
-    <!-- this is container --> <mat-list-item class="containerX" *ngFor='let sermon of sermons$ | async'>
-     
-      <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex class="coloredContainerX box">
-        <div fxFlex> <div class="item1" mat-subheader>{{sermon.filename}}</div></div>
-        <div fxFlex> <div class="item2">
+    <!-- this is container --> 
+    <mat-list-item class="containerX" *ngFor='let sermon of sermons$ | async'>
+      <!-- class="coloredContainerX box" -->
+      <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex >
+        <div fxFlex>{{sermon.filename}}</div>
+        <div fxFlex>
           <button #tooltip="matTooltip" matTooltip="Download or Listen to the sermon" matTooltipPosition="below"
             mat-icon-button color="primary" (click)="goToDownloadPage(sermon.downloadURL)"
             aria-label="Cloud download icon">
@@ -24,7 +26,7 @@
             <mat-icon>chrome_reader_mode</mat-icon>
           </button>
   
-        </div></div>
+        </div>
       </div>
 
 <!-- 

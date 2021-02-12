@@ -23,33 +23,31 @@
           download, request an english text transcript or read the sermon</p>
         <p>For new content visit <a href="https://lifechurchlancaster.org/sermons">our main website</a></p>
       </div>
-      <div>
-      </div>
-      <mat-divider></mat-divider>
-      <div *ngIf="this.loggedIn; else elseBlock"><button mat-raised-button (click)="openDialog()">Upload a File</button>
+    </div>
+  </div>
+  
+  <div class="child3">
+    <div class='sermonBlock'>
+      <mat-tab-group style="width: 90%; min-height: 90%;" animationDuration="0ms">
+        <mat-tab *ngFor="let tab of tabs$">
+          <ng-template mat-tab-label>{{tab.id}}</ng-template>
+          <ng-template matTabContent>
+            <app-sermon-diplay style="min-height: 90%;" [year]='tab.id'></app-sermon-diplay>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+  <div style="background-color:#5d737e;">
+    <div class="authBlock">
+      <div *ngIf="this.loggedIn; else elseBlock">
+        <button mat-raised-button (click)="openUploadDialog()">Upload a File</button>
       </div>
       <ng-template #elseBlock>
-
+        <p class="body-1">If you would like to request a text version of a sermon you must sign in, if you are an admin
+          you can also upload files</p>
+          <button mat-raised-button (click)="openAuthDialog()">Login</button>
       </ng-template>
     </div>
-  </div>
-  <div>
-    <div class="authBlock">
-      <p class="body-1">To get started please sign in so you can request stuff</p>
-      <!-- <app-authentication></app-authentication> -->
-      <ngx-auth-firebaseui [guestEnabled]=false [providers]="[providers.Google, providers.Facebook, providers.Twitter]">></ngx-auth-firebaseui>
-    </div>
-  </div>
-  <div class="child3" style="background-color:#5d737e;">
-    <div class='sermonBlock'>
-    <mat-tab-group style="width: 90%; min-height: 90%;" animationDuration="0ms">
-      <mat-tab *ngFor="let tab of tabs$">
-        <ng-template mat-tab-label>{{tab.id}}</ng-template>
-        <ng-template matTabContent>
-          <app-sermon-diplay style="min-height: 90%;" [year]='tab.id'></app-sermon-diplay>
-        </ng-template>
-      </mat-tab>
-    </mat-tab-group>
-  </div>
   </div>
 </div>

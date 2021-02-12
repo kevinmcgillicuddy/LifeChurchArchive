@@ -11,16 +11,16 @@
     display: flex;
     flex-flow: row wrap;
     overflow: hidden;
-    white-space: nowrap;
+    /* white-space: nowrap; */
  
 }
 .item1{
     max-width: 250px;
     min-width: 100px;
     color: white;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    /* overflow: hidden; */
+    /* white-space: nowrap; */
+    /* text-overflow: ellipsis; */
     
 }
 
