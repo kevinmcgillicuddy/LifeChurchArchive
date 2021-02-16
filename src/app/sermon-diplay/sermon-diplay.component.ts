@@ -27,7 +27,7 @@ export class SermonDiplayComponent implements OnInit {
   getTranslatedText(uuid: string, year:string): void {
     this.firebaseService.getText(uuid, year).then(docs => {
       this.text = docs.docs.map(e => e.data())
-      this.openDialog({title:'Transcription',text:this.text[0].text});
+      this.openDialog({title:`Transcription of: ${this.text[0].filename}`,text:this.text[0].text});
     })
   }   
   
