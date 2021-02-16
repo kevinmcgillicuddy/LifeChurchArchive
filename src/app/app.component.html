@@ -6,7 +6,8 @@
     </span>
   </div>
   <div class="welcomeBlock">
-    <p class="mat-display-1"><strong>Life Church Lancaster Archive</strong></p>
+    <!-- <p class="mat-h1"><strong>LIFE CHURCH LANCASTER ARCHIVE</strong></p> -->
+    <h1 class="mat-display-1">LIFE CHURCH LANCASTER ARCHIVE</h1>
   </div>
   <div style="background-color: #38525c">
     <div class="intro-container">
@@ -41,20 +42,28 @@
   <div style="background-color:#5d737e;">
     <div class="authBlock">
       <div *ngIf="this.loggedIn; else elseBlock">
-        <button mat-raised-button (click)="openUploadDialog()">Upload a File</button>
-        <button (click)="logout()">Logout</button>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Welcome</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div><button mat-raised-button (click)="openUploadDialog()">Upload a File</button></div>
+            <mat-divider class="divide"></mat-divider>
+            <div><button mat-raised-button (click)="logout()">Logout</button></div>
+          </mat-card-content>
+        </mat-card>
       </div>
       <ng-template #elseBlock>
-        <!-- <p class="body-1">If you would like to request a text version of a sermon you must sign in, if you are an admin
-          you can also upload files</p> -->
-          <mat-card>
+        <div style="max-width: 400px;">
+          <mat-card >
             <mat-card-header>
-              <mat-card-title>Sign in</mat-card-title>
+              <mat-card-title><h1>Sign in</h1></mat-card-title>
             </mat-card-header>
             <mat-card-content>
-              <app-authentication></app-authentication>
+              <app-authentication (notifyName)='setName($event)'></app-authentication>
             </mat-card-content>
           </mat-card>
+        </div>
       </ng-template>
     </div>
   </div>

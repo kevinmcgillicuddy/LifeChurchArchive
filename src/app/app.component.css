@@ -15,6 +15,11 @@
   transform: translate(-50%, -50%);
 }
 
+.divide{
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
 .welcomeBlock{
   
   margin-left:50px;
@@ -64,15 +69,6 @@
   .bodyText{
     margin-top: 10%;
     margin-bottom: 10%;
-    /* font-family: Arial,Helvetica,sans-serif;
-    letter-spacing: 0em;
-    font-family: Exo 2;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 16px;
-    letter-spacing: .03em;
-    line-height: 1.6em;
-    text-transform: none; */
     color:white
   }
 

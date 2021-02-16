@@ -1,32 +1,6 @@
-.main{
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    -ms-box-orient: horizontal;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -moz-flex;
-    display: -webkit-flex;
-    display: flex;
-    flex-flow: row wrap;
-    overflow: hidden;
-    /* white-space: nowrap; */
- 
-}
-.item1{
-    max-width: 250px;
-    min-width: 100px;
-    color: white;
-    /* overflow: hidden; */
-    /* white-space: nowrap; */
-    /* text-overflow: ellipsis; */
+.listItem{
+    margin-bottom: 1%;
+    
     
 }
-
-.item2{
-     width:  150px;
-    
-}
-
 

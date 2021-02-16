@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { FirebaseService } from 'src/services/firebase.service';
 import { MatIconRegistry} from "@angular/material/icon";
 import { DomSanitizer } from '@angular/platform-browser';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-authentication',
@@ -10,8 +11,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AuthenticationComponent implements OnInit {
 
+  @Output() notifyName: EventEmitter<string> = new EventEmitter<string>();
+
   authenticated:boolean;
-  name:string
+
 
   constructor(public auth: FirebaseService, private matIconRegistry: MatIconRegistry,  private domSanitizer: DomSanitizer,) { 
     this.matIconRegistry
@@ -22,12 +25,8 @@ export class AuthenticationComponent implements OnInit {
   login(providerInput:string){
     this.auth.login(providerInput).then(response=>{
       this.authenticated = this.auth.isAuthenticated()
-      this.name = response.user.displayName
+      this.notifyName.emit(response.user.displayName)   
     })
-  }
-  logout(){
-    this.auth.logout()
-    this.authenticated = this.auth.isAuthenticated()
   }
 
   ngOnInit(): void {  
