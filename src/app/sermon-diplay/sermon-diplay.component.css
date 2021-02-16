@@ -1,6 +1,15 @@
 .listItem{
-    margin-bottom: 1%;
-    
-    
+    max-width: 450px;
 }
 
+@media screen and (max-width: 1083px) {
+    .listItem {
+        max-width: 350px;
+    }
+  }
+
+.item1{
+    display: inline;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
