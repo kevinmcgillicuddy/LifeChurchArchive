@@ -1,17 +1,21 @@
 <div>
+
   <div *ngIf="authenticated">
-    <h1>Hello</h1>
+    <h1>Hello {{name}}!</h1>
     <button (click)="logout()">Logout</button>
   </div>
+
   <div *ngIf="!authenticated" class="loginBlock">
     <p>Only social logins are support right now</p>
     <div style></div>
-    <button mat-flat-button color="primary" (click)="login()"><mat-icon svgIcon="google"></mat-icon> Login with Google</button>
+    <button mat-flat-button color="primary" (click)="login('google')">
+      <mat-icon svgIcon="google"></mat-icon> Login with Google
+    </button>
     <mat-divider class="divide"></mat-divider>
-    <button mat-flat-button color="primary" (click)="login()"><mat-icon svgIcon="microsoft"></mat-icon> Login with Microsoft</button>
+    <button mat-flat-button color="primary" (click)="login('microsoft')">
+      <mat-icon svgIcon="microsoft"></mat-icon> Login with Microsoft
+    </button>
   </div>
-  <mat-dialog-actions align="end">
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Close</button>
-  </mat-dialog-actions>
+
 </div>
 

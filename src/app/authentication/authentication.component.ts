@@ -10,9 +10,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AuthenticationComponent implements OnInit {
 
-
   authenticated:boolean;
-  provider:string
+  name:string
 
   constructor(public auth: FirebaseService, private matIconRegistry: MatIconRegistry,  private domSanitizer: DomSanitizer,) { 
     this.matIconRegistry
@@ -20,8 +19,11 @@ export class AuthenticationComponent implements OnInit {
     .addSvgIcon('microsoft',this.domSanitizer.bypassSecurityTrustResourceUrl('assets/img/icon/microsoft.svg'))
   }
 
-  login(){
-    this.auth.login()
+  login(providerInput:string){
+    this.auth.login(providerInput).then(response=>{
+      this.authenticated = this.auth.isAuthenticated()
+      this.name = response.user.displayName
+    })
   }
   logout(){
     this.auth.logout()

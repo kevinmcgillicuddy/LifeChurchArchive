@@ -56,8 +56,6 @@ export class FirebaseService {
     localStorage.getItem('isLoggedIn');
   }
 
-
-
   returnAdminClaims(): Promise<firebase.auth.IdTokenResult> {
     if (this.isAuthenticated()) {
       return firebase.auth().currentUser.getIdTokenResult()
@@ -67,7 +65,6 @@ export class FirebaseService {
       return Promise.reject()
     }
   }
-
 
   setUser(response: firebase.auth.UserCredential):void{
     this.db.collection('users-list').doc(response.user.uid).get().subscribe(obvData => {
@@ -83,25 +80,24 @@ export class FirebaseService {
     this.getUserToken()
   }
 
+  async login(providerInput:string): Promise<firebase.auth.UserCredential> {
+  
+   switch(providerInput){
+    
+    case 'google':
+     let GoogleAuthResponse = await this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+     this.setUser(GoogleAuthResponse)
+     return Promise.resolve(GoogleAuthResponse) 
+    
+     case 'microsoft':
+      var provider = new firebase.auth.OAuthProvider('microsoft.com');
+      let MSAuthResponse = await firebase.auth().signInWithPopup(provider)
+        this.setUser(MSAuthResponse)
+        return Promise.resolve(MSAuthResponse) 
+   }
 
-  login(): void {
-   
-  //  switch(provider){
-  //    case 'google':
-      this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(response => {
-        this.setUser(response)
-      })
-    //  break;
-    //  case 'microsoft':
-      // this.auth.signInWithPopup(new firebase.auth.sig.then(response => {
-      //   console.log(response)
-      //   this.setUser(response)
-      // })
-    //  break;
-  //  }
-   
 
-  }//fin
+  }
 
   logout(): void {
     this.auth.signOut();

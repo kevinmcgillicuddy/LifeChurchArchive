@@ -16,7 +16,7 @@ export class AppComponent {
   title = 'Life Church Lancaster Archive';
   tabs$: firebase.firestore.QueryDocumentSnapshot<any>[]
   loggedIn: boolean;
-  constructor(public firebaseService: FirebaseService, public dialog: MatDialog) { }
+  constructor(public auth: FirebaseService,public firebaseService: FirebaseService, public dialog: MatDialog) { }
 
   openUploadDialog() {
     this.dialog.open(UploadFileDialogComponent);
@@ -24,7 +24,10 @@ export class AppComponent {
   openAuthDialog() {
     this.dialog.open(AuthenticationComponent);
   }
-
+  logout(){
+    this.auth.logout()
+    this.loggedIn = this.auth.isAuthenticated()
+  }
   ngOnInit() {
       this.firebaseService.getYears().subscribe(e=>{
         this.tabs$ = e.docs
