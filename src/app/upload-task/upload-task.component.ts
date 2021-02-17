@@ -42,7 +42,7 @@ export class UploadTaskComponent implements OnInit {
       );
     }
     else {
-      this.feedback = "You must sign in and be an admin to upload files";
+      this.feedback = "You must be an admin to upload files";
     }
   }
 
