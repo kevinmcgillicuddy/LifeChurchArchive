@@ -5,29 +5,13 @@
       <img src="assets/img/logo.png" width="65%" height="65%" style="margin-bottom: 10px;">
     </span>
   </div>
-  <div class="welcomeBlock">
-    <!-- <p class="mat-h1"><strong>LIFE CHURCH LANCASTER ARCHIVE</strong></p> -->
-    <h1 class="mat-display-1">LIFE CHURCH LANCASTER ARCHIVE</h1>
+  <!-- <div class="welcomeBlock">
+    <p class="mat-h1"><strong>LIFE CHURCH LANCASTER ARCHIVE</strong></p>
+  </div> -->
+  <div style="background-color: #38525c" class="child2">
+    <app-welcome-block></app-welcome-block>
   </div>
-  <div style="background-color: #38525c">
-    <div class="intro-container">
-      <div class="bodyText">
-        <p class="mat-display-1">Welcome</p>
-        <p class="body-1">This website represents an attempt to collect and archive old content taught from years 2010
-          to 2015.
-        <p>Life Church is a faith community that makes space for every race, ethnicity, age, sexual orientation and
-          gender
-          identity. We welcome belief and doubt, devotion and exploration, while hoping to connect with God, one another
-          and our world.
-        </p>
-        <p>This website serves as a way to interact with older content from the early days of Life Church, you can
-          download, request an english text transcript or read the sermon</p>
-        <p>For new content visit <a href="https://lifechurchlancaster.org/sermons">our main website</a></p>
-        <p>700 Brentwood Drive. Lititz, PA 17543</p>
-      </div>
-    </div>
-  </div>
-  
+   
   <div class="child3">
     <div class='sermonBlock'>
       <mat-tab-group style="min-height: 90%;" animationDuration="0ms">
@@ -45,7 +29,8 @@
       <div class="authCard" *ngIf="this.loggedIn; else elseBlock">
         <mat-card>
           <mat-card-header>
-            <mat-card-title><h1>Welcome {{name}}</h1></mat-card-title>
+            <mat-card-title>
+              <span class="mat-display-1" style="color:white;">Welcome {{name}}</span></mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <div><button color="basic" mat-raised-button (click)="openUploadDialog()">Upload a File</button></div>
@@ -58,7 +43,7 @@
         <div>
           <mat-card>
             <mat-card-header>
-              <mat-card-title><h1>Sign in</h1></mat-card-title>
+              <mat-card-title><span class="mat-display-1" style="color:white;">Sign in</span></mat-card-title>
             </mat-card-header>
             <mat-card-content>
               <app-authentication (notifyName)='setName($event)'></app-authentication>

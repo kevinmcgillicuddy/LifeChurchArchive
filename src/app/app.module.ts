@@ -30,6 +30,7 @@ import { AuthenticationComponent } from './authentication/authentication.compone
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { UploadTaskComponent } from './upload-task/upload-task.component';
 import { HttpClientModule } from '@angular/common/http';
+import { WelcomeBlockComponent } from './welcome-block/welcome-block.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { HttpClientModule } from '@angular/common/http';
     SermonDiplayComponent,
     TextDiplayDialogComponent,
     AuthenticationComponent,
-    UploadTaskComponent
+    UploadTaskComponent,
+    WelcomeBlockComponent
   ],
   imports: [
     BrowserModule,
