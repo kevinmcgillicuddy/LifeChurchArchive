@@ -3,11 +3,11 @@
   <div *ngIf="!authenticated" class="loginBlock">
     <p>Only social logins are support right now</p>
     <div style></div>
-    <button mat-raised-button color="primary" (click)="login('google')">
+    <button color="basic" mat-raised-button (click)="login('google')">
       <mat-icon svgIcon="google"></mat-icon> Login with Google
     </button>
     <mat-divider class="divide"></mat-divider>
-    <button mat-raised-button color="primary" (click)="login('microsoft')">
+    <button color="basic" mat-raised-button (click)="login('microsoft')">
       <mat-icon svgIcon="microsoft"></mat-icon> Login with Microsoft
     </button>
   </div>

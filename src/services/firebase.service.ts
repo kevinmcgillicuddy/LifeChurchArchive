@@ -46,11 +46,12 @@ export class FirebaseService {
     return this.db.collection('sermons').doc(year).collection('items').ref.where(`uuid`, '==', `${uuid}`).get()
   }
 
-  getUserToken(): void {
+  getUserToken(name:string): void {
     firebase.auth().currentUser.getIdToken()
       .then(
         (token: string) => {
           localStorage.setItem('isLoggedIn', token);
+          localStorage.setItem('displayName', name);
         }
       )
     localStorage.getItem('isLoggedIn');
@@ -77,7 +78,7 @@ export class FirebaseService {
         })
       }
     })
-    this.getUserToken()
+    this.getUserToken(response.user.displayName)
   }
 
   async login(providerInput:string): Promise<firebase.auth.UserCredential> {
@@ -102,6 +103,7 @@ export class FirebaseService {
   logout(): void {
     this.auth.signOut();
     localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('displayName');
   }
 
   getYears(): Observable<firebase.firestore.QuerySnapshot<any>> {

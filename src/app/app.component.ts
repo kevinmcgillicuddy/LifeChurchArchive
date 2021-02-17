@@ -39,6 +39,7 @@ export class AppComponent {
         this.tabs$ = e.docs;
       })
       this.loggedIn = this.firebaseService.isAuthenticated();
+      this.name = localStorage.getItem('displayName');
   }
 }
 
