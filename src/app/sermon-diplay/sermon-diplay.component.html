@@ -1,5 +1,5 @@
 <div *ngIf="sermons$">
-  <mat-list fxLayout="row wrap" fxLayout.xs="column"  fxFlex>
+  <mat-list fxLayout="row wrap" fxLayout.xs="column"  fxFlex style="margin-bottom:5%">
     <mat-list-item class="listItem" *ngFor='let sermon of sermons$ | async'>
 
       <div fxFlex fxFlexAlign="center" class="item1" aria-label='Sermon Filename'>{{sermon.filename}}</div>
