@@ -1,8 +1,22 @@
 .hero-container {
-    position: center;
     justify-content: center;
     position: relative;
     text-align: center;
+  }
+
+  .top-right {
+    position: absolute;
+    top: 8px;
+    right: 25px;
+  }
+  ul#menu{
+    display: flex;
+  }
+  ul#menu li {
+    display: inline;
+    margin-right: 5%;
+    color:white;
+    font-weight: 300;
   }
  .heroImg{
   width: 100%;

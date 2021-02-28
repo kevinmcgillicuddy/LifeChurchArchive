@@ -10,7 +10,11 @@
   .bodyText{
     margin-top: 10%;
     margin-bottom: 10%;
-    color:white
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    color:white;
+    text-align: center;
   }
   
   .intro-container{
