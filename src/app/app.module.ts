@@ -16,6 +16,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatCardModule} from '@angular/material/card';
 
 //firebase
 import { AngularFireModule } from '@angular/fire';
@@ -32,6 +33,7 @@ import { UploadTaskComponent } from './upload-task/upload-task.component';
 import { HttpClientModule } from '@angular/common/http';
 import { WelcomeBlockComponent } from './welcome-block/welcome-block.component';
 import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { FooterComponent } from './footer/footer.component';
     AuthenticationComponent,
     UploadTaskComponent,
     WelcomeBlockComponent,
-    FooterComponent
+    FooterComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +53,7 @@ import { FooterComponent } from './footer/footer.component';
     MatSelectModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatCardModule,
     MatTooltipModule,
     FormsModule,
     HttpClientModule,

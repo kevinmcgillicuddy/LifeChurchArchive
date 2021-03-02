@@ -1,16 +1,37 @@
-<div>
+<div *ngIf="!authState; else showWelcome" class="authBlock">
+  <mat-card>
+    <mat-card-header class="header">
+      <mat-card-title><span class="mat-display-1">Sign in</span></mat-card-title>
+    </mat-card-header>
 
-  <div *ngIf="!authenticated" class="loginBlock">
-    <p>Only social logins are support right now</p>
-    <div style></div>
-    <button color="basic" mat-raised-button (click)="login('google')">
-      <mat-icon svgIcon="google"></mat-icon> Login with Google
-    </button>
-    <mat-divider class="divide"></mat-divider>
-    <button color="basic" mat-raised-button (click)="login('microsoft')">
-      <mat-icon svgIcon="microsoft"></mat-icon> Login with Microsoft
-    </button>
-  </div>
+    <mat-card-content class="loginBlock">
 
+      <button mat-raised-button color="secondary" (click)="login('google')">
+        <mat-icon svgIcon="google"></mat-icon> Login with Google
+      </button>
+
+      <button mat-raised-button color="secondary" (click)="login('microsoft')">
+        <mat-icon svgIcon="microsoft"></mat-icon> Login with Microsoft
+      </button>
+
+    </mat-card-content>
+  </mat-card>
 </div>
 
+<ng-template #showWelcome>
+  <mat-card>
+    <mat-card-header class="header">
+      <mat-card-title><span class="mat-display-1">Welcome {{name}}</span></mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content class="loginBlock">
+      <p>You can now request a text transcription of sermons and if you are an admin you can upload addtional files</p>
+      <mat-dialog-actions align="end">
+        <button mat-raised-button color="secondary" [mat-dialog-close]="true" cdkFocusInitial>Close</button>
+      </mat-dialog-actions>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</ng-template>

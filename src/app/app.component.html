@@ -1,22 +1,10 @@
 <div fxLayout="column" fxLayoutAlign=" none">
-
-  <div class="hero-container">
- 
-    <img class="heroImg" src="assets/img/main2.jpg">
-    <div class="top-right">  <ul id="menu">
-      <li><h2>HOME</h2></li>
-      <li><h2>LOGIN</h2></li>
-      <li><h2>SEARCH</h2></li>
-    </ul>  </div>
-  
-    <span class="centeredLogo">
-      <img src="assets/img/logo.png" width="65%" height="65%" style="margin-bottom: 10px;">
-    </span>
+  <div>
+    <app-header [heroImg]='img'></app-header>
   </div>
-  <div style="background-color: #38525c" class="child2">
+  <div class="child2">
     <app-welcome-block></app-welcome-block>
   </div>
-   
   <div class="child3">
     <div class='sermonBlock'>
       <mat-tab-group style="min-height: 90%;" animationDuration="0ms">
@@ -31,32 +19,5 @@
   </div>
   <div class="child4" style="background-color:#5d737e;">
     <app-footer></app-footer>
-    <!-- <div class="authBlock">
-      <div class="authCard" *ngIf="this.loggedIn; else elseBlock">
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title>
-              <span class="mat-display-1" style="color:white;">Welcome {{name}}</span></mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <div><button color="basic" mat-raised-button (click)="openUploadDialog()">Upload a File</button></div>
-            <mat-divider class="divide" style="margin-top:5%; margin-bottom: 5%;"></mat-divider>
-            <div><button color="basic" mat-raised-button (click)="logout()">Logout</button></div>
-          </mat-card-content>
-        </mat-card>
-      </div>
-      <ng-template #elseBlock>
-        <div>
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title><span class="mat-display-1" style="color:white;">Sign in</span></mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <app-authentication (notifyName)='setName($event)'></app-authentication>
-            </mat-card-content>
-          </mat-card>
-        </div>
-      </ng-template>
-    </div> -->
   </div>
 </div>

@@ -1,33 +1,4 @@
-.hero-container {
-    justify-content: center;
-    position: relative;
-    text-align: center;
-  }
 
-  .top-right {
-    position: absolute;
-    top: 8px;
-    right: 25px;
-  }
-  ul#menu{
-    display: flex;
-  }
-  ul#menu li {
-    display: inline;
-    margin-right: 5%;
-    color:white;
-    font-weight: 300;
-  }
- .heroImg{
-  width: 100%;
-  height: auto;
-  }
-.centeredLogo{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
 .divide{
   margin-top: 2%;
   margin-bottom: 2%;
@@ -64,7 +35,9 @@
   margin-right: auto;
 }
 
-
+.child2{
+  background-color: #38525c;
+}
   .child3{
     min-height: 500px;
   }

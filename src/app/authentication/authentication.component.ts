@@ -1,36 +1,29 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FirebaseService } from 'src/services/firebase.service';
 import { MatIconRegistry} from "@angular/material/icon";
 import { DomSanitizer } from '@angular/platform-browser';
-import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-authentication',
   templateUrl: './authentication.component.html',
   styleUrls: ['./authentication.component.css']
 })
-export class AuthenticationComponent implements OnInit {
-
-  @Output() notifyName: EventEmitter<string> = new EventEmitter<string>();
-
-  authenticated:boolean;
-
-
+export class AuthenticationComponent {
   constructor(public auth: FirebaseService, private matIconRegistry: MatIconRegistry,  private domSanitizer: DomSanitizer,) { 
     this.matIconRegistry
     .addSvgIcon('google',this.domSanitizer.bypassSecurityTrustResourceUrl('assets/img/icon/google.svg'))
     .addSvgIcon('microsoft',this.domSanitizer.bypassSecurityTrustResourceUrl('assets/img/icon/microsoft.svg'))
   }
 
+  authState:boolean;
+  name:string;
+
   login(providerInput:string){
-    this.auth.login(providerInput).then(response=>{
-      this.authenticated = this.auth.isAuthenticated()
-      this.notifyName.emit(response.user.displayName)   
-    })
+     this.auth.login(providerInput).then(result=>{
+       this.name = result.user.displayName
+        this.authState = true;
+     })
   }
 
-  ngOnInit(): void {  
-    this.authenticated = this.auth.isAuthenticated()
-  }
 
 }
