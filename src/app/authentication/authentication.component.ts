@@ -1,8 +1,7 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FirebaseService } from 'src/services/firebase.service';
 import { MatIconRegistry} from "@angular/material/icon";
 import { DomSanitizer } from '@angular/platform-browser';
-import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-authentication',
@@ -16,10 +15,14 @@ export class AuthenticationComponent {
     .addSvgIcon('microsoft',this.domSanitizer.bypassSecurityTrustResourceUrl('assets/img/icon/microsoft.svg'))
   }
 
+  authState:boolean;
+  name:string;
+
   login(providerInput:string){
-    
-    this.auth.login(providerInput).then(response=>{
-    })
+     this.auth.login(providerInput).then(result=>{
+       this.name = result.user.displayName
+        this.authState = true;
+     })
   }
 
 

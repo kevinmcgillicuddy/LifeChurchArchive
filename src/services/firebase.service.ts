@@ -5,6 +5,7 @@ import { AngularFireFunctions } from '@angular/fire/functions';
 import { AngularFireStorage } from '@angular/fire/storage';
 import firebase from 'firebase/app';
 import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
 import { FirestoreRecord } from '../app/interfaces/FirestoreRecord'
 
 @Injectable({
@@ -17,12 +18,13 @@ export class FirebaseService {
   public items: Observable<FirestoreRecord[]>;
   private itemsCollection: AngularFirestoreCollection<FirestoreRecord>;
  
-  isAuthenticated(): any {
-       return this.auth.user
+  isAuthenticated(): Promise<firebase.User> {
+       return this.auth.user.pipe(first()).toPromise()
     }
 
-  sendFileForTranscription(data: FirestoreRecord): Promise<void> {
-    if (this.isAuthenticated()) {
+  async sendFileForTranscription(data: FirestoreRecord): Promise<void> {
+    const userAuthState = await this.isAuthenticated()
+    if (userAuthState) {
       this.db.collection('sermons').doc(data.year as unknown as string).collection('items').doc(data.uuid).update({ text: 'Waiting for transcription to finish' })
       const transcribe = this.func.httpsCallable("transcribe")
       transcribe(
@@ -46,21 +48,21 @@ export class FirebaseService {
     return this.db.collection('sermons').doc(year).collection('items').ref.where(`uuid`, '==', `${uuid}`).get()
   }
 
-  getUserToken(name:string): void {
-    firebase.auth().currentUser.getIdToken()
-      .then(
-        (token: string) => {
-          localStorage.setItem('isLoggedIn', token);
-          localStorage.setItem('displayName', name);
-        }
-      )
-    localStorage.getItem('isLoggedIn');
-  }
+  // getUserToken(name:string): void {
+  //   firebase.auth().currentUser.getIdToken()
+  //     .then(
+  //       (token: string) => {
+  //         localStorage.setItem('isLoggedIn', token);
+  //         localStorage.setItem('displayName', name);
+  //       }
+  //     )
+  //   localStorage.getItem('isLoggedIn');
+  // }
 
-  returnAdminClaims(): Promise<firebase.auth.IdTokenResult> {
-    let authState = this.isAuthenticated().subscribe()
-    console.log(authState)
-    if (authState) {
+  async returnAdminClaims(): Promise<firebase.auth.IdTokenResult> {
+    const userAuthState = await this.isAuthenticated()
+    console.log(userAuthState)
+    if (userAuthState) {
       return firebase.auth().currentUser.getIdTokenResult()
     }
     else {
@@ -83,23 +85,20 @@ export class FirebaseService {
     // this.getUserToken(response.user.displayName)
   }
 
-  async login(providerInput:string): Promise<firebase.auth.UserCredential> {
-  
-   switch(providerInput){
-    
-    case 'google':
-     let GoogleAuthResponse = await this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-     this.setUser(GoogleAuthResponse)
-     return Promise.resolve(GoogleAuthResponse) 
-    
-     case 'microsoft':
-      var provider = new firebase.auth.OAuthProvider('microsoft.com');
-      let MSAuthResponse = await firebase.auth().signInWithPopup(provider)
+  async login(providerInput: string): Promise<firebase.auth.UserCredential> {
+
+    switch (providerInput) {
+      case 'google':
+        let GoogleAuthResponse = await this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+        this.setUser(GoogleAuthResponse)
+        return Promise.resolve(GoogleAuthResponse)
+
+      case 'microsoft':
+        var provider = new firebase.auth.OAuthProvider('microsoft.com');
+        let MSAuthResponse = await firebase.auth().signInWithPopup(provider)
         this.setUser(MSAuthResponse)
-        return Promise.resolve(MSAuthResponse) 
-   }
-
-
+        return Promise.resolve(MSAuthResponse)
+    }
   }
 
   logout(): void {

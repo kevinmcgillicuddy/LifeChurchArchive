@@ -1,28 +1,6 @@
 <div fxLayout="column" fxLayoutAlign=" none">
-  <div class="hero-container">
-    <img class="heroImg" src="assets/img/main2.jpg">
-    <div class="center">
-      <ul id="menu">
-        <li>
-          <h2>HOME</h2>
-        </li>
-        <li *ngIf="!authState">
-          <h2><a (click)="openAuthDialog()">LOGIN</a></h2>
-        </li>
-        <li>
-          <h2>SEARCH</h2>
-        </li>
-        <li *ngIf="authState">
-          <h2><a (click)="openUploadDialog()">UPLOAD</a></h2>
-        </li>
-        <li *ngIf="authState">
-          <h2><a (click)="logout()">LOGOUT</a></h2>
-        </li>
-      </ul>
-    </div>
-    <span class="centeredLogo">
-      <img src="assets/img/logo.png" width="65%" height="65%" style="margin-bottom: 10px;">
-    </span>
+  <div>
+    <app-header [heroImg]='img'></app-header>
   </div>
   <div class="child2">
     <app-welcome-block></app-welcome-block>
