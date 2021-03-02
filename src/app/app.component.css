@@ -4,10 +4,13 @@
     text-align: center;
   }
 
-  .top-right {
+  .center {
     position: absolute;
     top: 8px;
-    right: 25px;
+    right: 125px;
+  }
+  .greyedOut{
+    display: none;
   }
   ul#menu{
     display: flex;
@@ -64,7 +67,9 @@
   margin-right: auto;
 }
 
-
+.child2{
+  background-color: #38525c;
+}
   .child3{
     min-height: 500px;
   }

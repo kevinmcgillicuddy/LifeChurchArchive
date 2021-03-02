@@ -14,12 +14,12 @@ import { FirestoreRecord } from '../app/interfaces/FirestoreRecord'
 export class FirebaseService {
   constructor(public db: AngularFirestore, public storage: AngularFireStorage, public func: AngularFireFunctions, public auth: AngularFireAuth) { }
 
-  items: Observable<FirestoreRecord[]>;
+  public items: Observable<FirestoreRecord[]>;
   private itemsCollection: AngularFirestoreCollection<FirestoreRecord>;
-
-  isAuthenticated(): boolean {
-    return (localStorage.getItem('isLoggedIn')) ? true : false;
-  }
+ 
+  isAuthenticated(): any {
+       return this.auth.user
+    }
 
   sendFileForTranscription(data: FirestoreRecord): Promise<void> {
     if (this.isAuthenticated()) {
@@ -58,7 +58,9 @@ export class FirebaseService {
   }
 
   returnAdminClaims(): Promise<firebase.auth.IdTokenResult> {
-    if (this.isAuthenticated()) {
+    let authState = this.isAuthenticated().subscribe()
+    console.log(authState)
+    if (authState) {
       return firebase.auth().currentUser.getIdTokenResult()
     }
     else {
@@ -78,7 +80,7 @@ export class FirebaseService {
         })
       }
     })
-    this.getUserToken(response.user.displayName)
+    // this.getUserToken(response.user.displayName)
   }
 
   async login(providerInput:string): Promise<firebase.auth.UserCredential> {

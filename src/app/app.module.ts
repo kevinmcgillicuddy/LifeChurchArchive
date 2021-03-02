@@ -16,6 +16,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatCardModule} from '@angular/material/card';
 
 //firebase
 import { AngularFireModule } from '@angular/fire';
@@ -50,6 +51,7 @@ import { FooterComponent } from './footer/footer.component';
     MatSelectModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatCardModule,
     MatTooltipModule,
     FormsModule,
     HttpClientModule,
