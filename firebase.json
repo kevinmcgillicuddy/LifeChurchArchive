@@ -5,6 +5,41 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "headers": [
+      {
+        "source": "*",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=86400"
+          },
+          {
+            "key" : "Content-Security-Policy",
+            "value": "default-src https:"
+          },
+          {
+            "key" : "X-Frame-Options",
+            "value": "SAMEORIGIN"
+          },
+          {
+            "key" : "X-Content-Type-Options",
+            "value": "nosniff"
+          },
+          {
+            "key" : "Referrer-Policy",
+            "value": "no-referrer"
+          },
+          {
+            "key" : "Permissions-Policy",
+            "value": "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+          },
+          {
+            "key" : "Strict-Transport-Security",
+            "value": "max-age=31536000"
+          }
+        ]
+      }
     ]
   }
 }
