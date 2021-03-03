@@ -15,10 +15,6 @@
             "value": "max-age=86400"
           },
           {
-            "key" : "Content-Security-Policy",
-            "value": "default-src https:"
-          },
-          {
             "key" : "X-Frame-Options",
             "value": "SAMEORIGIN"
           },
