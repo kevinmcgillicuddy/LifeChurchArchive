@@ -48,17 +48,6 @@ export class FirebaseService {
     return this.db.collection('sermons').doc(year).collection('items').ref.where(`uuid`, '==', `${uuid}`).get()
   }
 
-  // getUserToken(name:string): void {
-  //   firebase.auth().currentUser.getIdToken()
-  //     .then(
-  //       (token: string) => {
-  //         localStorage.setItem('isLoggedIn', token);
-  //         localStorage.setItem('displayName', name);
-  //       }
-  //     )
-  //   localStorage.getItem('isLoggedIn');
-  // }
-
   async returnAdminClaims(): Promise<firebase.auth.IdTokenResult> {
     const userAuthState = await this.isAuthenticated()
     console.log(userAuthState)
@@ -82,7 +71,6 @@ export class FirebaseService {
         })
       }
     })
-    // this.getUserToken(response.user.displayName)
   }
 
   async login(providerInput: string): Promise<firebase.auth.UserCredential> {
@@ -119,8 +107,5 @@ export class FirebaseService {
     this.itemsCollection = this.db.collection('sermons').doc(year).collection('items')
     return this.items = this.itemsCollection.valueChanges()
   }
-
-
-
 
 }

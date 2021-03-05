@@ -34,6 +34,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { WelcomeBlockComponent } from './welcome-block/welcome-block.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { HeaderComponent } from './header/header.component';
     UploadTaskComponent,
     WelcomeBlockComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
