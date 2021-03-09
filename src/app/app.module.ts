@@ -17,6 +17,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatCardModule} from '@angular/material/card';
+import {MatInputModule} from '@angular/material/input';
 
 //firebase
 import { AngularFireModule } from '@angular/fire';
@@ -35,6 +36,7 @@ import { WelcomeBlockComponent } from './welcome-block/welcome-block.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { SearchComponent } from './search/search.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { SearchComponent } from './search/search.component';
     WelcomeBlockComponent,
     FooterComponent,
     HeaderComponent,
-    SearchComponent
+    SearchComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,9 @@ import { SearchComponent } from './search/search.component';
     MatSelectModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatInputModule,
     MatCardModule,
+    AppRoutingModule ,
     MatTooltipModule,
     FormsModule,
     HttpClientModule,

@@ -11,7 +11,7 @@ import { Direction } from './interfaces/HeroImage';
 
 export class AppComponent {
   title = 'Life Church Lancaster Archive';
-  tabs$: firebase.firestore.QueryDocumentSnapshot<any>[]
+  // tabs$: firebase.firestore.QueryDocumentSnapshot<any>[]
   img:Direction;
   constructor(public firebaseService: FirebaseService ) { }
 
@@ -19,8 +19,8 @@ export class AppComponent {
   ngOnInit() {
       
     this.img = Direction.Home
-      this.firebaseService.getYears().subscribe(e=>{
-        this.tabs$ = e.docs;
-      })  
+    //   this.firebaseService.getYears().subscribe(e=>{
+    //     this.tabs$ = e.docs;
+    //   })  
   }
 }

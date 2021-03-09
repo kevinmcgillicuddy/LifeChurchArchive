@@ -12,6 +12,8 @@ export class SearchComponent implements OnInit {
   constructor(public db: AngularFirestore) { }
   img:Direction;
   searchArray=[];
+  Sarah:any;
+
   ngOnInit(): void {
     this.img = Direction.Search
           
@@ -23,12 +25,9 @@ export class SearchComponent implements OnInit {
           this.searchArray.push(doc.data())      
       })
   })
-
-
   }
-
-
   search(){
+    console.log(this.Sarah)
     let newVar = this.searchArray.filter(it=>{
       console.log(it)
       return it.text.includes('hack');
