@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollectionGroup } from '@angular/fire/firestore';
+import { FirestoreRecord } from '../interfaces/FirestoreRecord';
 import { Direction } from '../interfaces/HeroImage';
 
 @Component({
@@ -11,14 +12,13 @@ export class SearchComponent implements OnInit {
   
   constructor(public db: AngularFirestore) { }
   img:Direction;
-  searchArray=[];
-  Sarah:any;
+  searchArray: Array<any> =[];
+  filterSermons: Array<FirestoreRecord> =[];
+  currentItem:string = '' ;
 
   ngOnInit(): void {
     this.img = Direction.Search
-          
-
-    var sermonsThatHaveText = this.db.collectionGroup('items', ref=> ref.where('text', '!=', null))
+    let sermonsThatHaveText:AngularFirestoreCollectionGroup<unknown> = this.db.collectionGroup('items', ref=> ref.where('text', '!=', null))
     sermonsThatHaveText.get()
     .subscribe(docs=>{
        docs.forEach(doc=>{
@@ -26,13 +26,17 @@ export class SearchComponent implements OnInit {
       })
   })
   }
-  search(){
-    console.log(this.Sarah)
-    let newVar = this.searchArray.filter(it=>{
-      console.log(it)
-      return it.text.includes('hack');
- }) 
- console.log(newVar)
+
+  getValue(target: EventTarget): string {
+    this.search((target as HTMLInputElement).value.toLocaleLowerCase())
+    return (target as HTMLInputElement).value;
+  }
+  
+  search(searchInput:string):void{
+    this.filterSermons = this.searchArray.filter(item=>{
+      return item.text.includes(searchInput);
+       }) 
+       console.log(this.filterSermons)
   }
 
 }

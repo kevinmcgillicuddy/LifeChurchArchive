@@ -1,13 +1,11 @@
 <div class="child1">
     <app-header [heroImg]='img'></app-header>
 </div>
-<div>
-  <form class="example-form" (ngSubmit)="search()">
+<div class="searchBox">
+  <form class="example-form">
     <mat-form-field class="example-full-width">
-      <mat-label>Message</mat-label>
-      <input matInput value="Sarah" #message maxlength="256" placeholder="Ex. I need help with...">
-      <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint>
-      <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+      <mat-label>Search</mat-label>  
+      <input matInput (input)="currentItem=getValue($event.target)" #message maxlength="256" placeholder="Enter word or phrase...">
     </mat-form-field>
   </form>
 </div>
