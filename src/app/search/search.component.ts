@@ -36,7 +36,6 @@ export class SearchComponent implements OnInit {
     this.filterSermons = this.searchArray.filter(item=>{
       return item.text.includes(searchInput);
        }) 
-       console.log(this.filterSermons)
   }
 
 }

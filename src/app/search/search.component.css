@@ -1,16 +1,28 @@
-/* .example-form {
-    min-width: 150px;
-    max-width: 500px;
+/* .search-form {
     width: 100%;
-  } */
-  
-  /* .example-full-width {
-    width: 100%;
-  } */
+  }
+   */
+   .full-width {
+    width: 30%;
+    text-align: center;
+    align-content: center;
+  } 
 
   .searchBox{
     margin-left: auto;
     margin-right: auto;
     text-align: center;
     align-content: center;
+  }
+
+  .container{
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 85%;
+    text-align: center;
+    align-content: center;
+  }
+  .mat-expansion-panel-header-description{
+    justify-content: center;
+  align-items: center;
   }

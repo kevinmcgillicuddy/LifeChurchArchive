@@ -1,11 +1,28 @@
 <div class="child1">
     <app-header [heroImg]='img'></app-header>
 </div>
+<div class="container">
 <div class="searchBox">
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
+  <form class="search-form">
+    <mat-form-field class="full-width">
       <mat-label>Search</mat-label>  
       <input matInput (input)="currentItem=getValue($event.target)" #message maxlength="256" placeholder="Enter word or phrase...">
     </mat-form-field>
   </form>
+  <div class="searchResultContainer" *ngFor="let result of filterSermons">
+  <mat-accordion>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{result.filename}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{result.year}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div innerHTML="{{result.text | highlight: currentItem}}"></div>
+  </mat-expansion-panel>
+</mat-accordion>
+</div>
+</div>
 </div>

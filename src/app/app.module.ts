@@ -18,7 +18,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
-
+import {MatExpansionModule} from '@angular/material/expansion';
 //firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -37,6 +37,8 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { SearchComponent } from './search/search.component';
 import { HomeComponent } from './home/home.component';
+import { HighlightPipe } from './highlight.pipe';
+
 
 @NgModule({
   declarations: [
@@ -50,7 +52,8 @@ import { HomeComponent } from './home/home.component';
     FooterComponent,
     HeaderComponent,
     SearchComponent,
-    HomeComponent
+    HomeComponent,
+    HighlightPipe
   ],
   imports: [
     BrowserModule,
@@ -69,6 +72,7 @@ import { HomeComponent } from './home/home.component';
     MatTabsModule,
     MatDialogModule,
     MatRadioModule,
+    MatExpansionModule,
     MatIconModule,
     MatGridListModule,
     MatProgressBarModule,
