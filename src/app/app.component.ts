@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { FirebaseService } from '../services/firebase.service';
-import firebase from 'firebase/app';
 import { Direction } from './interfaces/HeroImage';
-import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
+import {  NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -16,8 +15,12 @@ export class AppComponent {
   img:Direction;
   constructor(public firebaseService: FirebaseService, private route: Router ) {
     this.route.events.subscribe(e => {
-      if(e instanceof NavigationStart)
-        console.log(e.url);
+      if(e instanceof NavigationStart){
+        console.log(e.url)
+        if (e.url === '/search'){ this.img=Direction.Search}
+        else {this.img=Direction.Home}
+      }
+     
     })
    }
 
