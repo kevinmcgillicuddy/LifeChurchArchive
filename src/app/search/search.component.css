@@ -13,6 +13,7 @@
     margin-right: auto;
     text-align: center;
     align-content: center;
+    min-height: 500px;
   }
 
   .container{
@@ -25,4 +26,5 @@
   .mat-expansion-panel-header-description{
     justify-content: center;
   align-items: center;
+ 
   }
