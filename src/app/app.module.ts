@@ -17,7 +17,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatCardModule} from '@angular/material/card';
-
+import {MatInputModule} from '@angular/material/input';
+import {MatExpansionModule} from '@angular/material/expansion';
 //firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -34,6 +35,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { WelcomeBlockComponent } from './welcome-block/welcome-block.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
+import { SearchComponent } from './search/search.component';
+import { HomeComponent } from './home/home.component';
+import { HighlightPipe } from './highlight.pipe';
+
 
 @NgModule({
   declarations: [
@@ -45,7 +50,10 @@ import { HeaderComponent } from './header/header.component';
     UploadTaskComponent,
     WelcomeBlockComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    SearchComponent,
+    HomeComponent,
+    HighlightPipe
   ],
   imports: [
     BrowserModule,
@@ -53,7 +61,9 @@ import { HeaderComponent } from './header/header.component';
     MatSelectModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatInputModule,
     MatCardModule,
+    AppRoutingModule ,
     MatTooltipModule,
     FormsModule,
     HttpClientModule,
@@ -62,6 +72,7 @@ import { HeaderComponent } from './header/header.component';
     MatTabsModule,
     MatDialogModule,
     MatRadioModule,
+    MatExpansionModule,
     MatIconModule,
     MatGridListModule,
     MatProgressBarModule,

@@ -9,7 +9,7 @@
                 <p><a (click)="openAuthDialog()">LOGIN</a></p>
             </li>
             <li>
-                <p>SEARCH</p>
+                <p><a [routerLink]="['/search']">SEARCH</a></p>
             </li>
             <li *ngIf="auth.user | async">
                 <p><a (click)="openUploadDialog()">UPLOAD</a></p>

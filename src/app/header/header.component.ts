@@ -6,15 +6,16 @@ import { AuthenticationComponent } from '../authentication/authentication.compon
 import { AngularFireAuth } from '@angular/fire/auth';
 import {Direction} from '../interfaces/HeroImage'
 
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  constructor(public firebaseService: FirebaseService,public dialog: MatDialog,public auth: AngularFireAuth) { }
-
   @Input() heroImg: Direction;
+
+  constructor(public firebaseService: FirebaseService,public dialog: MatDialog,public auth: AngularFireAuth) {   }
 
  openUploadDialog() {
   this.dialog.open(UploadFileDialogComponent);

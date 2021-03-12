@@ -1,23 +1,7 @@
-<div fxLayout="column" fxLayoutGap="0px" >
-  <div class="child1">
-    <app-header [heroImg]='img'></app-header>
-  </div>
-  <div class="child2">
-    <app-welcome-block></app-welcome-block>
-  </div>
-  <div class="child3">
-    <div class='sermonBlock'>
-      <mat-tab-group style="min-height: 90%;" animationDuration="0ms">
-        <mat-tab *ngFor="let tab of tabs$">
-          <ng-template mat-tab-label>{{tab.id}}</ng-template>
-          <ng-template matTabContent>
-            <app-sermon-diplay style="min-height: 90%;" [year]='tab.id'></app-sermon-diplay>
-          </ng-template>
-        </mat-tab>
-      </mat-tab-group>
-    </div>
+<app-header [heroImg]='img'></app-header>
+  <div> 
+    <router-outlet></router-outlet>
   </div>
   <div class="child4" style="background-color:#5d737e;">
     <app-footer></app-footer>
   </div>
-</div>

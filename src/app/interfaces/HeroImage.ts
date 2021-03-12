@@ -1,4 +1,4 @@
 export enum Direction {
     Home = "assets/img/homeHero.jpg",
-    Search = "DOWN"
+    Search = "assets/img/searchHero.jpg"
   }

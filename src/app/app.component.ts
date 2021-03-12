@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { FirebaseService } from '../services/firebase.service';
-import firebase from 'firebase/app';
 import { Direction } from './interfaces/HeroImage';
-
+import {  NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,18 +11,21 @@ import { Direction } from './interfaces/HeroImage';
 
 export class AppComponent {
   title = 'Life Church Lancaster Archive';
-  tabs$: firebase.firestore.QueryDocumentSnapshot<any>[]
+  sub:any
   img:Direction;
-  constructor(public firebaseService: FirebaseService, ) { }
+  constructor(public firebaseService: FirebaseService, private route: Router ) {
+    this.route.events.subscribe(e => {
+      if(e instanceof NavigationStart){
+        console.log(e.url)
+        if (e.url === '/search'){ this.img=Direction.Search}
+        else {this.img=Direction.Home}
+      }
+     
+    })
+   }
+
   
-  ngOnInit() {
-      this.img = Direction.Home
-      this.firebaseService.getYears().subscribe(e=>{
-        this.tabs$ = e.docs;
-      })
-    }
+  ngOnInit() {    
+    this.img = Direction.Home
+  }
 }
-
-
-
-

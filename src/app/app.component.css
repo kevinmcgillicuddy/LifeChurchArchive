@@ -1,20 +1,22 @@
-.child2{
+/* .child2{
   background-color: #38525c;
 }
   .child3{
     min-height: 500px;
   }
 
-  .child4{
-    align-content: center;
-    text-align: center;
-  }
+
   .sermonBlock{
     margin-left: 2.5%;
     margin-right:2.5%;
     display: flex;
     flex-direction:column;
     justify-content: center;
+    align-content: center;
+    text-align: center;
+  } */
+
+  .child4{
     align-content: center;
     text-align: center;
   }
