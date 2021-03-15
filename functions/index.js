@@ -40,6 +40,7 @@ exports.transcribe = functions.runWith({
     }
     //show how many times each user has asking for transcription 
     const user = admin.firestore().collection('users-list').doc(context.auth.uid)
+    console.log(user)
     user.update({
       textRequests: admin.firestore.FieldValue.increment(1)
     })
