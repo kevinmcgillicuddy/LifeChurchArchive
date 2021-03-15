@@ -13,6 +13,7 @@ export class AuthenticationComponent {
     this.matIconRegistry
     .addSvgIcon('google',this.domSanitizer.bypassSecurityTrustResourceUrl('assets/img/icon/google.svg'))
     .addSvgIcon('microsoft',this.domSanitizer.bypassSecurityTrustResourceUrl('assets/img/icon/microsoft.svg'))
+    .addSvgIcon('twitter',this.domSanitizer.bypassSecurityTrustResourceUrl('assets/img/icon/sqTwitter.svg'))
   }
 
   authState:boolean;

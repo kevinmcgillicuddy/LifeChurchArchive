@@ -86,7 +86,15 @@ export class FirebaseService {
         let MSAuthResponse = await firebase.auth().signInWithPopup(provider)
         this.setUser(MSAuthResponse)
         return Promise.resolve(MSAuthResponse)
+
+        
+    case 'twitter':
+      var twitterProvider = new firebase.auth.TwitterAuthProvider();
+      let TwitterAuthResponse = await firebase.auth().signInWithPopup(twitterProvider)
+      this.setUser(TwitterAuthResponse)
+      return Promise.resolve(TwitterAuthResponse)
     }
+
   }
 
   logout(): void {
