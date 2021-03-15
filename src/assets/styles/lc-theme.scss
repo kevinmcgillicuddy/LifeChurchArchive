@@ -42,7 +42,7 @@ $mat-lc-green: (
 // Define a custom typography config that overrides the font-family as well as the
 // `headlines` and `body-1` levels.
 $custom-typography: mat-typography-config(
-  $font-family: 'DM Sans Medium, Roboto',
+  $font-family: 'Garamond, Roboto',
   $headline: mat-typography-level(32px, 48px, 700),
   $body-1: mat-typography-level(16px, 24px, 500)
 );
@@ -50,7 +50,7 @@ $custom-typography: mat-typography-config(
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$candy-app-primary: mat-palette($mat-red);
+$candy-app-primary: mat-palette($mat-blue-grey);
 $candy-app-accent:  mat-palette($mat-lc-green);
 
 // The warn palette is optional (defaults to red).
