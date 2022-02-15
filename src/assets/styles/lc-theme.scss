@@ -1,10 +1,11 @@
+@use '~@angular/material' as mat;
 @import '~@angular/material/theming';
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
-@include mat-core();
+@include mat.core();
 
 $mat-lc-green: (
   50: #5d737e,
@@ -41,24 +42,24 @@ $mat-lc-green: (
 
 // Define a custom typography config that overrides the font-family as well as the
 // `headlines` and `body-1` levels.
-$custom-typography: mat-typography-config(
+$custom-typography: mat.define-typography-config(
 
-  $headline: mat-typography-level(32px, 48px, 700),
-  $body-1: mat-typography-level(16px, 24px, 500)
+  $headline: mat.define-typography-level(32px, 48px, 700),
+  $body-1: mat.define-typography-level(16px, 24px, 500)
 );
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$candy-app-primary: mat-palette($mat-blue-grey);
-$candy-app-accent:  mat-palette($mat-lc-green);
+$candy-app-primary: mat.define-palette(mat.$blue-grey-palette);
+$candy-app-accent:  mat.define-palette($mat-lc-green);
 
 // The warn palette is optional (defaults to red).
-$candy-app-warn:    mat-palette($mat-red);
+$candy-app-warn:    mat.define-palette(mat.$red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as `color` or `typography`.
-$candy-app-theme: mat-light-theme((
+$candy-app-theme: mat.define-light-theme((
   color: (
     primary: $candy-app-primary,
     accent: $candy-app-accent,
@@ -69,5 +70,5 @@ $candy-app-theme: mat-light-theme((
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($candy-app-theme);
-@include mat-core($custom-typography);
+@include mat.all-component-themes($candy-app-theme);
+@include mat.core($custom-typography);
