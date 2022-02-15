@@ -1,25 +1,29 @@
 <div class="hero-container">
-    <img class="heroImg" [src]=heroImg>
-    <div class="center">
-        <ul id="menu">
-            <li>
-                <p><a routerLink="/">HOME</a></p>
-            </li>
-            <li *ngIf="!(auth.user | async)">
-                <p><a (click)="openAuthDialog()">LOGIN</a></p>
-            </li>
-            <li>
-                <p><a [routerLink]="['/search']">SEARCH</a></p>
-            </li>
-            <li *ngIf="auth.user | async">
-                <p><a (click)="openUploadDialog()">UPLOAD</a></p>
-            </li>
-            <li *ngIf="auth.user | async">
-                <p><a (click)="logout()">LOGOUT</a></p>
-            </li>
-        </ul>
-    </div>
-    <span class="centeredLogo">
-        <img src="assets/img/logo.png" width="65%" height="65%" style="margin-bottom: 10px;">
-    </span>
+<mat-card style="max-width: 95%;">
+  <img class="heroImg" [src]=heroImg>
+  <div class="center">
+      <ul id="menu">
+          <li>
+              <p><a routerLink="/">HOME</a></p>
+          </li>
+          <li *ngIf="!(auth.user | async)">
+              <p><a (click)="openAuthDialog()">LOGIN</a></p>
+          </li>
+          <li>
+              <p><a [routerLink]="['/search']">SEARCH</a></p>
+          </li>
+          <li *ngIf="auth.user | async">
+              <p><a (click)="openUploadDialog()">UPLOAD</a></p>
+          </li>
+          <li *ngIf="auth.user | async">
+              <p><a (click)="logout()">LOGOUT</a></p>
+          </li>
+      </ul>
+  </div>
+  <span class="centeredLogo">
+      <img src="assets/img/logo.png" width="65%" height="65%" style="margin-bottom: 10px;">
+  </span>
+</mat-card>
+
+
 </div>

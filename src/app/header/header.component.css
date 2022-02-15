@@ -1,8 +1,11 @@
 .hero-container {
-    justify-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    /* justify-content: center;
     position: relative;
     text-align: center;
-    margin-bottom: 0px;
+    margin-bottom: 0px; */
   }
 .heroImg{
     width: 100%;
@@ -11,7 +14,7 @@
 .center {
         position: absolute;
         right: 0;
-        top: 0;     
+        top: 0;
   }
 
 ul#menu{
@@ -34,7 +37,7 @@ ul#menu li {
       color:white;
       font-size:medium;
      margin:5px;
-     
+
    }
   }
 
@@ -50,7 +53,7 @@ a:hover {
 }
 a:link {
     color:white;
-    text-decoration: none;  
+    text-decoration: none;
   }
 a:visited {
   text-decoration: none;
@@ -61,4 +64,4 @@ a:hover {
   }
 a:active {
     text-decoration: none;
-  } 
+  }
