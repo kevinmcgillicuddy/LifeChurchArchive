@@ -3,7 +3,7 @@ import { FirebaseService } from 'src/services/firebase.service';
 import { MatDialog} from '@angular/material/dialog';
 import { UploadFileDialogComponent } from '../upload-file-dialog/upload-file-dialog.component';
 import { AuthenticationComponent } from '../authentication/authentication.component';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {Direction} from '../interfaces/HeroImage'
 
 

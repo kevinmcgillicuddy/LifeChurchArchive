@@ -29,7 +29,6 @@
 
             ],
             "styles": [
-              "./src/assets/styles/lc-theme.scss",
               "src/styles.css"
             ],
             "scripts": [],
