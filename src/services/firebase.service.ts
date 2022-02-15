@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreCollection, docChanges, DocumentChangeAction } from '@angular/fire/firestore';
-import { AngularFireFunctions } from '@angular/fire/functions';
-import { AngularFireStorage } from '@angular/fire/storage';
-import firebase from 'firebase/app';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import firebase from 'firebase/compat/app';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { FirestoreRecord } from '../app/interfaces/FirestoreRecord'
@@ -17,7 +17,7 @@ export class FirebaseService {
 
   public items: Observable<FirestoreRecord[]>;
   private itemsCollection: AngularFirestoreCollection<FirestoreRecord>;
- 
+
   isAuthenticated(): Promise<firebase.User> {
        return this.auth.user.pipe(first()).toPromise()
     }
@@ -87,7 +87,7 @@ export class FirebaseService {
         this.setUser(MSAuthResponse)
         return Promise.resolve(MSAuthResponse)
 
-        
+
     case 'twitter':
       var twitterProvider = new firebase.auth.TwitterAuthProvider();
       let TwitterAuthResponse = await firebase.auth().signInWithPopup(twitterProvider)
