@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from 'src/services/firebase.service';
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import { Direction } from '../interfaces/HeroImage';
 
 @Component({
@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
     this.img = Direction.Home
     this.firebaseService.getYears().subscribe(e=>{
       this.tabs$ = e.docs;
-    })  
+    })
   }
 
 }

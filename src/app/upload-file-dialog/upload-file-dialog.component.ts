@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import { Observable } from 'rxjs';
 import { FirebaseService } from 'src/services/firebase.service';
 
@@ -9,7 +9,7 @@ import { FirebaseService } from 'src/services/firebase.service';
   styleUrls: ['./upload-file-dialog.component.css']
 })
 export class UploadFileDialogComponent implements OnInit {
-  
+
   feedback: string;
   yearPicked: number;
   years: Array<any>;
