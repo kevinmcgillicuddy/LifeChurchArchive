@@ -1,6 +1,6 @@
 import { Component, Input} from '@angular/core';
 import { FirebaseService } from 'src/services/firebase.service';
-import { MatDialog} from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';
 import { UploadFileDialogComponent } from '../upload-file-dialog/upload-file-dialog.component';
 import { AuthenticationComponent } from '../authentication/authentication.component';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
